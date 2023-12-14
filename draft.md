@@ -50,8 +50,8 @@ applied on the background-check model in RATS (Remote ATtestation ProcedureS) ar
 
 # Introduction
 introduce EDHOC and RATS background-check model
-## Handshake in Ephemeral Diffie-Hellman Over COSE (EDHOC)
-## Background-check model in Remote ATtestation ProcedureS (RATS)
+### Handshake in Ephemeral Diffie-Hellman Over COSE (EDHOC)
+### Background-check model in Remote ATtestation ProcedureS (RATS)
 
 
 # Conventions and Terminology
@@ -86,8 +86,9 @@ EAD3 = EAT
 structure of EAD
 # EDHOC Initiator and Responder handshake behavior
 the whole process of remote attestation (include the secure/non secure world? left-left and right-right part?)
+when one party has to omit, resend the message
 # Examples
-## Secure firmware management
+### Secure firmware management
 # Security Considerations
 
 TODO Security
