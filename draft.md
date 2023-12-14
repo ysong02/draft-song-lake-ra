@@ -44,7 +44,6 @@ applied on the background-check model in RATS (Remote ATtestation ProcedureS) ar
 --- middle
 # Table of Contents
 1. [Introduction](#introduction)
- 1.1[Hankshake in Ephemeral Diffie-Hellman Over COSE](#Handshake in Ephemeral Diffie-Hellman Over COSE (EDHOC))
 3. [Conventions and Terminology](#conventions and terminology)
 4. [Overview](#overview)
 5. 
