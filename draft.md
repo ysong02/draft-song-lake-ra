@@ -44,7 +44,7 @@ applied on the background-check model in RATS (Remote ATtestation ProcedureS) ar
 --- middle
 # Table of Contents
 1. [Introduction](#introduction)
-3. [Conventions and Terminology](#conventions and terminology)
+3. [Conventions and Terminology](#conventions-and-terminology)
 4. [Overview](#overview)
 5. 
 
