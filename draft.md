@@ -34,7 +34,7 @@ normative:
 informative:
 
 
---- abstract
+# abstract
 Remote attesation is an essential process before the device can be admitted to join the network. The evidence that genereated from the device needs to be evaluated and verified to assure their integrity and trustworthiness. 
 This document specifies the remote attestation process by which the evidence is conveyed during the handshake in EDHOC (Ephemeral Diffie-Hellman Over COSE, a very compact and lightweight key exchange protocol),
 applied on the background-check model in RATS (Remote ATtestation ProcedureS) architecture. 
@@ -42,9 +42,12 @@ applied on the background-check model in RATS (Remote ATtestation ProcedureS) ar
 
 
 --- middle
-#Table of Contents
+# Table of Contents
 1. [Introduction](#introduction)
-2. [Conventions and Terminology](#conventions)
+ 1.1[Hankshake in Ephemeral Diffie-Hellman Over COSE](#Handshake in Ephemeral Diffie-Hellman Over COSE (EDHOC))
+3. [Conventions and Terminology](#conventions and terminology)
+4. [Overview](#overview)
+5. 
 
 # Introduction
 introduce EDHOC and RATS background-check model
