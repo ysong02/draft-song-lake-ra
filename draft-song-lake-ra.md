@@ -38,25 +38,41 @@ informative:
 
 --- abstract
 
-TODO What is remote attestation?
-Remote attesation is an essential process before the device can be admitted to join the network.
-The evidence that genereated from the device needs to be evaluated and verified to assure their integrity and trustworthiness.
-This document specifies the remote attestation process by which the evidence is conveyed during the handshake in EDHOC (Ephemeral Diffie-Hellman Over COSE, a very compact and lightweight key exchange protocol), applied on the background-check model in RATS (Remote ATtestation ProcedureS) architecture.
+Remote attestation is a security process in which a computing entity, acts as the attester, provides evidence to a remote entity, acts as verifier, to demonstrate the integrity and security properties of its software, hardware, or configuration.
+The evidence that genereated from the attester needs to be evaluated and verified by the verifier to determine the level of trust in the integrity and to ensure that it has not been compromised or altered. 
+This document specifies how to perform remote attestation via a very compact and lightweight authenticated Diffie-Hellman key exchange protocol named EDHOC (Ephemeral Diffie-Hellman Over COSE), based on RATS (Remote ATtestation procedureS) architecture.
 
 --- middle
 
 # Introduction
 
 Discuss remote attestation and mention some use cases.
+Remote attestation is a security measure to verify and confirm the integiry and trustworthiness of a remote device or system in the network. 
+This process helps establish a level of trust in the remote system before allowing the device to join the network or some sensitive information and resources.
+There are many use cases that require the use of remote attestation, such as secure boot and firmware management, cloud computing, network access control and IoT device security. 
 
-Summarize RATS architecture {{RFC9334}} and main roles. Discuss the background check model and say that this specification supports the background check model.
+Summarize RATS architecture {{RFC9334}} and main roles.
+The IETF working group Remote ATtestation procedureS (RATS) has defined an architecture {{RFC9334}} for remote attestation, where the three main roles are the Aiittester, Verifier and Relying party. 
+The evidence is generated from the Attester concerning its identity and integrity, which must be appraised by the Verifier for its validity. 
+Then the attestation results that are produced by Verifier will be used by Relying Party for purposes of reliably applying application-specific actions. 
+
+Discuss the background check model and say that this specification supports the background check model.
+One type of interaction model defined in RATS architecture is called background-check model, which is supported in this specification.
+It resembles the procedure of how employers perform background checks to determine the prospective employee's trustworthiness, by contacting the respective organization that issues a report.
+In this case, the employer acts as the Relying Party, the employee acts as the Attester and the organization acts as the Verifier. 
+The Attester conveys evidence directly to the Relying Party and the Relying Party forwards the evidence to the Verifier for appraisal. 
+Once the attestation result is computed by Verifier, it is sent back to the Relying Party to decide what action to take based on the attestation result.  
+
 
 One way of conveying attestation evidence is the Entity Attestation Token (EAT) {{I-D.ietf-rats-eat}}. Discuss EAT.
+TBC
 
 Summarize EDHOC {{I-D.ietf-lake-edhoc}}. Mention EAD fields of EDHOC.
+TBC
 
 Discuss implementation aspects such as the internal attestation service running on the Attester.
 Root of trust. Separation between secure and non-secure worlds. How the attestation is implemented is out of scope of this specification.
+TBC
 
 # Conventions and Definitions
 The reader is assumed to be familiar with the vocabulary and concepts defined in EDHOC {{I-D.ietf-lake-edhoc}} and RATS {{RFC9334}}.
