@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-12-14T00:57:14.336552+00:00",
+  "timestamp": "2023-12-17T01:01:42.511484+00:00",
   "repo": "ysong02/RemoteAttestation_overEDHOC",
   "labels": [
     {
@@ -49,6 +49,78 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
-  "pulls": []
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOK17GRM5500U-",
+      "title": "test pull request",
+      "url": "https://github.com/ysong02/RemoteAttestation_overEDHOC/issues/2",
+      "state": "OPEN",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "introduction half completed",
+      "createdAt": "2023-12-15T15:06:26Z",
+      "updatedAt": "2023-12-15T15:06:26Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOK17GRM5iBAz_",
+      "title": "General structure and TODOs",
+      "url": "https://github.com/ysong02/RemoteAttestation_overEDHOC/pull/1",
+      "state": "MERGED",
+      "author": "malishav",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Work on the draft after the meeting on 14/12/2023.",
+      "createdAt": "2023-12-14T15:35:41Z",
+      "updatedAt": "2023-12-15T09:18:07Z",
+      "baseRepository": "ysong02/RemoteAttestation_overEDHOC",
+      "baseRefName": "main",
+      "baseRefOid": "e16739a8691811faa7d58a8ea9beda63445bb3e7",
+      "headRepository": "malishav/draft-song-lake-ra",
+      "headRefName": "main",
+      "headRefOid": "e1f7fdc14093eaa532f7d99c57038ca6de56c7ee",
+      "closedAt": "2023-12-15T09:18:07Z",
+      "mergedAt": "2023-12-15T09:18:07Z",
+      "mergedBy": "ysong02",
+      "mergeCommit": {
+        "oid": "bf17aa48664a2518b95e4f3f1a3cc90c9bef7176"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOK17GRM5iHqKR",
+      "title": "test github branch operation, introduction of draft half completed",
+      "url": "https://github.com/ysong02/RemoteAttestation_overEDHOC/pull/3",
+      "state": "OPEN",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #2 \r\ntest pull request for issue",
+      "createdAt": "2023-12-15T15:07:56Z",
+      "updatedAt": "2023-12-15T15:07:56Z",
+      "baseRepository": "ysong02/RemoteAttestation_overEDHOC",
+      "baseRefName": "main",
+      "baseRefOid": "bf17aa48664a2518b95e4f3f1a3cc90c9bef7176",
+      "headRepository": "ysong02/RemoteAttestation_overEDHOC",
+      "headRefName": "introduction",
+      "headRefOid": "548d3a49a386200e942b969906ba226d0bc5bd0d",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
