@@ -46,44 +46,42 @@ This document specifies how to perform remote attestation via a very compact and
 
 # Introduction
 
-*Discuss remote attestation and mention some use cases.*
+<!--Discuss remote attestation and mention some use cases.-->
 Remote attestation is a security measure to verify and confirm the integiry and trustworthiness of a remote device or system in the network. 
 This process helps establish a level of trust in the remote system before allowing the device to join the network or some sensitive information and resources.
 There are many use cases that require the use of remote attestation, such as secure boot and firmware management, cloud computing, network access control and IoT device security. 
 
-*Summarize RATS architecture {{RFC9334}} and main roles.*
+<!--Summarize RATS architecture {{RFC9334}} and main roles.-->
 The IETF working group Remote ATtestation procedureS (RATS) has defined an architecture {{RFC9334}} for remote attestation, where the three main roles are the Aiittester, Verifier and Relying party. 
 The evidence is generated from the Attester concerning its identity and integrity, which must be appraised by the Verifier for its validity. 
 Then the attestation results that are produced by Verifier will be used by Relying Party for purposes of reliably applying application-specific actions. 
 
-*Discuss the background check model and say that this specification supports the background check model.*
+<!--Discuss the background check model and say that this specification supports the background check model.-->
 One type of interaction model defined in RATS architecture is called background-check model, which is supported in this specification.
 It resembles the procedure of how employers perform background checks to determine the prospective employee's trustworthiness, by contacting the respective organization that issues a report.
 In this case, the employer acts as the Relying Party, the employee acts as the Attester and the organization acts as the Verifier. 
 The Attester conveys evidence directly to the Relying Party and the Relying Party forwards the evidence to the Verifier for appraisal. 
 Once the attestation result is computed by Verifier, it is sent back to the Relying Party to decide what action to take based on the attestation result.  
 
-*Discuss EAT*
+<!--Discuss EAT-->
 One way of conveying attestation evidence is the Entity Attestation Token (EAT) {{I-D.ietf-rats-eat}}.
 It provides an attested claims set that describes state and characteristics of an entity, which can be used to determine the level of trust in the entity.
 The word "entity" in EAT context refers to the hardware and softwares. 
 For example, a Trusted Execution Environment (TEE), An Internet of Things (IoT) device, an app on a smartphone or a Secure Element can all be an entity and there is no minimum security requirement to be an entity.
 
-*Summarize EDHOC {{I-D.ietf-lake-edhoc}}. Mention EAD fields of EDHOC.*
+<!--Summarize EDHOC {{I-D.ietf-lake-edhoc}}. Mention EAD fields of EDHOC.-->
 The delivery of EAT in this specification is achieved through EDHOC {{I-D.ietf-lake-edhoc}}, an Ephemeral Diffie-Hellman Over COSE protocol which is a very lightweight authenticated key exchange for highly constrained network.
 In EDHOC session, the two parties involved in message exchange are referred to as the Initiator (I) and the Responder (R).
 In this specification, the Attester acts as the Initiator and the Relying Party acts as the Responder.
 They could transport authorization related data in the messages in an External Authorization Data field called EAD, and send EAD in dedicated fields of the four EDHOC messages (EAD_1, EAD_2, EAD_3, EAD_4).
 EAT is a specific EAD item defined in this specification.
 
-*Discuss implementation aspects such as the internal attestation service running on the Attester.
-Root of trust. Separation between secure and non-secure worlds.*
+<!--Discuss implementation aspects such as the internal attestation service running on the Attester.
+Root of trust. Separation between secure and non-secure worlds.-->
 When it comes to implementation details, the Attester incorporates internal attestation sevices, including a specific trusted element known as the "root of trust", which serves as the starting point for establishing and validating the trustworthiness appraisals of other components.
 The measurements signed by such components are referred to as the Evidence on the Attester.
 This operation happens in the secure world (equivalent to Trusted Execution Environment (TEE)) of device, usually after receiving the requests from the non-secure world via the attestation API. 
 However, the attestation implementation detail is out of scope of this specification.
-
-
 
 # Conventions and Definitions
 The reader is assumed to be familiar with the vocabulary and concepts defined in EDHOC {{I-D.ietf-lake-edhoc}} and RATS {{RFC9334}}.
