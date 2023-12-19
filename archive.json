@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-12-17T01:01:42.511484+00:00",
+  "timestamp": "2023-12-19T00:57:38.052697+00:00",
   "repo": "ysong02/RemoteAttestation_overEDHOC",
   "labels": [
     {
@@ -62,9 +62,17 @@
       "labels": [],
       "body": "introduction half completed",
       "createdAt": "2023-12-15T15:06:26Z",
-      "updatedAt": "2023-12-15T15:06:26Z",
+      "updatedAt": "2023-12-18T16:52:47Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "ysong02",
+          "authorAssociation": "OWNER",
+          "body": "first version of introduction and abstract done",
+          "createdAt": "2023-12-18T16:52:46Z",
+          "updatedAt": "2023-12-18T16:52:46Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -108,13 +116,13 @@
       "labels": [],
       "body": "Fixes #2 \r\ntest pull request for issue",
       "createdAt": "2023-12-15T15:07:56Z",
-      "updatedAt": "2023-12-15T15:07:56Z",
+      "updatedAt": "2023-12-18T16:43:53Z",
       "baseRepository": "ysong02/RemoteAttestation_overEDHOC",
       "baseRefName": "main",
       "baseRefOid": "bf17aa48664a2518b95e4f3f1a3cc90c9bef7176",
       "headRepository": "ysong02/RemoteAttestation_overEDHOC",
       "headRefName": "introduction",
-      "headRefOid": "548d3a49a386200e942b969906ba226d0bc5bd0d",
+      "headRefOid": "199695c35996a54c40150485f15cb28156917cc3",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
