@@ -52,7 +52,7 @@ This process helps establish a level of trust in the remote system before allowi
 There are many use cases that require the use of remote attestation, such as secure boot and firmware management, cloud computing, network access control and IoT device security. 
 
 <!--Summarize RATS architecture {{RFC9334}} and main roles.-->
-The IETF working group Remote ATtestation procedureS (RATS) has defined an architecture {{RFC9334}} for remote attestation, where the three main roles are the Aiittester, Verifier and Relying party. 
+The IETF working group Remote ATtestation procedureS (RATS) has defined an architecture {{RFC9334}} for remote attestation, where the three main roles are the Attester, Verifier and Relying Party. 
 The evidence is generated from the Attester concerning its identity and integrity, which must be appraised by the Verifier for its validity. 
 Then the attestation results that are produced by Verifier will be used by Relying Party for purposes of reliably applying application-specific actions. 
 
@@ -84,11 +84,9 @@ This operation happens in the secure world (equivalent to Trusted Execution Envi
 However, the attestation implementation detail is out of scope of this specification.
 
 # Conventions and Definitions
-The reader is assumed to be familiar with the vocabulary and concepts defined in EDHOC {{I-D.ietf-lake-edhoc}} and RATS {{RFC9334}}.
-
-Define succinct versions of the RATS terms. See draft-fossati-tls-attestation-04 Section 2.
-
 {::boilerplate bcp14-tagged}
+
+The reader is assumed to be familiar with the terms and concepts defined in EDHOC {{I-D.ietf-lake-edhoc}} and RATS {{RFC9334}}.
 
 # Problem Description
 
@@ -105,9 +103,13 @@ If the authentication credential of the EDHOC Initiator is a static DH key, then
 
 # The Protocol
 
+## Overview
+
 EDHOC Initiator plays the role of the RATS Attester.
 EDHOC Responder plays the role of the RATS Relying Party.
 An external entity, out of scope of this specification, plays the role of the RATS Verifier.
+
+TODO: an overview figure
 
 The Attester and the Relying Party communicate by transporting messages within EDHOC's External Authorization Data (EAD) fields.
 
@@ -146,6 +148,7 @@ Note that the nonce is not carried in the message, but is rather signed as
 
 As a response to the attestation request, the local attestation service returns the serialized EAT.
 
+EAD_3 = EAT
 
 # Security Considerations
 
