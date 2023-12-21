@@ -1,6 +1,6 @@
-# TODO - Your title
+# Remote Attestation for EDHOC
 
-This is the working area for the individual Internet-Draft, "TODO - Your title".
+This is the working area for the individual Internet-Draft, "Remote Attestation for EDHOC".
 
 * [Editor's Copy](https://ysong02.github.io/RemoteAttestation_overEDHOC/#go.draft-song-lake-ra.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-song-lake-ra)
