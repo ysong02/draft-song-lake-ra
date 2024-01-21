@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-01-18T00:57:58.881273+00:00",
+  "timestamp": "2024-01-21T01:03:11.044245+00:00",
   "repo": "ysong02/draft-song-lake-ra",
   "labels": [
     {
@@ -73,6 +73,38 @@
           "updatedAt": "2023-12-18T16:52:46Z"
         }
       ]
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOK17GRM58nUSn",
+      "title": "rewrite the assumptions",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/issues/4",
+      "state": "OPEN",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "The assumption that the authentication credential is the same as the attestation key should be removed. Should rewrite the assumptions that suit the background-check model. ",
+      "createdAt": "2024-01-19T14:28:00Z",
+      "updatedAt": "2024-01-19T14:36:05Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 5,
+      "id": "I_kwDOK17GRM58nYTd",
+      "title": "The fonctionality of Verifier in the draft",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/issues/5",
+      "state": "OPEN",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Think about what is the fonctionality of Verifier, what Verifier gives to the Relying Party in the background-check model.",
+      "createdAt": "2024-01-19T14:37:43Z",
+      "updatedAt": "2024-01-19T14:37:43Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
