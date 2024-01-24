@@ -99,7 +99,7 @@ It describes how the Attester (EDHOC Initiator) and Relying Party (EDHOC Respond
 
 # Assumptions
 
-TODO
+TODO rewrite the assumptions
 
 # The Protocol
 
