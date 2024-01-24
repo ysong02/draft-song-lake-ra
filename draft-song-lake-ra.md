@@ -99,9 +99,7 @@ It describes how the Attester (EDHOC Initiator) and Relying Party (EDHOC Respond
 
 # Assumptions
 
-EDHOC authentication is performed using authentication credentials which can be either signature or static Diffie-Hellman (DH) keys.
-This specification makes an assumption that the EDHOC authentication credential is the same as the attestation key which is used to sign the evidence.
-If the authentication credential of the EDHOC Initiator is a static DH key, then the signature of the evidence can instead be a Message Authentication Code, generated from the static-ephemeral DH shared secret between the Initiator and the Responder.
+TODO
 
 # The Protocol
 
@@ -111,7 +109,25 @@ EDHOC Initiator plays the role of the RATS Attester.
 EDHOC Responder plays the role of the RATS Relying Party.
 An external entity, out of scope of this specification, plays the role of the RATS Verifier.
 
-TODO: an overview figure
+
+~~~~~~~~~~~ aasvg
+
+               Remote attestation
+               proposal
++----------+      |     +-------------+           +-----------+
+|          |      |     |             |           |           |
+| Attester +------o---->|   Relying   +---------->|  Verifier |
+|          |<---o-------+    Party    |<----------+           |
+|   (A)    +----+--o--->|    (RP)     |           |    (V)    |
+|          |    |  |    |             |           |           |
++----------+    |  EAT  +-------------+           +-----------+
+	|
+      Remote attestation
+      request
+
+~~~~~~~~~~~
+{: #fig-overview title="Overview of message flow. EDHOC is used between A and RP. Remote attestation proposal and request are sent in EDHOC External Authorization Data (EAD). The link between V and RP is out of scope of this specification." artwork-align="center"}
+
 
 The Attester and the Relying Party communicate by transporting messages within EDHOC's External Authorization Data (EAD) fields.
 
@@ -164,9 +180,82 @@ TODO2: Register EAD_2 label
 TODO3: Register EAD_3 label
 TODO4: Register EDHOC_Exporter label
 
+
 --- back
+
+# Example of Remote Attestation
+
+~~~~aasvg
+.--------------------------.
+| Attestation   | Attester |         .---------------.     .----------.
+| Service       |          |         | Relying Party |     | Verifier |
+'--+----------------+------'         '-------+-------'     '-----+----'
+   |                |                        |                   |
+.--+------------.   |                        |                   |
+| EDHOC session |   |                        |                   |
++--+------------+---+------------------------+-------------------+---.
+|  |                |                        |                   |    |
+|  |                |EDHOC message_1         |                   |    |
+|  |                |  {...}                 |                   |    |
+|  |                |  EAD_1(                |                   |    |
+|  |                |    types(a,b,c)        |                   |    |
+|  |                |  )                     |                   |    |
+|  |                +----------------------->|                   |    |
+|  |                |                        |                   |    |
+|  +                |                        | POST /newSession  |    |
+|  |                |                        +------------------>|    |
+|  |                |                        | 201 Created       |    |
+|  |                |                        | Location: /76839  |    |
+|  |                |                        | Body: {           |    |
+|  |                |                        |   nonce,          |    |
+|  |                | EDHOC message_2        |   types(a)        |    |
+|  |                |  {...}                 | }                 |    |
+|  |                |  EAD_2(                |<------------------+    |
+|  |                |    nonce,              |                   |    |
+|  |                |    type(a)             |                   |    |
+|  |                |  )                     |                   |    |
+|  |                |  Auth_credential(sig)  |                   |    |
+|  |                |<-----------------------+                   |    |
+|  |   EAD_2(       |                        |                   |    |
+|  |    nonce,      |                        |                   |    |
+|  |    type(a)     |                        |                   |    |
+|  |  )             |                        |                   |    |
+|  |<---------------+                        |                   |    |
+|  | Body:{         |                        |                   |    |
+|  |   nonce,       |                        |                   |    |
+|  |   Evidence     |                        |                   |    |
+|  | }              |                        |                   |    |
+|  +--------------->|                        |                   |    |
+|  |                | EDHOC message_3        |                   |    |
+|  |                |  {...}                 |                   |    |
+|  |                |  EAT(nonce,Evidence)   |                   |    |
+|  |                |  Auth_credential(sig)  |                   |    |
+|  |                +----------------------->|                   |    |
+|  |                |                        |                   |    |
+'--+----------------+------------------------+-------------------+----'
+   |                |                        |                   |
+   |                |                        |  POST /76839A9E   |
+   |                |                        | EDHOC message_3   |
+   |                |                        +------------------>|
+   |                |                        | Body: {           |
+   |                |                        |  att-result: AR{} |
+   |                |                        | }                 |
+   |                |                        |<------------------+
+   |                |                        +---.               |
+   |                |                        |    | verify AR{}  |
+   |                |                        |<--'               |
+   |                |                        |                   |
+   |                |                        |                   |
+   '----------------+------------------------+-------------------'
+                    |    application data    |
+                    |<---------------------->|
+                    |                        |
+~~~~
+{: #figure-iot-example title="Example of remote attestation."
+
 
 # Acknowledgments
 {:numbered="false"}
+
 
 TODO acknowledge.
