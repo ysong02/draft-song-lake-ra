@@ -34,7 +34,9 @@ normative:
 
 informative:
     RFC9334:
-
+    RFC8949:
+    RFC8392:
+    IANA.CWT.Claims: IANA.cwt
 
 --- abstract
 
@@ -99,7 +101,16 @@ It describes how the Attester (EDHOC Initiator) and Relying Party (EDHOC Respond
 
 # Assumptions
 
-TODO
+The details of the protocol between Relying Party and Verifier are out of the scope.
+The only assumption is that the Verifier outputs a fresh nonce and that same nonce is passed on to the EDHOC session.
+That is where the link between the two protocols comes in.
+The remainder, such as the evidence type selection is just the negotiation.
+In general, the Verifier is supposed to know how to verify more than one format.
+However, we assume in this specification, the Relying Party has no knowledge for the appraisal of Evdience, therefore is not involved in the type selection.
+So the Verifier will narrow down the selection itself to only one format.
+
+
+The Attester should have an explicit relation with the Verifier, such as from device manufacuture, so that the Verifier can evaluate the Evidence that is produced by the Attester.
 
 # The Protocol
 
@@ -114,14 +125,14 @@ An external entity, out of scope of this specification, plays the role of the RA
 
                Remote attestation
                proposal
-+----------+      |     +-------------+           +-----------+
-|          |      |     |             |           |           |
-| Attester +------o---->|   Relying   +---------->|  Verifier |
-|          |<---o-------+    Party    |<----------+           |
-|   (A)    +----+--o--->|    (RP)     |           |    (V)    |
-|          |    |  |    |             |           |           |
-+----------+    |  EAT  +-------------+           +-----------+
-	|
++----------+      |      +-------------+  Provided   +-----------+
+|          |      |      |             |EvidenceTypes|           |
+| Attester +------o----->|   Relying   +------------>|  Verifier |
+|          |<--o---------+    Party    |<------------+           |
+|   (A)    +---+----o--->|    (RP)     |  Selected   |    (V)    |
+|          |   |    |    |             |EvidenceType |           |
++----------+   |Evidence +-------------+             +-----------+
+               |
       Remote attestation
       request
 
@@ -131,42 +142,79 @@ An external entity, out of scope of this specification, plays the role of the RA
 
 The Attester and the Relying Party communicate by transporting messages within EDHOC's External Authorization Data (EAD) fields.
 
-## External Authorization Data 1
+## External Authorization Data 1 {#ead1}
 
-In EAD_1, the Attester transports the Proposed_Evidence_Type object.
-Evidence_Type signals to the Relying Party the proposal to do remote attestation, as well as which attestation claims the Attester supports.
+In EAD_1, the Attester transports the Proposed_EvidenceType object.
+EvidenceType signals to the Relying Party the proposal to do remote attestation, as well as which attestation claims the Attester supports.
 The supported attestation claims are encoded in CBOR in the form of a sequence.
 
-TODO: Encode Proposed_Evidence_Type as CBOR data structure. See draft-ietf-lake-authz for examples.
-TODO: Register with IANA EAD_1 label
+The external authorization data EAD_1 contains an EAD item with
+* ead_label = TBD1
+* ead_value = Attestation_proposal, which is a CBOR byte string:
 
-## External Authorization Data 2
+~~~~~~~~~~~~~~~~
+Attestation_proposal = bstr .cbor Proposed_EvidenceType
+
+Proposed_EvidenceType = (
+	content-format: 	[ + uint]
+)
+~~~~~~~~~~~~~~~~
+
+where
+
+* content-format is a list that contains all the supported evidence types in decreasing order of preference.
+* There MUST be at least one item in the list.
+
+The sign of ead_label needs to be negative to indicate that the EAT item is critical.
+If the receiver cannot recognize the critical EAD item, or cannot process the information in the critical EAD item, then the receiver MUST send an EDHOC error message back.
+
+
+## External Authorization Data 2 {#ead2}
 
 In EAD_2, the Relying Party signals to the Attester the supported and requested attestation claims.
-In case the attestation is not supported, the EDHOC Responder returns an error message.
-EAD_2 carries the Request_Attestation object.
-Similarly to EAD_1, Request_Attestation object is encoded in CBOR.
+In case none of the evidence types is supported, the Relying Party rejects the first message_1 with an error indicating support for another evidence type.
 
-TODO: Encode Request_Attestation as CBOR data structure.
-TODO: Register with IANA EAD_2 label.
+EAD_2 carries the Selected_EvidenceType object.
+Similarly to EAD_1, Selected_EvideceType object is encoded in CBOR.
 
-Once the Attester receives EAD_2, it makes a request to its local attestation API to perform attestation.
-It uses the nonce generated from the EDHOC handshake, with the following parameters:
+The external authorization data EAD_2 contains an EAD item with
+* ead_label = TBD2
+* ead_value = Attestation_request, which is a CBOR byte string:
 
-* exporter_label is TBD4.
-* context is an empty byte string.
-* length is 16 bytes.
 
-nonce = EDHOC_Exporter(exporter_label, context, length).
+~~~~~~~~~~~~~~~~
+Attestation_Request = bstr .cbor Selected_EvidenceType
+Selected_EvidenceType = (
+	content-format:uint,
+	nonce:bstr
+)
 
-Nonce is passed to the attestation API and used to generate the attestation evidence.
-Note that the nonce is not carried in the message, but is rather signed as
+~~~~~~~~~~~~~~~~
 
-## External Authorization Data 3
+where
 
-As a response to the attestation request, the local attestation service returns the serialized EAT.
+* content-format is the selected evidence type by the appraisal entity.
+* nonce is generated from the appraisal entity.
 
-EAD_3 = EAT
+## External Authorization Data 3 {#ead3}
+
+As a response to the attestation request, the Attester calls its local attestation service to generate and return the serialized EAT {{I-D.ietf-rats-eat}} as Evidence.
+EDHOC uses Concise Binary Object Representation (CBOR){{RFC8949}} for encoding, so the EAT in this specification should be encoded in CBOR and built on CBOR Web Token (CWT){{RFC8392}}.
+
+The external authorization data EAD_3 contains an EAD item with
+* ead_label = TBD3
+* ead_value = Evidence, which is a CBOR byte string:
+
+
+
+~~~~~~~~~~~~~~~~
+Evidence = bstr .cbor eat
+eat = {
+	+ Claim Key: Claim Value Type
+}
+~~~~~~~~~~~~~~~~
+
+where eat is composed of one or more Claim key in Claim Value Type, from the "CBOR Web Token (CWT) Claims" registry{{IANA.CWT.Claims}} .
 
 # Security Considerations
 
@@ -175,10 +223,21 @@ TODO: Security considerations
 
 # IANA Considerations
 
-TODO1: Register EAD_1 label. See draft-ietf-lake-authz for an example.
-TODO2: Register EAD_2 label
-TODO3: Register EAD_3 label
-TODO4: Register EDHOC_Exporter label
+## EDHOC External Authorization Data Registry
+
+IANA has registered the following entry in the "EDHOC External Authorization Data" registry under the group name "Ephemeral Diffie-Hellman Over Cose (EDHOC)".
+The ead_label = TBD1 corresponds to the ead_value Attestation_proposal in EAD_1 with processing specified in {{ead1}}.
+The ead_label = TBD2 corresponds to the ead_value Attestation_request in {{ead2}}.
+The ead_label = TBD3 corresponds to the ead_value Evidence in {{ead3}} in this specification.
+
+
+
+| Label | Value Type | Description |
+| TBD1 | bstr | Attestation Proposal |
+| TBD2 | bstr | Attestation Request |
+| TBD3 | bstr | Evidence for remote attestation |
+{: #ead-table title="Addition to the EDHOC EAD registry" cols="r l l"}
+
 
 
 --- back
@@ -202,10 +261,10 @@ TODO4: Register EDHOC_Exporter label
 |  |                |  )                     |                   |    |
 |  |                +----------------------->|                   |    |
 |  |                |                        |                   |    |
-|  +                |                        | POST /newSession  |    |
+|  +                |                        |                   |    |
 |  |                |                        +------------------>|    |
-|  |                |                        | 201 Created       |    |
-|  |                |                        | Location: /76839  |    |
+|  |                |                        |                   |    |
+|  |                |                        |                   |    |
 |  |                |                        | Body: {           |    |
 |  |                |                        |   nonce,          |    |
 |  |                | EDHOC message_2        |   types(a)        |    |
@@ -214,12 +273,12 @@ TODO4: Register EDHOC_Exporter label
 |  |                |    nonce,              |                   |    |
 |  |                |    type(a)             |                   |    |
 |  |                |  )                     |                   |    |
-|  |                |  Auth_credential(sig)  |                   |    |
+|  |                |  Auth_CRED(Sig/MAC)    |                   |    |
 |  |                |<-----------------------+                   |    |
-|  |   EAD_2(       |                        |                   |    |
+|  |   Body:{       |                        |                   |    |
 |  |    nonce,      |                        |                   |    |
 |  |    type(a)     |                        |                   |    |
-|  |  )             |                        |                   |    |
+|  |   }            |                        |                   |    |
 |  |<---------------+                        |                   |    |
 |  | Body:{         |                        |                   |    |
 |  |   nonce,       |                        |                   |    |
@@ -229,13 +288,13 @@ TODO4: Register EDHOC_Exporter label
 |  |                | EDHOC message_3        |                   |    |
 |  |                |  {...}                 |                   |    |
 |  |                |  EAT(nonce,Evidence)   |                   |    |
-|  |                |  Auth_credential(sig)  |                   |    |
+|  |                |  Auth_CRED(sig/MAC)    |                   |    |
 |  |                +----------------------->|                   |    |
 |  |                |                        |                   |    |
 '--+----------------+------------------------+-------------------+----'
    |                |                        |                   |
-   |                |                        |  POST /76839A9E   |
-   |                |                        | EDHOC message_3   |
+   |                |                        | Body: {           |
+   |                |                        |  EAT}             |
    |                |                        +------------------>|
    |                |                        | Body: {           |
    |                |                        |  att-result: AR{} |
