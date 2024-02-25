@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-02-22T00:53:41.686217+00:00",
+  "timestamp": "2024-02-25T00:57:41.516828+00:00",
   "repo": "ysong02/draft-song-lake-ra",
   "labels": [
     {
@@ -111,15 +111,15 @@
       "id": "I_kwDOK17GRM59DFTV",
       "title": "Add two figures, general and detailed message flow",
       "url": "https://github.com/ysong02/draft-song-lake-ra/issues/6",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "ysong02",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "One figure for the protocol overview and the other in Appendix.",
       "createdAt": "2024-01-24T10:34:22Z",
-      "updatedAt": "2024-01-24T10:34:22Z",
-      "closedAt": null,
+      "updatedAt": "2024-02-23T13:45:27Z",
+      "closedAt": "2024-02-23T13:45:27Z",
       "comments": []
     }
   ],
@@ -176,6 +176,34 @@
       "mergedBy": "ysong02",
       "mergeCommit": {
         "oid": "2b7007dfa635dc9b6dea9bb1c5ba49d85e63468f"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOK17GRM5noWX9",
+      "title": "First version",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/pull/7",
+      "state": "MERGED",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "preliminary first version, Fixes #6 #5 #4 ",
+      "createdAt": "2024-02-22T10:40:36Z",
+      "updatedAt": "2024-02-23T13:45:26Z",
+      "baseRepository": "ysong02/draft-song-lake-ra",
+      "baseRefName": "main",
+      "baseRefOid": "89bb7c292a77e56babc42463a2400e26333dad47",
+      "headRepository": "ysong02/draft-song-lake-ra",
+      "headRefName": "firstversion",
+      "headRefOid": "d53c4c47ad2d47acd9531c3b8ed5d952e5fe359d",
+      "closedAt": "2024-02-23T13:45:26Z",
+      "mergedAt": "2024-02-23T13:45:26Z",
+      "mergedBy": "ysong02",
+      "mergeCommit": {
+        "oid": "30e05e5d2b1f6498b135425e1930e21f9b0984e7"
       },
       "comments": [],
       "reviews": []
