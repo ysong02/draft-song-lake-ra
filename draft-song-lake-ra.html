@@ -1153,9 +1153,6 @@ svg :is([fill="white"], [fill^="#fff"]) {
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4">
                 <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-external-authorization-data-3" class="internal xref">External Authorization Data 3</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5">
-                <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="auto internal xref">5.5</a>.  <a href="#name-example-firmware-version-ch" class="internal xref">Example: Firmware version check</a></p>
-</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
@@ -1181,10 +1178,16 @@ svg :is([fill="white"], [fill^="#fff"]) {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-example-of-remote-attestati" class="internal xref">Example of Remote Attestation</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-example-remote-attestation-" class="internal xref">Example: Remote Attestation Flow</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-example-firmware-version" class="internal xref">Example: Firmware Version</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
 </li>
         </ul>
 </nav>
@@ -1366,16 +1369,16 @@ Proposed_EvidenceType = (
 <p id="section-5.2-5">where<a href="#section-5.2-5" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.2-6.1">
-            <p id="section-5.2-6.1.1">content-format is a list that contains all the supported evidence types by the Attester in decreasing order of preference.<a href="#section-5.2-6.1.1" class="pilcrow">¶</a></p>
+            <p id="section-5.2-6.1.1">content-format is an array that contains all the supported evidence types by the Attester in decreasing order of preference.<a href="#section-5.2-6.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.2-6.2">
-            <p id="section-5.2-6.2.1">There <span class="bcp14">MUST</span> be at least one item in the list.<a href="#section-5.2-6.2.1" class="pilcrow">¶</a></p>
+            <p id="section-5.2-6.2.1">There <span class="bcp14">MUST</span> be at least one item in the array.<a href="#section-5.2-6.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.2-6.3">
-            <p id="section-5.2-6.3.1">content-format needs to be an indicator of the format type (e.g., cwt, jwt, cbor, etc.) as well as the kinds of claims (e.g., eat_profile in EAT).<a href="#section-5.2-6.3.1" class="pilcrow">¶</a></p>
+            <p id="section-5.2-6.3.1">content-format is an indicator of the format type (e.g., application/eat+cwt with an appropriate eat_profile parameter set).<a href="#section-5.2-6.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.2-7">The sign of ead_label needs to be negative to indicate that the EAT item is critical.
+<p id="section-5.2-7">The sign of ead_label <span class="bcp14">MUST</span> be negative to indicate that the EAT item is critical.
 If the receiver cannot recognize the critical EAD item, or cannot process the information in the critical EAD item, then the receiver <span class="bcp14">MUST</span> send an EDHOC error message back.<a href="#section-5.2-7" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1384,10 +1387,10 @@ If the receiver cannot recognize the critical EAD item, or cannot process the in
         <h3 id="name-external-authorization-data-">
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-external-authorization-data-" class="section-name selfRef">External Authorization Data 2</a>
         </h3>
-<p id="section-5.3-1">In EAD_2, the Relying Party signals to the Attester the supported and requested attestation claims.
+<p id="section-5.3-1">In EAD_2, the Relying Party signals to the Attester the supported and requested evidence types.
 In case none of the evidence types is supported, the Relying Party rejects the first message_1 with an error indicating support for another evidence type.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <p id="section-5.3-2">EAD_2 carries the Selected_EvidenceType object.
-Similarly to EAD_1, Selected_EvideceType object is encoded in CBOR.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+Similarly to EAD_1, Selected_EvidenceType object is encoded in CBOR.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 <p id="section-5.3-3">The external authorization data EAD_2 contains an EAD item with<a href="#section-5.3-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.3-4.1">
@@ -1399,21 +1402,20 @@ Similarly to EAD_1, Selected_EvideceType object is encoded in CBOR.<a href="#sec
         </ul>
 <div class="alignLeft art-text artwork" id="section-5.3-5">
 <pre>
-Attestation_Request = bstr .cbor Selected_EvidenceType
+Attestation_request = bstr .cbor Selected_EvidenceType
 Selected_EvidenceType = (
         content-format:uint,
         nonce:bstr
 )
-
 </pre><a href="#section-5.3-5" class="pilcrow">¶</a>
 </div>
 <p id="section-5.3-6">where<a href="#section-5.3-6" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.3-7.1">
-            <p id="section-5.3-7.1.1">content-format is the selected evidence type by the appraisal entity.<a href="#section-5.3-7.1.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-7.1.1">content-format is the selected evidence type by the Relying Party and supported by the Verifier.<a href="#section-5.3-7.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.3-7.2">
-            <p id="section-5.3-7.2.1">nonce is generated from the appraisal entity.<a href="#section-5.3-7.2.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-7.2.1">nonce is generated by the Verifier and forwarded by the Relying Party.<a href="#section-5.3-7.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1423,91 +1425,16 @@ Selected_EvidenceType = (
         <h3 id="name-external-authorization-data-3">
 <a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-external-authorization-data-3" class="section-name selfRef">External Authorization Data 3</a>
         </h3>
-<p id="section-5.4-1">As a response to the attestation request, the Attester calls its local attestation service to generate and return the serialized EAT <span>[<a href="#I-D.ietf-rats-eat" class="cite xref">I-D.ietf-rats-eat</a>]</span> as Evidence.
-EDHOC uses Concise Binary Object Representation (CBOR)<span>[<a href="#RFC8949" class="cite xref">RFC8949</a>]</span> for encoding, so the EAT in this specification should be encoded in CBOR and built on CBOR Web Token (CWT)<span>[<a href="#RFC8392" class="cite xref">RFC8392</a>]</span>.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-1">As a response to the attestation request, the Attester calls its local attestation service to generate and return the serialized EAT <span>[<a href="#I-D.ietf-rats-eat" class="cite xref">I-D.ietf-rats-eat</a>]</span> as Evidence.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
 <p id="section-5.4-2">The external authorization data EAD_3 contains an EAD item with<a href="#section-5.4-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.4-3.1">
             <p id="section-5.4-3.1.1">ead_label = TBD3<a href="#section-5.4-3.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.4-3.2">
-            <p id="section-5.4-3.2.1">ead_value = Evidence, which is a CBOR byte string:<a href="#section-5.4-3.2.1" class="pilcrow">¶</a></p>
+            <p id="section-5.4-3.2.1">ead_value is a serialized EAT.<a href="#section-5.4-3.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<div class="alignLeft art-text artwork" id="section-5.4-4">
-<pre>
-Evidence = bstr .cbor eat
-eat = {
-        + Claim Key: Claim Value Type
-}
-</pre><a href="#section-5.4-4" class="pilcrow">¶</a>
-</div>
-<p id="section-5.4-5">where eat is composed of one or more Claim key in Claim Value Type, from the "CBOR Web Token (CWT) Claims" registry<span>[<a href="#IANA.CWT.Claims" class="cite xref">IANA.CWT.Claims</a>]</span> .<a href="#section-5.4-5" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="firmware">
-<section id="section-5.5">
-        <h3 id="name-example-firmware-version-ch">
-<a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-example-firmware-version-ch" class="section-name selfRef">Example: Firmware version check</a>
-        </h3>
-<p id="section-5.5-1">This section gives an example of a remote attestation protocol flow defined by this specification.
-The goal is to verify that the firmware running on the device is the latest version, and is neither tampered or compromised.
-In this example, a device acts as the Attester, currently in an untrusted state.
-So the Attester needs to generate the Evidence to attest itself.
-In this specification, Evidence is conveyed as Entity Attestation Token (EAT).
-A gateway that can communicate with the Attester and can control its access to the network acts as the Relying Party.
-The gateway will finally decide whether the device can join the network or not depending on the Attestation Result.
-The Attestation Result is produced by the Verifier, which is a web server that can be seen as the manufacturer of the device.
-Therefore it can appraise the Evidence that is sent by the Attester.
-The remote attestation session starts with the Attester initiating EAD_1 in EDHOC message 1.
-In EAD_1 field, the Attester indicates that the format of EAT is in CWT and the profile of EAT is Platform Security Architecture (PSA) attestation token <span>[<a href="#I-D.tschofenig-rats-psa-token" class="cite xref">I-D.tschofenig-rats-psa-token</a>]</span>.
-PSA attestation token contains the claims relating to the security state of the platform, which are provided by PSA's Initial Attestation API.<a href="#section-5.5-1" class="pilcrow">¶</a></p>
-<p id="section-5.5-2">Therefore, the EAD_1 in EDHOC message 1 is:<a href="#section-5.5-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.5-3">
-<pre>
-EAD_1 = bstr .cbor eat_type
-
-eat_type = (
-        content-format:         [ 0..255 ]
-)
-
-</pre><a href="#section-5.5-3" class="pilcrow">¶</a>
-</div>
-<p id="section-5.5-4">According to <span>[<a href="#I-D.tschofenig-rats-psa-token" class="cite xref">I-D.tschofenig-rats-psa-token</a>]</span>, IANA is requested to register this Content-Format ID in the "CoAP Content-Formats" registry <span>[<a href="#IANA-CoAP-Content-Formats" class="cite xref">IANA-CoAP-Content-Formats</a>]</span>, for the <code>application/eat+cwt</code> media type with the <code>eat_profile</code> parameter equal to <code>tag:psacertified.org,2023:psa#tfm</code>.<a href="#section-5.5-4" class="pilcrow">¶</a></p>
-<p id="section-5.5-5">The Media Type equivalent is:<a href="#section-5.5-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.5-6">
-<pre>
-media-type: application/eat+cwt; eat_profile="tag:psacertified.org,2023:psa#tfm"
-
-</pre><a href="#section-5.5-6" class="pilcrow">¶</a>
-</div>
-<p id="section-5.5-7">If the Verifier can support this evidence type that is provided by the Attester, EAD_2 field will contain the same evidence type back, alongside a nonce for message freshness.
-The same nonce is sent to the Attester for the generation of Evidence.
-The Evidence in EAD_3 field is the Platform Security Architecture (PSA) attestation token, which is the attestation of the platform state to assure the firmware integrity.
-This can be generated from Measured boot, which creates the measurements of loaded code and data during the boot process and make them part of an overall chain of trust.
-Each stage of the chain of trust stores the measurements in a local root of trust, then the Root of Trust for Report (RTR) of the device can use them as materials to generate the Evidence.
-The components of the Evidence should at least be :<a href="#section-5.5-7" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.5-8">
-<pre>
-EAD_3 = bstr .cbor eat
-eat = {
-        (psa-nonce:10) =&gt; bstr
-        (psa-client-id:2394) =&gt; int
-        (psa-instance-id:256) =&gt; bstr
-        (psa-profile:265) =&gt; general-uri/ general-oid
-        (psa-implementation-id:2396) =&gt; bstr
-        (psa-lifecycle:2395) =&gt; uint
-        (psa-software-components:2399) =&gt; array
-        (psa-boot-seed:268) =&gt; bstr
-}
-
-psa-software-components = (
-        psa-software-components-key =&gt; [ + psa-software-component ]
-
-</pre><a href="#section-5.5-8" class="pilcrow">¶</a>
-</div>
-<p id="section-5.5-9">The gateway (Relying Party) then treats the Evidence as opaque and sends it to the Verifier.
-After the Verifier sends back the Attestation Result, gateway can assure whether the device is running on the latest verified firmware or not.<a href="#section-5.5-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1533,7 +1460,7 @@ After the Verifier sends back the Attestation Result, gateway can assure whether
 <p id="section-7.1-1">IANA is requested to register the following entry in the "EDHOC External Authorization Data" registry under the group name "Ephemeral Diffie-Hellman Over Cose (EDHOC)".
 The ead_label = TBD1 corresponds to the ead_value Attestation_proposal in EAD_1 with processing specified in <a href="#ead1" class="auto internal xref">Section 5.2</a>.
 The ead_label = TBD2 corresponds to the ead_value Attestation_request in <a href="#ead2" class="auto internal xref">Section 5.3</a>.
-The ead_label = TBD3 corresponds to the ead_value Evidence in <a href="#ead3" class="auto internal xref">Section 5.4</a> in this specification.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+The ead_label = TBD3 corresponds to the ead_value which carries the EAT, as specified in <a href="#ead3" class="auto internal xref">Section 5.4</a>.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
 <span id="name-addition-to-the-edhoc-ead-r"></span><div id="ead-table">
 <table class="center" id="table-1">
           <caption>
@@ -1633,137 +1560,186 @@ The ead_label = TBD3 corresponds to the ead_value Evidence in <a href="#ead3" cl
 </section>
 </div>
 </section>
-<div id="example-of-remote-attestation">
+<div id="example-remote-attestation-flow">
 <section id="appendix-A">
-      <h2 id="name-example-of-remote-attestati">
-<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-example-of-remote-attestati" class="section-name selfRef">Example of Remote Attestation</a>
+      <h2 id="name-example-remote-attestation-">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-example-remote-attestation-" class="section-name selfRef">Example: Remote Attestation Flow</a>
       </h2>
-<span id="name-example-of-remote-attestatio"></span><div id="_figure-iot-example">
-<figure id="figure-2">
-        <div id="appendix-A-1.1">
-          <div class="alignLeft art-svg artwork" id="appendix-A-1.1.1">
+<div id="appendix-A-1">
+        <div class="alignLeft art-svg artwork" id="appendix-A-1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1056" width="576" viewBox="0 0 576 1056" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
-              <path d="M 8,32 L 8,80" fill="none" stroke="black"></path>
-              <path d="M 8,112 L 8,768" fill="none" stroke="black"></path>
-              <path d="M 32,80 L 32,112" fill="none" stroke="black"></path>
-              <path d="M 32,144 L 32,992" fill="none" stroke="black"></path>
-              <path d="M 136,40 L 136,72" fill="none" stroke="black"></path>
-              <path d="M 136,112 L 136,144" fill="none" stroke="black"></path>
-              <path d="M 168,80 L 168,1040" fill="none" stroke="black"></path>
-              <path d="M 224,32 L 224,80" fill="none" stroke="black"></path>
-              <path d="M 264,704 L 264,712" fill="none" stroke="black"></path>
-              <path d="M 304,48 L 304,80" fill="none" stroke="black"></path>
-              <path d="M 368,80 L 368,1040" fill="none" stroke="black"></path>
-              <path d="M 432,48 L 432,80" fill="none" stroke="black"></path>
-              <path d="M 440,368 L 440,376" fill="none" stroke="black"></path>
-              <path d="M 480,48 L 480,80" fill="none" stroke="black"></path>
-              <path d="M 528,80 L 528,992" fill="none" stroke="black"></path>
-              <path d="M 568,48 L 568,80" fill="none" stroke="black"></path>
-              <path d="M 568,160 L 568,768" fill="none" stroke="black"></path>
-              <path d="M 8,32 L 224,32" fill="none" stroke="black"></path>
-              <path d="M 304,48 L 432,48" fill="none" stroke="black"></path>
-              <path d="M 480,48 L 568,48" fill="none" stroke="black"></path>
-              <path d="M 8,80 L 224,80" fill="none" stroke="black"></path>
-              <path d="M 304,80 L 432,80" fill="none" stroke="black"></path>
-              <path d="M 480,80 L 568,80" fill="none" stroke="black"></path>
-              <path d="M 8,112 L 136,112" fill="none" stroke="black"></path>
-              <path d="M 8,144 L 552,144" fill="none" stroke="black"></path>
-              <path d="M 168,256 L 360,256" fill="none" stroke="black"></path>
-              <path d="M 368,304 L 520,304" fill="none" stroke="black"></path>
-              <path d="M 376,416 L 528,416" fill="none" stroke="black"></path>
-              <path d="M 176,496 L 368,496" fill="none" stroke="black"></path>
-              <path d="M 40,576 L 168,576" fill="none" stroke="black"></path>
-              <path d="M 32,656 L 160,656" fill="none" stroke="black"></path>
-              <path d="M 168,736 L 360,736" fill="none" stroke="black"></path>
-              <path d="M 8,768 L 568,768" fill="none" stroke="black"></path>
-              <path d="M 368,832 L 520,832" fill="none" stroke="black"></path>
-              <path d="M 376,896 L 528,896" fill="none" stroke="black"></path>
-              <path d="M 368,912 L 392,912" fill="none" stroke="black"></path>
-              <path d="M 376,944 L 392,944" fill="none" stroke="black"></path>
-              <path d="M 32,992 L 528,992" fill="none" stroke="black"></path>
-              <path d="M 176,1024 L 360,1024" fill="none" stroke="black"></path>
-              <path d="M 552,144 C 560.83064,144 568,151.16936 568,160" fill="none" stroke="black"></path>
-              <path d="M 392,912 C 400.83064,912 408,919.16936 408,928" fill="none" stroke="black"></path>
-              <path d="M 392,944 C 400.83064,944 408,936.83064 408,928" fill="none" stroke="black"></path>
-              <polygon class="arrowhead" points="528,832 516,826.4 516,837.6" fill="black" transform="rotate(0,520,832)"></polygon>
-              <polygon class="arrowhead" points="528,304 516,298.4 516,309.6" fill="black" transform="rotate(0,520,304)"></polygon>
-              <polygon class="arrowhead" points="384,944 372,938.4 372,949.6" fill="black" transform="rotate(180,376,944)"></polygon>
-              <polygon class="arrowhead" points="384,896 372,890.4 372,901.6" fill="black" transform="rotate(180,376,896)"></polygon>
-              <polygon class="arrowhead" points="384,416 372,410.4 372,421.6" fill="black" transform="rotate(180,376,416)"></polygon>
-              <polygon class="arrowhead" points="368,1024 356,1018.4 356,1029.6" fill="black" transform="rotate(0,360,1024)"></polygon>
-              <polygon class="arrowhead" points="368,736 356,730.4 356,741.6" fill="black" transform="rotate(0,360,736)"></polygon>
-              <polygon class="arrowhead" points="368,256 356,250.4 356,261.6" fill="black" transform="rotate(0,360,256)"></polygon>
-              <polygon class="arrowhead" points="184,1024 172,1018.4 172,1029.6" fill="black" transform="rotate(180,176,1024)"></polygon>
-              <polygon class="arrowhead" points="184,496 172,490.4 172,501.6" fill="black" transform="rotate(180,176,496)"></polygon>
-              <polygon class="arrowhead" points="168,656 156,650.4 156,661.6" fill="black" transform="rotate(0,160,656)"></polygon>
-              <polygon class="arrowhead" points="48,576 36,570.4 36,581.6" fill="black" transform="rotate(180,40,576)"></polygon>
-              <g class="text">
-                <text x="64" y="52">Attestation</text>
-                <text x="180" y="52">Attester</text>
-                <text x="48" y="68">Service</text>
-                <text x="344" y="68">Relying</text>
-                <text x="400" y="68">Party</text>
-                <text x="524" y="68">Verifier</text>
-                <text x="40" y="132">EDHOC</text>
-                <text x="96" y="132">session</text>
-                <text x="192" y="180">EDHOC</text>
-                <text x="256" y="180">message_1</text>
-                <text x="208" y="196">{...}</text>
-                <text x="212" y="212">EAD_1(</text>
-                <text x="252" y="228">types(a,b,c)</text>
-                <text x="192" y="244">)</text>
-                <text x="400" y="356">Body:</text>
-                <text x="432" y="356">{</text>
-                <text x="416" y="372">nonce</text>
-                <text x="200" y="388">EDHOC</text>
-                <text x="264" y="388">message_2</text>
-                <text x="428" y="388">types(a)</text>
-                <text x="208" y="404">{...}</text>
-                <text x="384" y="404">}</text>
-                <text x="212" y="420">EAD_2(</text>
-                <text x="228" y="436">nonce,</text>
-                <text x="232" y="452">type(a)</text>
-                <text x="192" y="468">)</text>
-                <text x="260" y="484">Auth_CRED(Sig/MAC)</text>
-                <text x="84" y="516">Body:{</text>
-                <text x="92" y="532">nonce,</text>
-                <text x="96" y="548">type(a)</text>
-                <text x="64" y="564">}</text>
-                <text x="68" y="596">Body:{</text>
-                <text x="84" y="612">nonce,</text>
-                <text x="92" y="628">Evidence</text>
-                <text x="48" y="644">}</text>
-                <text x="200" y="676">EDHOC</text>
-                <text x="264" y="676">message_3</text>
-                <text x="208" y="692">{...}</text>
-                <text x="224" y="708">EAT(nonce</text>
-                <text x="304" y="708">Evidence)</text>
-                <text x="260" y="724">Auth_CRED(sig/MAC)</text>
-                <text x="400" y="804">Body:</text>
-                <text x="432" y="804">{</text>
-                <text x="404" y="820">EAT}</text>
-                <text x="400" y="852">Body:</text>
-                <text x="432" y="852">{</text>
-                <text x="432" y="868">att-result:</text>
-                <text x="500" y="868">AR{}</text>
-                <text x="384" y="884">}</text>
-                <text x="444" y="932">verify</text>
-                <text x="492" y="932">AR{}</text>
-                <text x="248" y="1012">application</text>
-                <text x="316" y="1012">data</text>
-              </g>
-            </svg><a href="#appendix-A-1.1.1" class="pilcrow">¶</a>
+            <path d="M 8,32 L 8,80" fill="none" stroke="black"></path>
+            <path d="M 8,112 L 8,768" fill="none" stroke="black"></path>
+            <path d="M 32,80 L 32,112" fill="none" stroke="black"></path>
+            <path d="M 32,144 L 32,992" fill="none" stroke="black"></path>
+            <path d="M 136,40 L 136,72" fill="none" stroke="black"></path>
+            <path d="M 136,112 L 136,144" fill="none" stroke="black"></path>
+            <path d="M 168,80 L 168,1040" fill="none" stroke="black"></path>
+            <path d="M 224,32 L 224,80" fill="none" stroke="black"></path>
+            <path d="M 264,704 L 264,712" fill="none" stroke="black"></path>
+            <path d="M 304,48 L 304,80" fill="none" stroke="black"></path>
+            <path d="M 368,80 L 368,1040" fill="none" stroke="black"></path>
+            <path d="M 432,48 L 432,80" fill="none" stroke="black"></path>
+            <path d="M 440,368 L 440,376" fill="none" stroke="black"></path>
+            <path d="M 480,48 L 480,80" fill="none" stroke="black"></path>
+            <path d="M 528,80 L 528,992" fill="none" stroke="black"></path>
+            <path d="M 568,48 L 568,80" fill="none" stroke="black"></path>
+            <path d="M 568,160 L 568,768" fill="none" stroke="black"></path>
+            <path d="M 8,32 L 224,32" fill="none" stroke="black"></path>
+            <path d="M 304,48 L 432,48" fill="none" stroke="black"></path>
+            <path d="M 480,48 L 568,48" fill="none" stroke="black"></path>
+            <path d="M 8,80 L 224,80" fill="none" stroke="black"></path>
+            <path d="M 304,80 L 432,80" fill="none" stroke="black"></path>
+            <path d="M 480,80 L 568,80" fill="none" stroke="black"></path>
+            <path d="M 8,112 L 136,112" fill="none" stroke="black"></path>
+            <path d="M 8,144 L 552,144" fill="none" stroke="black"></path>
+            <path d="M 168,256 L 360,256" fill="none" stroke="black"></path>
+            <path d="M 368,304 L 520,304" fill="none" stroke="black"></path>
+            <path d="M 376,416 L 528,416" fill="none" stroke="black"></path>
+            <path d="M 176,496 L 368,496" fill="none" stroke="black"></path>
+            <path d="M 40,576 L 168,576" fill="none" stroke="black"></path>
+            <path d="M 32,656 L 160,656" fill="none" stroke="black"></path>
+            <path d="M 168,736 L 360,736" fill="none" stroke="black"></path>
+            <path d="M 8,768 L 568,768" fill="none" stroke="black"></path>
+            <path d="M 368,832 L 520,832" fill="none" stroke="black"></path>
+            <path d="M 376,896 L 528,896" fill="none" stroke="black"></path>
+            <path d="M 368,912 L 392,912" fill="none" stroke="black"></path>
+            <path d="M 376,944 L 392,944" fill="none" stroke="black"></path>
+            <path d="M 32,992 L 528,992" fill="none" stroke="black"></path>
+            <path d="M 176,1024 L 360,1024" fill="none" stroke="black"></path>
+            <path d="M 552,144 C 560.83064,144 568,151.16936 568,160" fill="none" stroke="black"></path>
+            <path d="M 392,912 C 400.83064,912 408,919.16936 408,928" fill="none" stroke="black"></path>
+            <path d="M 392,944 C 400.83064,944 408,936.83064 408,928" fill="none" stroke="black"></path>
+            <polygon class="arrowhead" points="528,832 516,826.4 516,837.6" fill="black" transform="rotate(0,520,832)"></polygon>
+            <polygon class="arrowhead" points="528,304 516,298.4 516,309.6" fill="black" transform="rotate(0,520,304)"></polygon>
+            <polygon class="arrowhead" points="384,944 372,938.4 372,949.6" fill="black" transform="rotate(180,376,944)"></polygon>
+            <polygon class="arrowhead" points="384,896 372,890.4 372,901.6" fill="black" transform="rotate(180,376,896)"></polygon>
+            <polygon class="arrowhead" points="384,416 372,410.4 372,421.6" fill="black" transform="rotate(180,376,416)"></polygon>
+            <polygon class="arrowhead" points="368,1024 356,1018.4 356,1029.6" fill="black" transform="rotate(0,360,1024)"></polygon>
+            <polygon class="arrowhead" points="368,736 356,730.4 356,741.6" fill="black" transform="rotate(0,360,736)"></polygon>
+            <polygon class="arrowhead" points="368,256 356,250.4 356,261.6" fill="black" transform="rotate(0,360,256)"></polygon>
+            <polygon class="arrowhead" points="184,1024 172,1018.4 172,1029.6" fill="black" transform="rotate(180,176,1024)"></polygon>
+            <polygon class="arrowhead" points="184,496 172,490.4 172,501.6" fill="black" transform="rotate(180,176,496)"></polygon>
+            <polygon class="arrowhead" points="168,656 156,650.4 156,661.6" fill="black" transform="rotate(0,160,656)"></polygon>
+            <polygon class="arrowhead" points="48,576 36,570.4 36,581.6" fill="black" transform="rotate(180,40,576)"></polygon>
+            <g class="text">
+              <text x="64" y="52">Attestation</text>
+              <text x="180" y="52">Attester</text>
+              <text x="48" y="68">Service</text>
+              <text x="344" y="68">Relying</text>
+              <text x="400" y="68">Party</text>
+              <text x="524" y="68">Verifier</text>
+              <text x="40" y="132">EDHOC</text>
+              <text x="96" y="132">session</text>
+              <text x="192" y="180">EDHOC</text>
+              <text x="256" y="180">message_1</text>
+              <text x="208" y="196">{...}</text>
+              <text x="212" y="212">EAD_1(</text>
+              <text x="252" y="228">types(a,b,c)</text>
+              <text x="192" y="244">)</text>
+              <text x="400" y="356">Body:</text>
+              <text x="432" y="356">{</text>
+              <text x="416" y="372">nonce</text>
+              <text x="200" y="388">EDHOC</text>
+              <text x="264" y="388">message_2</text>
+              <text x="436" y="388">types(a,b)</text>
+              <text x="208" y="404">{...}</text>
+              <text x="384" y="404">}</text>
+              <text x="212" y="420">EAD_2(</text>
+              <text x="228" y="436">nonce,</text>
+              <text x="232" y="452">type(a)</text>
+              <text x="192" y="468">)</text>
+              <text x="260" y="484">Auth_CRED(Sig/MAC)</text>
+              <text x="84" y="516">Body:{</text>
+              <text x="92" y="532">nonce,</text>
+              <text x="96" y="548">type(a)</text>
+              <text x="64" y="564">}</text>
+              <text x="68" y="596">Body:{</text>
+              <text x="84" y="612">nonce,</text>
+              <text x="92" y="628">Evidence</text>
+              <text x="48" y="644">}</text>
+              <text x="200" y="676">EDHOC</text>
+              <text x="264" y="676">message_3</text>
+              <text x="208" y="692">{...}</text>
+              <text x="224" y="708">EAT(nonce</text>
+              <text x="304" y="708">Evidence)</text>
+              <text x="260" y="724">Auth_CRED(sig/MAC)</text>
+              <text x="400" y="804">Body:</text>
+              <text x="432" y="804">{</text>
+              <text x="404" y="820">EAT}</text>
+              <text x="400" y="852">Body:</text>
+              <text x="432" y="852">{</text>
+              <text x="432" y="868">att-result:</text>
+              <text x="500" y="868">AR{}</text>
+              <text x="384" y="884">}</text>
+              <text x="444" y="932">verify</text>
+              <text x="492" y="932">AR{}</text>
+              <text x="248" y="1012">application</text>
+              <text x="316" y="1012">data</text>
+            </g>
+          </svg><a href="#appendix-A-1.1" class="pilcrow">¶</a>
 </div>
 </div>
-<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
-<a href="#name-example-of-remote-attestatio" class="selfRef">Example of remote attestation.</a>
-        </figcaption></figure>
+<p id="appendix-A-2">{: #figure-iot-example title="Example of remote attestation."<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+</section>
 </div>
-<p id="appendix-A-2">TODO acknowledge.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+<div id="example-firmware-version">
+<section id="appendix-B">
+      <h2 id="name-example-firmware-version">
+<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-example-firmware-version" class="section-name selfRef">Example: Firmware Version</a>
+      </h2>
+<p id="appendix-B-1">The goal in this example is to verify that the firmware running on the device is the latest version, and is neither tampered or compromised.
+A device acts as the Attester, currently in an untrusted state.
+The Attester needs to generate the Evidence to attest itself.
+A gateway that can communicate with the Attester and can control its access to the network acts as the Relying Party.
+The gateway will finally decide whether the device can join the network or not depending on the Attestation Result.
+The Attestation Result is produced by the Verifier, which is a web server that can be seen as the manufacturer of the device.
+Therefore it can appraise the Evidence that is sent by the Attester.
+The remote attestation session starts with the Attester sending EAD_1 in EDHOC message 1, as specified in <a href="#ead1" class="auto internal xref">Section 5.2</a>.
+In EAD_1 field, the Attester indicates that the format of EAT is in CWT and the profile of EAT is Platform Security Architecture (PSA) attestation token <span>[<a href="#I-D.tschofenig-rats-psa-token" class="cite xref">I-D.tschofenig-rats-psa-token</a>]</span>.
+PSA attestation token contains the claims relating to the security state of the platform, which are provided by PSA's Initial Attestation API.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-2">Therefore, the EAD_1 in EDHOC message_1 is:<a href="#appendix-B-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B-3">
+<pre>
+TBD
+</pre><a href="#appendix-B-3" class="pilcrow">¶</a>
+</div>
+<p id="appendix-B-4">According to <span>[<a href="#I-D.tschofenig-rats-psa-token" class="cite xref">I-D.tschofenig-rats-psa-token</a>]</span>, IANA is requested to register the Content-Format ID in the "CoAP Content-Formats" registry <span>[<a href="#IANA-CoAP-Content-Formats" class="cite xref">IANA-CoAP-Content-Formats</a>]</span>, for the <code>application/eat+cwt</code> media type with the <code>eat_profile</code> parameter equal to <code>tag:psacertified.org,2023:psa#tfm</code>.<a href="#appendix-B-4" class="pilcrow">¶</a></p>
+<p id="appendix-B-5">The Media Type equivalent is:<a href="#appendix-B-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B-6">
+<pre>
+media-type: application/eat+cwt; eat_profile="tag:psacertified.org,2023:psa#tfm"
+</pre><a href="#appendix-B-6" class="pilcrow">¶</a>
+</div>
+<p id="appendix-B-7">If the Verifier and the Relying Party can support this evidence type that is proposed by the Attester, the Relying Party will include in the EAD_2 field the same evidence type, alongside a nonce for message freshness.<a href="#appendix-B-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B-8">
+<pre>
+TBD
+</pre><a href="#appendix-B-8" class="pilcrow">¶</a>
+</div>
+<p id="appendix-B-9">The Evidence in EAD_3 field is the Platform Security Architecture (PSA) attestation token, which is the attestation of the platform state to assure the firmware integrity.
+This can be generated from Measured boot, which creates the measurements of loaded code and data during the boot process and make them part of an overall chain of trust.
+Each stage of the chain of trust stores the measurements in a local root of trust, then the Root of Trust for Report (RTR) of the device can use them as materials to generate the Evidence.
+The components of the Evidence should at least be:<a href="#appendix-B-9" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B-10">
+<pre>
+TBD
+</pre><a href="#appendix-B-10" class="pilcrow">¶</a>
+</div>
+<p id="appendix-B-11">The Relying Party (co-located with the gateway) then treats the Evidence as opaque and sends it to the Verifier.
+Once the Verifier sends back the Attestation Result, the Relying Party can be assured on the version of the firmware that the device is running.<a href="#appendix-B-11" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="acknowledgments">
+<section id="appendix-C">
+      <h2 id="name-acknowledgments">
+<a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
+      </h2>
+<p id="appendix-C-1">The author would like to thank Thomas Fossati, Goran Selander, and Malisa Vucinic for the provided feedback.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
-<section id="appendix-B">
+<section id="appendix-D">
       <h2 id="name-authors-address">
 <a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
       </h2>
