@@ -1263,7 +1263,7 @@ In general, the Verifier is supposed to know how to verify more than one format 
 Therefore, the Verifier <span class="bcp14">MUST</span> send back at least one format to the Relying Party.
 We assume in this specification, the Relying Party also has knowledge about the Attester, so it can narrow down the type selection and send to the Attester only one format of evidnece type.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4-2">The Attester should have an explicit relation with the Verifier, such as from device manufacuture, so that the Verifier can evaluate the Evidence that is produced by the Attester.
-The authentification between the Attester and the Relying Party is performed with EDHOC <span>[<a href="#I-D.ietf-lake-edhoc" class="cite xref">I-D.ietf-lake-edhoc</a>]</span> and defines the process of remote attestation using the External Authorization Data (EAD) fields defined in EDHOC.<a href="#section-4-2" class="pilcrow">¶</a></p>
+The authentication between the Attester and the Relying Party is performed with EDHOC <span>[<a href="#I-D.ietf-lake-edhoc" class="cite xref">I-D.ietf-lake-edhoc</a>]</span> and defines the process of remote attestation using the External Authorization Data (EAD) fields defined in EDHOC.<a href="#section-4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="the-protocol">
@@ -1454,49 +1454,51 @@ eat = {
         <h3 id="name-example-firmware-version-ch">
 <a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-example-firmware-version-ch" class="section-name selfRef">Example: Firmware version check</a>
         </h3>
-<p id="section-5.5-1">This section is to give an example about how to perform remote attestation in real pratical use case.
+<p id="section-5.5-1">This section gives an example of a remote attestation protocol flow defined by this specification.
 The goal is to verify that the firmware running on the device is the latest version, and is neither tampered or compromised.
-In this example, a device acts as the Attester, who is currently in an untrusted state.
+In this example, a device acts as the Attester, currently in an untrusted state.
+So the Attester needs to generate the Evidence to attest itself.
+In this specification, Evidence is conveyed as Entity Attestation Token (EAT).
 A gateway that can communicate with the Attester and can control its access to the network acts as the Relying Party.
 The gateway will finally decide whether the device can join the network or not depending on the Attestation Result.
 The Attestation Result is produced by the Verifier, which is a web server that can be seen as the manufacturer of the device.
-Therefore it can appraise the Evidence that is sent by the Attester.<a href="#section-5.5-1" class="pilcrow">¶</a></p>
-<p id="section-5.5-2">The session starts with the Attester initiating EDHOC message 1.
-In EAD_1 field, it should indicate that the content format of the EAT (as Evidence) is in CWT with the information about the platform security status.
-Particularly, the Evidence will be an EAT profile named Platform Security Architecture (PSA) attestation token <span>[<a href="#I-D.tschofenig-rats-psa-token" class="cite xref">I-D.tschofenig-rats-psa-token</a>]</span>, which describes the claims provided by PSA's Initial Attestation API.
-For example, the Boot measurements to assess if there are obvious signs of tampering with the device firmware.<a href="#section-5.5-2" class="pilcrow">¶</a></p>
-<p id="section-5.5-3">Therefore, the EAD_1 in EDHOC message 1 is:<a href="#section-5.5-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.5-4">
+Therefore it can appraise the Evidence that is sent by the Attester.
+The remote attestation session starts with the Attester initiating EAD_1 in EDHOC message 1.
+In EAD_1 field, the Attester indicates that the format of EAT is in CWT and the profile of EAT is Platform Security Architecture (PSA) attestation token <span>[<a href="#I-D.tschofenig-rats-psa-token" class="cite xref">I-D.tschofenig-rats-psa-token</a>]</span>.
+PSA attestation token contains the claims relating to the security state of the platform, which are provided by PSA's Initial Attestation API.<a href="#section-5.5-1" class="pilcrow">¶</a></p>
+<p id="section-5.5-2">Therefore, the EAD_1 in EDHOC message 1 is:<a href="#section-5.5-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.5-3">
 <pre>
-Attestation_proposal = bstr .cbor Proposed_EvidenceType
+EAD_1 = bstr .cbor eat_type
 
-Proposed_EvidenceType = (
-        content-format:         [[To-be-assigned by IANA]]
+eat_type = (
+        content-format:         [ 0..255 ]
 )
 
-</pre><a href="#section-5.5-4" class="pilcrow">¶</a>
+</pre><a href="#section-5.5-3" class="pilcrow">¶</a>
 </div>
-<p id="section-5.5-5">This Content-Format ID will be registered in the "CoAP Content-Formats" registry <span>[<a href="#IANA-CoAP-Content-Formats" class="cite xref">IANA-CoAP-Content-Formats</a>]</span>, for the <code>application/eat+cwt</code> media type with the <code>eat_profile</code> parameter equal to <code>tag:psacertified.org,2023:psa#tfm</code>.<a href="#section-5.5-5" class="pilcrow">¶</a></p>
-<p id="section-5.5-6">The Media Type equivalent is:<a href="#section-5.5-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.5-7">
+<p id="section-5.5-4">According to <span>[<a href="#I-D.tschofenig-rats-psa-token" class="cite xref">I-D.tschofenig-rats-psa-token</a>]</span>, IANA is requested to register this Content-Format ID in the "CoAP Content-Formats" registry <span>[<a href="#IANA-CoAP-Content-Formats" class="cite xref">IANA-CoAP-Content-Formats</a>]</span>, for the <code>application/eat+cwt</code> media type with the <code>eat_profile</code> parameter equal to <code>tag:psacertified.org,2023:psa#tfm</code>.<a href="#section-5.5-4" class="pilcrow">¶</a></p>
+<p id="section-5.5-5">The Media Type equivalent is:<a href="#section-5.5-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.5-6">
 <pre>
 media-type: application/eat+cwt; eat_profile="tag:psacertified.org,2023:psa#tfm"
 
-</pre><a href="#section-5.5-7" class="pilcrow">¶</a>
+</pre><a href="#section-5.5-6" class="pilcrow">¶</a>
 </div>
-<p id="section-5.5-8">If the Verifier can support this evidence type that is provided by the Attester, EAD_2 field will contain the same evidence type back, alongside a nonce for message freshness.<a href="#section-5.5-8" class="pilcrow">¶</a></p>
-<p id="section-5.5-9">The same nonce is sent to the Attester for the generation of Evidence.
+<p id="section-5.5-7">If the Verifier can support this evidence type that is provided by the Attester, EAD_2 field will contain the same evidence type back, alongside a nonce for message freshness.
+The same nonce is sent to the Attester for the generation of Evidence.
 The Evidence in EAD_3 field is the Platform Security Architecture (PSA) attestation token, which is the attestation of the platform state to assure the firmware integrity.
 This can be generated from Measured boot, which creates the measurements of loaded code and data during the boot process and make them part of an overall chain of trust.
 Each stage of the chain of trust stores the measurements in a local root of trust, then the Root of Trust for Report (RTR) of the device can use them as materials to generate the Evidence.
-The components of the Evidence should at least be :<a href="#section-5.5-9" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.5-10">
+The components of the Evidence should at least be :<a href="#section-5.5-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.5-8">
 <pre>
-Evidence = bstr .cbor eat
+EAD_3 = bstr .cbor eat
 eat = {
         (psa-nonce:10) =&gt; bstr
         (psa-client-id:2394) =&gt; int
         (psa-instance-id:256) =&gt; bstr
+        (psa-profile:265) =&gt; general-uri/ general-oid
         (psa-implementation-id:2396) =&gt; bstr
         (psa-lifecycle:2395) =&gt; uint
         (psa-software-components:2399) =&gt; array
@@ -1506,10 +1508,10 @@ eat = {
 psa-software-components = (
         psa-software-components-key =&gt; [ + psa-software-component ]
 
-</pre><a href="#section-5.5-10" class="pilcrow">¶</a>
+</pre><a href="#section-5.5-8" class="pilcrow">¶</a>
 </div>
-<p id="section-5.5-11">The gateway (Relying Party) then treats the Evidence as opaque and sends it to the Verifier.
-After the Verifier sends back the Attestation Result, gateway can assure whether the device is running on the latest verified firmware or not.<a href="#section-5.5-11" class="pilcrow">¶</a></p>
+<p id="section-5.5-9">The gateway (Relying Party) then treats the Evidence as opaque and sends it to the Verifier.
+After the Verifier sends back the Attestation Result, gateway can assure whether the device is running on the latest verified firmware or not.<a href="#section-5.5-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
