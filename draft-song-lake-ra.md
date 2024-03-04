@@ -115,7 +115,7 @@ We assume in this specification, the Relying Party also has knowledge about the 
 
 
 The Attester should have an explicit relation with the Verifier, such as from device manufacuture, so that the Verifier can evaluate the Evidence that is produced by the Attester.
-The authentification between the Attester and the Relying Party is performed with EDHOC {{I-D.ietf-lake-edhoc}} and defines the process of remote attestation using the External Authorization Data (EAD) fields defined in EDHOC.
+The authentication between the Attester and the Relying Party is performed with EDHOC {{I-D.ietf-lake-edhoc}} and defines the process of remote attestation using the External Authorization Data (EAD) fields defined in EDHOC.
 
 # The Protocol
 
@@ -231,34 +231,32 @@ where eat is composed of one or more Claim key in Claim Value Type, from the "CB
 
 ## Example: Firmware version check {#firmware}
 
-This section is to give an example about how to perform remote attestation in real pratical use case.
+This section gives an example of a remote attestation protocol flow defined by this specification.
 The goal is to verify that the firmware running on the device is the latest version, and is neither tampered or compromised.
-In this example, a device acts as the Attester, who is currently in an untrusted state.
+In this example, a device acts as the Attester, currently in an untrusted state.
+So the Attester needs to generate the Evidence to attest itself.
+In this specification, Evidence is conveyed as Entity Attestation Token (EAT).
 A gateway that can communicate with the Attester and can control its access to the network acts as the Relying Party.
 The gateway will finally decide whether the device can join the network or not depending on the Attestation Result.
 The Attestation Result is produced by the Verifier, which is a web server that can be seen as the manufacturer of the device.
 Therefore it can appraise the Evidence that is sent by the Attester.
-
-
-The session starts with the Attester initiating EDHOC message 1.
-In EAD_1 field, it should indicate that the content format of the EAT (as Evidence) is in CWT with the information about the platform security status.
-Particularly, the Evidence will be an EAT profile named Platform Security Architecture (PSA) attestation token {{I-D.tschofenig-rats-psa-token}}, which describes the claims provided by PSA's Initial Attestation API.
-For example, the Boot measurements to assess if there are obvious signs of tampering with the device firmware.
-
+The remote attestation session starts with the Attester initiating EAD_1 in EDHOC message 1.
+In EAD_1 field, the Attester indicates that the format of EAT is in CWT and the profile of EAT is Platform Security Architecture (PSA) attestation token {{I-D.tschofenig-rats-psa-token}}.
+PSA attestation token contains the claims relating to the security state of the platform, which are provided by PSA's Initial Attestation API.
 
 Therefore, the EAD_1 in EDHOC message 1 is:
 
 ~~~~~~~~~~~~~~~~
 
-Attestation_proposal = bstr .cbor Proposed_EvidenceType
+EAD_1 = bstr .cbor eat_type
 
-Proposed_EvidenceType = (
-	content-format: 	[[To-be-assigned by IANA]]
+eat_type = (
+	content-format: 	[ 0..255 ]
 )
 
 ~~~~~~~~~~~~~~~~
 
-This Content-Format ID will be registered in the "CoAP Content-Formats" registry {{IANA-CoAP-Content-Formats}}, for the `application/eat+cwt` media type with the `eat_profile` parameter equal to `tag:psacertified.org,2023:psa#tfm`.
+According to {{I-D.tschofenig-rats-psa-token}}, IANA is requested to register this Content-Format ID in the "CoAP Content-Formats" registry {{IANA-CoAP-Content-Formats}}, for the `application/eat+cwt` media type with the `eat_profile` parameter equal to `tag:psacertified.org,2023:psa#tfm`.
 
 The Media Type equivalent is:
 
@@ -269,8 +267,6 @@ media-type: application/eat+cwt; eat_profile="tag:psacertified.org,2023:psa#tfm"
 ~~~~~~~~~~~~~~~~
 
 If the Verifier can support this evidence type that is provided by the Attester, EAD_2 field will contain the same evidence type back, alongside a nonce for message freshness.
-
-
 The same nonce is sent to the Attester for the generation of Evidence.
 The Evidence in EAD_3 field is the Platform Security Architecture (PSA) attestation token, which is the attestation of the platform state to assure the firmware integrity.
 This can be generated from Measured boot, which creates the measurements of loaded code and data during the boot process and make them part of an overall chain of trust.
@@ -279,11 +275,12 @@ The components of the Evidence should at least be :
 
 ~~~~~~~~~~~~~~~~
 
-Evidence = bstr .cbor eat
+EAD_3 = bstr .cbor eat
 eat = {
         (psa-nonce:10) => bstr
         (psa-client-id:2394) => int
         (psa-instance-id:256) => bstr
+        (psa-profile:265) => general-uri/ general-oid
         (psa-implementation-id:2396) => bstr
         (psa-lifecycle:2395) => uint
         (psa-software-components:2399) => array
