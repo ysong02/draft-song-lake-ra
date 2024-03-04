@@ -37,6 +37,10 @@ informative:
     RFC8949:
     RFC8392:
     IANA.CWT.Claims: IANA.cwt
+    I-D.tschofenig-rats-psa-token:
+    IANA-CoAP-Content-Formats:
+      title: CoAP Content-Formats
+      target: https://www.iana.org/assignments/core-parameters
 
 --- abstract
 
@@ -51,7 +55,7 @@ This document specifies how to perform remote attestation via a very compact and
 <!--Discuss remote attestation and mention some use cases.-->
 Remote attestation is a security process which verifies and confirms the integrity and trustworthiness of a remote device or system in the network.
 This process helps establish a level of trust in the remote system before allowing the device to e.g. join the network or access some sensitive information and resources.
-The use cases that require remote attestation include secure boot and firmware management, cloud computing, network access control.
+The use cases that require remote attestation include secure boot and firmware management, cloud computing, network access control, etc.
 
 <!--Summarize RATS architecture {{RFC9334}} and main roles.-->
 The IETF working group Remote ATtestation procedureS (RATS) has defined an architecture {{RFC9334}} for remote attestation.
@@ -69,7 +73,7 @@ This specification employs the RATS background check model.
 
 <!--Discuss EAT-->
 One way of conveying attestation evidence is the Entity Attestation Token (EAT) {{I-D.ietf-rats-eat}}.
-It provides an attested claims set that describes the state and the characteristics of the attester, which can be used to determine its level of trustworthiness.
+It provides an attested claims set that describes the state and the characteristics of the Attester, which can be used to determine its level of trustworthiness.
 This specification relies on the EAT as the attestation evidence.
 
 <!--Summarize EDHOC {{I-D.ietf-lake-edhoc}}. Mention EAD fields of EDHOC.-->
@@ -105,12 +109,13 @@ The details of the protocol between Relying Party and Verifier are out of the sc
 The only assumption is that the Verifier outputs a fresh nonce and that same nonce is passed on to the EDHOC session.
 That is where the link between the two protocols comes in.
 The remainder, such as the evidence type selection is just the negotiation.
-In general, the Verifier is supposed to know how to verify more than one format.
-However, we assume in this specification, the Relying Party has no knowledge for the appraisal of Evdience, therefore is not involved in the type selection.
-So the Verifier will narrow down the selection itself to only one format.
+In general, the Verifier is supposed to know how to verify more than one format of the evidence type.
+Therefore, the Verifier MUST send back at least one format to the Relying Party.
+We assume in this specification, the Relying Party also has knowledge about the Attester, so it can narrow down the type selection and send to the Attester only one format of evidnece type.
 
 
 The Attester should have an explicit relation with the Verifier, such as from device manufacuture, so that the Verifier can evaluate the Evidence that is produced by the Attester.
+The authentification between the Attester and the Relying Party is performed with EDHOC {{I-D.ietf-lake-edhoc}} and defines the process of remote attestation using the External Authorization Data (EAD) fields defined in EDHOC.
 
 # The Protocol
 
@@ -123,18 +128,21 @@ An external entity, out of scope of this specification, plays the role of the RA
 
 ~~~~~~~~~~~ aasvg
 
-               Remote attestation
-               proposal
-+----------+      |      +-------------+  Provided   +-----------+
-|          |      |      |             |EvidenceTypes|           |
-| Attester +------o----->|   Relying   +------------>|  Verifier |
-|          |<--o---------+    Party    |<------------+           |
-|   (A)    +---+----o--->|    (RP)     |  Selected   |    (V)    |
-|          |   |    |    |             |EvidenceType |           |
-+----------+   |Evidence +-------------+             +-----------+
-               |
-      Remote attestation
-      request
++----------+ Attestation  +-----------+               +----------+
+|          | proposal     |           |   Provided    |          |
+| Attester +------------->|  Relying  | EvidenceTypes | Verifier |
+|          |              |           +-------------->|          |
+|          |              |   Party   |<--------------+          |
+|          |<-------------+           |   Selected    |          |
+|          | Attestation  |           |EvidenceType(s)|          |
+|          | request      |           |               |          |
+|   (A)    |              |   (RP)    |               |   (V)    |
+|          | Evidence     |           |   Evidence    |          |
+|          +------------->|           +-------------->|          |
+|          |              |           |<--------------+          |
+|          |              |           |  Attestation  |          |
+|          |              |           |  Result       |          |
++----------+              +-----------+               +----------+
 
 ~~~~~~~~~~~
 {: #fig-overview title="Overview of message flow. EDHOC is used between A and RP. Remote attestation proposal and request are sent in EDHOC External Authorization Data (EAD). The link between V and RP is out of scope of this specification." artwork-align="center"}
@@ -142,13 +150,15 @@ An external entity, out of scope of this specification, plays the role of the RA
 
 The Attester and the Relying Party communicate by transporting messages within EDHOC's External Authorization Data (EAD) fields.
 
+
 ## External Authorization Data 1 {#ead1}
 
 In EAD_1, the Attester transports the Proposed_EvidenceType object.
-EvidenceType signals to the Relying Party the proposal to do remote attestation, as well as which attestation claims the Attester supports.
+It signals to the Relying Party the proposal to do remote attestation, as well as which attestation claims the Attester supports.
 The supported attestation claims are encoded in CBOR in the form of a sequence.
 
 The external authorization data EAD_1 contains an EAD item with
+
 * ead_label = TBD1
 * ead_value = Attestation_proposal, which is a CBOR byte string:
 
@@ -162,8 +172,9 @@ Proposed_EvidenceType = (
 
 where
 
-* content-format is a list that contains all the supported evidence types in decreasing order of preference.
+* content-format is a list that contains all the supported evidence types by the Attester in decreasing order of preference.
 * There MUST be at least one item in the list.
+* content-format needs to be an indicator of the format type (e.g., cwt, jwt, cbor, etc.) as well as the kinds of claims (e.g., eat_profile in EAT).
 
 The sign of ead_label needs to be negative to indicate that the EAT item is critical.
 If the receiver cannot recognize the critical EAD item, or cannot process the information in the critical EAD item, then the receiver MUST send an EDHOC error message back.
@@ -178,6 +189,7 @@ EAD_2 carries the Selected_EvidenceType object.
 Similarly to EAD_1, Selected_EvideceType object is encoded in CBOR.
 
 The external authorization data EAD_2 contains an EAD item with
+
 * ead_label = TBD2
 * ead_value = Attestation_request, which is a CBOR byte string:
 
@@ -202,6 +214,7 @@ As a response to the attestation request, the Attester calls its local attestati
 EDHOC uses Concise Binary Object Representation (CBOR){{RFC8949}} for encoding, so the EAT in this specification should be encoded in CBOR and built on CBOR Web Token (CWT){{RFC8392}}.
 
 The external authorization data EAD_3 contains an EAD item with
+
 * ead_label = TBD3
 * ead_value = Evidence, which is a CBOR byte string:
 
@@ -216,6 +229,78 @@ eat = {
 
 where eat is composed of one or more Claim key in Claim Value Type, from the "CBOR Web Token (CWT) Claims" registry{{IANA.CWT.Claims}} .
 
+## Example: Firmware version check {#firmware}
+
+This section is to give an example about how to perform remote attestation in real pratical use case.
+The goal is to verify that the firmware running on the device is the latest version, and is neither tampered or compromised.
+In this example, a device acts as the Attester, who is currently in an untrusted state.
+A gateway that can communicate with the Attester and can control its access to the network acts as the Relying Party.
+The gateway will finally decide whether the device can join the network or not depending on the Attestation Result.
+The Attestation Result is produced by the Verifier, which is a web server that can be seen as the manufacturer of the device.
+Therefore it can appraise the Evidence that is sent by the Attester.
+
+
+The session starts with the Attester initiating EDHOC message 1.
+In EAD_1 field, it should indicate that the content format of the EAT (as Evidence) is in CWT with the information about the platform security status.
+Particularly, the Evidence will be an EAT profile named Platform Security Architecture (PSA) attestation token {{I-D.tschofenig-rats-psa-token}}, which describes the claims provided by PSA's Initial Attestation API.
+For example, the Boot measurements to assess if there are obvious signs of tampering with the device firmware.
+
+
+Therefore, the EAD_1 in EDHOC message 1 is:
+
+~~~~~~~~~~~~~~~~
+
+Attestation_proposal = bstr .cbor Proposed_EvidenceType
+
+Proposed_EvidenceType = (
+	content-format: 	[[To-be-assigned by IANA]]
+)
+
+~~~~~~~~~~~~~~~~
+
+This Content-Format ID will be registered in the "CoAP Content-Formats" registry {{IANA-CoAP-Content-Formats}}, for the `application/eat+cwt` media type with the `eat_profile` parameter equal to `tag:psacertified.org,2023:psa#tfm`.
+
+The Media Type equivalent is:
+
+~~~~~~~~~~~~~~~~
+
+media-type: application/eat+cwt; eat_profile="tag:psacertified.org,2023:psa#tfm"
+
+~~~~~~~~~~~~~~~~
+
+If the Verifier can support this evidence type that is provided by the Attester, EAD_2 field will contain the same evidence type back, alongside a nonce for message freshness.
+
+
+The same nonce is sent to the Attester for the generation of Evidence.
+The Evidence in EAD_3 field is the Platform Security Architecture (PSA) attestation token, which is the attestation of the platform state to assure the firmware integrity.
+This can be generated from Measured boot, which creates the measurements of loaded code and data during the boot process and make them part of an overall chain of trust.
+Each stage of the chain of trust stores the measurements in a local root of trust, then the Root of Trust for Report (RTR) of the device can use them as materials to generate the Evidence.
+The components of the Evidence should at least be :
+
+~~~~~~~~~~~~~~~~
+
+Evidence = bstr .cbor eat
+eat = {
+        (psa-nonce:10) => bstr
+        (psa-client-id:2394) => int
+        (psa-instance-id:256) => bstr
+        (psa-implementation-id:2396) => bstr
+        (psa-lifecycle:2395) => uint
+        (psa-software-components:2399) => array
+        (psa-boot-seed:268) => bstr
+}
+
+psa-software-components = (
+        psa-software-components-key => [ + psa-software-component ]
+
+~~~~~~~~~~~~~~~~
+
+
+The gateway (Relying Party) then treats the Evidence as opaque and sends it to the Verifier.
+After the Verifier sends back the Attestation Result, gateway can assure whether the device is running on the latest verified firmware or not.
+
+
+
 # Security Considerations
 
 TODO: Security considerations
@@ -225,7 +310,7 @@ TODO: Security considerations
 
 ## EDHOC External Authorization Data Registry
 
-IANA has registered the following entry in the "EDHOC External Authorization Data" registry under the group name "Ephemeral Diffie-Hellman Over Cose (EDHOC)".
+IANA is requested to register the following entry in the "EDHOC External Authorization Data" registry under the group name "Ephemeral Diffie-Hellman Over Cose (EDHOC)".
 The ead_label = TBD1 corresponds to the ead_value Attestation_proposal in EAD_1 with processing specified in {{ead1}}.
 The ead_label = TBD2 corresponds to the ead_value Attestation_request in {{ead2}}.
 The ead_label = TBD3 corresponds to the ead_value Evidence in {{ead3}} in this specification.
@@ -311,6 +396,8 @@ The ead_label = TBD3 corresponds to the ead_value Evidence in {{ead3}} in this s
                     |                        |
 ~~~~
 {: #figure-iot-example title="Example of remote attestation."
+
+
 
 
 # Acknowledgments
