@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-03T00:56:42.850220+00:00",
+  "timestamp": "2024-03-05T00:53:38.908072+00:00",
   "repo": "ysong02/draft-song-lake-ra",
   "labels": [
     {
@@ -79,15 +79,15 @@
       "id": "I_kwDOK17GRM58nUSn",
       "title": "rewrite the assumptions",
       "url": "https://github.com/ysong02/draft-song-lake-ra/issues/4",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "ysong02",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "The assumption that the authentication credential is the same as the attestation key should be removed. Should rewrite the assumptions that suit the background-check model. ",
       "createdAt": "2024-01-19T14:28:00Z",
-      "updatedAt": "2024-01-19T14:36:05Z",
-      "closedAt": null,
+      "updatedAt": "2024-03-04T16:05:53Z",
+      "closedAt": "2024-03-04T16:05:53Z",
       "comments": []
     },
     {
@@ -95,15 +95,15 @@
       "id": "I_kwDOK17GRM58nYTd",
       "title": "The fonctionality of Verifier in the draft",
       "url": "https://github.com/ysong02/draft-song-lake-ra/issues/5",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "ysong02",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "Think about what is the fonctionality of Verifier, what Verifier gives to the Relying Party in the background-check model.",
       "createdAt": "2024-01-19T14:37:43Z",
-      "updatedAt": "2024-01-19T14:37:43Z",
-      "closedAt": null,
+      "updatedAt": "2024-03-04T16:05:53Z",
+      "closedAt": "2024-03-04T16:05:53Z",
       "comments": []
     },
     {
@@ -207,6 +207,117 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOK17GRM5olvUQ",
+      "title": "firmware example",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/pull/8",
+      "state": "MERGED",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #4 \r\nFixes #5 \r\nfirmware example, change the overview figure",
+      "createdAt": "2024-03-04T13:20:31Z",
+      "updatedAt": "2024-03-04T16:05:51Z",
+      "baseRepository": "ysong02/draft-song-lake-ra",
+      "baseRefName": "main",
+      "baseRefOid": "30e05e5d2b1f6498b135425e1930e21f9b0984e7",
+      "headRepository": "ysong02/draft-song-lake-ra",
+      "headRefName": "Example-firmware",
+      "headRefOid": "f6242ba038c0af1ec78181d2bb12250aa98ab38d",
+      "closedAt": "2024-03-04T16:05:51Z",
+      "mergedAt": "2024-03-04T16:05:51Z",
+      "mergedBy": "ysong02",
+      "mergeCommit": {
+        "oid": "eb1f3556d0a01f1c72bb093ee7651ad2c7ebdc5d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOK17GRM5yGry-",
+          "commit": {
+            "abbreviatedOid": "546788f"
+          },
+          "author": "malishav",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Inline are some little comments on the PR to fix before merging",
+          "createdAt": "2024-03-04T13:47:58Z",
+          "updatedAt": "2024-03-04T14:02:08Z",
+          "comments": [
+            {
+              "originalPosition": 42,
+              "body": "replace \"authentification\" with \"authentication\"",
+              "createdAt": "2024-03-04T13:47:58Z",
+              "updatedAt": "2024-03-04T14:02:08Z"
+            },
+            {
+              "originalPosition": 130,
+              "body": "Replace the sentence with \"This section gives an example of a remote attestation protocol flow defined by this specification\".",
+              "createdAt": "2024-03-04T13:53:22Z",
+              "updatedAt": "2024-03-04T14:02:08Z"
+            },
+            {
+              "originalPosition": 132,
+              "body": "Remove \"who is\"",
+              "createdAt": "2024-03-04T13:53:55Z",
+              "updatedAt": "2024-03-04T14:02:08Z"
+            },
+            {
+              "originalPosition": 138,
+              "body": "Remove newline",
+              "createdAt": "2024-03-04T13:54:34Z",
+              "updatedAt": "2024-03-04T14:02:08Z"
+            },
+            {
+              "originalPosition": 142,
+              "body": "Sentence not clear",
+              "createdAt": "2024-03-04T13:56:18Z",
+              "updatedAt": "2024-03-04T14:02:08Z"
+            },
+            {
+              "originalPosition": 152,
+              "body": "Aren't you repeating the `Proposed_EvidenceType` definition here? An example should instantiate it",
+              "createdAt": "2024-03-04T13:57:34Z",
+              "updatedAt": "2024-03-04T14:02:08Z"
+            },
+            {
+              "originalPosition": 157,
+              "body": "I am not sure if this is the right way of citing a registry.",
+              "createdAt": "2024-03-04T13:58:47Z",
+              "updatedAt": "2024-03-04T14:02:08Z"
+            },
+            {
+              "originalPosition": 169,
+              "body": "Remove newline",
+              "createdAt": "2024-03-04T14:00:02Z",
+              "updatedAt": "2024-03-04T14:02:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOK17GRM5yH0Fv",
+          "commit": {
+            "abbreviatedOid": "546788f"
+          },
+          "author": "ysong02",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-04T15:40:41Z",
+          "updatedAt": "2024-03-04T15:40:41Z",
+          "comments": [
+            {
+              "originalPosition": 157,
+              "body": "this is from https://www.ietf.org/archive/id/draft-tschofenig-rats-psa-token-22.html#name-coap-content-formats-regist ",
+              "createdAt": "2024-03-04T15:40:41Z",
+              "updatedAt": "2024-03-04T15:40:41Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
