@@ -2,7 +2,7 @@
 
 This is the working area for the individual Internet-Draft, "Remote Attestation for EDHOC".
 
-* [Editor's Copy](https://ysong02.github.io/RemoteAttestation_overEDHOC/#go.draft-song-lake-ra.html)
+* [Editor's Copy](https://ysong02.github.io/draft-song-lake-ra/draft-song-lake-ra.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-song-lake-ra)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-song-lake-ra)
 * [Compare Editor's Copy to Individual Draft](https://ysong02.github.io/RemoteAttestation_overEDHOC/#go.draft-song-lake-ra.diff)
