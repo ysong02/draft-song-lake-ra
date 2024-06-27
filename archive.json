@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-06-25T01:00:57.937769+00:00",
+  "timestamp": "2024-06-27T01:01:21.497854+00:00",
   "repo": "ysong02/draft-song-lake-ra",
   "labels": [
     {
@@ -366,24 +366,26 @@
       "id": "PR_kwDOK17GRM5zWFe8",
       "title": "Fix editor's copy link on readme",
       "url": "https://github.com/ysong02/draft-song-lake-ra/pull/11",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "geonnave",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "As the title says; allows for easier access to latest version.",
       "createdAt": "2024-06-24T10:14:28Z",
-      "updatedAt": "2024-06-24T10:14:28Z",
+      "updatedAt": "2024-06-26T06:55:00Z",
       "baseRepository": "ysong02/draft-song-lake-ra",
       "baseRefName": "main",
       "baseRefOid": "346e0b783283ca6d178848e9c872b7234ae743e5",
       "headRepository": "geonnave/draft-song-lake-ra",
       "headRefName": "fix-editor-copy-link",
       "headRefOid": "40439555062cb51d20832d7293ac24e36ae3a7d4",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-06-26T06:54:59Z",
+      "mergedAt": "2024-06-26T06:54:59Z",
+      "mergedBy": "ysong02",
+      "mergeCommit": {
+        "oid": "e8226ae0513280a4fd2ea55e6ea73df386e55cc1"
+      },
       "comments": [],
       "reviews": []
     }
