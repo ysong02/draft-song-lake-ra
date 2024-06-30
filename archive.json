@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-06-27T01:01:21.497854+00:00",
+  "timestamp": "2024-06-30T01:06:36.713711+00:00",
   "repo": "ysong02/draft-song-lake-ra",
   "labels": [
     {
@@ -347,13 +347,13 @@
       "labels": [],
       "body": "Fixes #10 \r\nAdd and complete:\r\n* Error handling section\r\n* Security Considerations section\r\nAdd but not complete:\r\n* Reversed attestation section\r\n* Mutual attestation\r\nChange:\r\n* Introduction: passport model is possible but is not covered in the draft\r\n* Problem Description: three cases (add reversed attestation and mutual attestation)\r\n* change Figure3 to clarify the EDHOC session\r\n",
       "createdAt": "2024-06-06T16:10:36Z",
-      "updatedAt": "2024-06-06T17:00:23Z",
+      "updatedAt": "2024-06-28T08:48:23Z",
       "baseRepository": "ysong02/draft-song-lake-ra",
       "baseRefName": "main",
       "baseRefOid": "346e0b783283ca6d178848e9c872b7234ae743e5",
       "headRepository": "ysong02/draft-song-lake-ra",
       "headRefName": "first-version01",
-      "headRefOid": "41987ab8baa051cbad8532fa9c87a7df36653019",
+      "headRefOid": "90b3e3591f8905405d8a494f39f4847aa7d834bb",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
