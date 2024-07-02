@@ -41,7 +41,6 @@ informative:
       title: CoAP Content-Formats
       target: https://www.iana.org/assignments/core-parameters
     I-D.ietf-lake-authz:
-    I-D.ietf-rats-ar4si:
     IANA-COSE-Header-Parameters:
       title: COSE Header Parameters
       target: https://www.iana.org/cose/header-parameters
@@ -55,7 +54,7 @@ This document specifies how to perform remote attestation as part of the lightwe
 
 <!--Discuss remote attestation and mention some use cases.-->
 Remote attestation is a security process which verifies and confirms the integrity and trustworthiness of a remote device or system in the network.
-This process helps establish a level of trust in the remote system before allowing the device to e.g. join the network or access some sensitive information and resources.
+This process helps establish a level of trust in the remote system before allowing the device to e.g. join the network or get the access to some sensitive information and resources.
 The use cases that require remote attestation include secure boot and firmware management, cloud computing, network access control, etc.
 
 <!--Summarize RATS architecture {{RFC9334}} and main roles.-->
@@ -77,20 +76,21 @@ EDHOC can support both background-check model and passport model to perform remo
 This specification employs both the RATS background-check model and the passport model.
 
 <!--Discuss EAT-->
-One way of conveying attestation evidence is the Entity Attestation Token (EAT) {{I-D.ietf-rats-eat}}.
-It provides an attested claims set that describes the state and the characteristics of the Attester, which can be used to determine its level of trustworthiness.
-This specification relies on the EAT as the format for attestation evidence.
+One way of conveying attestation evidence/ attestation result is the Entity Attestation Token (EAT) {{I-D.ietf-rats-eat}}.
+It provides an attested claims set which can be used to determine a level of trustworthiness.
+This specification relies on the EAT as the format for attestation evidence and the attestation result.
 
 <!--Summarize EDHOC {{RFC9528}}. Mention EAD fields of EDHOC.-->
 Ephemeral Diffie-Hellman over COSE (EDHOC) {{RFC9528}} is a lightweight authenticated key exchange protocol for highly constrained networks.
 In EDHOC, the two parties involved in the key exchange are referred to as the Initiator (I) and the Responder (R).
 EDHOC supports the transport of external authorization data, through the dedicated EAD fields.
 This specification delivers EAT through EDHOC.
-Specifically, EAT is transported as an EAD item.
+Specifically, EAT is transported as an ead item.
+There are also some new ead items defined in {{ead-items}}.
 
 <!--Discuss implementation aspects such as the internal attestation service running on the Attester.
 Root of trust. Separation between secure and non-secure worlds.-->
-Typically, the Attester incorporates an internal attestation service, including a specific trusted element known as the "root of trust".
+For the generation of evidence in remote attestation, the Attester incorporates an internal attestation service, including a specific trusted element known as the "root of trust".
 Root of trust serves as the starting point for establishing and validating the trustworthiness appraisals of other components on the system.
 The measurements signed by the attestation service are referred to as the Evidence.
 The signing is requested through an attestation API.
@@ -99,33 +99,33 @@ How the components are separated between the secure and non-secure worlds on a d
 # Conventions and Definitions
 {::boilerplate bcp14-tagged}
 
-The reader is assumed to be familiar with the terms and concepts defined in EDHOC {{RFC9528}} and RATS {{RFC9334}}.
+The reader is assumed to be familiar with the terms and concepts defined in EDHOC {{RFC9528}} and RATS architecture{{RFC9334}}.
 
 # Problem Description
 
 This specification describes how to perform remote attestation over the EDHOC protocol according to the RATS architecture.
 Remote attestation protocol elements are carried within EDHOC's External Authorization Data (EAD) fields.
-More specifically, this specification supports the RATS background-check model.
+More specifically, this specification supports both the RATS background-check model and passport model.
 It considers three cases:
-1.Remote attestation with EDHOC Initiator as an Attester and EDHOC Responder as a Relying Party.
-2.Reverse attestation over reverse EDHOC message flow (see {{Appendix A.2.2 of RFC9528}}).
-EDHOC Initiator acts as a Relying Party and EDHOC Responder acts as an Attester.
-3.Mutual attestation.
+1.Forward remote attestation with the EDHOC Initiator as an Attester and the EDHOC Responder as a Relying Party.
+2.Reverse attestation over reverse EDHOC message flow (see {{Appendix A.2.2 of RFC9528}}), in both background-check model and passport model.
+3.Mutual attestation, one using background-check -- background-check model, and the other one using background-check -- passport model.
 The specification describes how the Attester EDHOC Initiator and EDHOC Responder complete the EDHOC handshake complemented with remote attestation protocol elements in the above cases.
 
 # Assumptions
 
-The details of the protocol between Relying Party and Verifier are out of the scope.
-The only assumption is that the Verifier outputs a fresh nonce and that same nonce is passed on to the EDHOC session.
+The details of the protocol between Relying Party and Verifier in background-check model, and the protocol between the Attester and the Verifier in passport model are out of the scope.
+It could be an EDHOC protocol, TLS protocol or other security protocols.
+
+In background-check model, one assumption is that the Verifier outputs a fresh nonce and that same nonce is passed on to the EDHOC session.
 That is where the link between the two protocols comes in.
 The remainder, such as the evidence type selection is just the negotiation.
-In general, the Verifier is supposed to know how to verify more than one format of the evidence type.
+The Verifier is supposed to know how to verify more than one format of the evidence type.
 Therefore, the Verifier MUST send back at least one format to the Relying Party.
 We assume in this specification, the Relying Party also has knowledge about the Attester, so it can narrow down the type selection and send to the Attester only one format of evidence type.
-
-
 The Attester should have an explicit relation with the Verifier, such as from device manufacuture, so that the Verifier can evaluate the Evidence that is produced by the Attester.
-The authentication between the Attester and the Relying Party is performed with EDHOC {{RFC9528}} and defines the process of remote attestation using the External Authorization Data (EAD) fields defined in EDHOC.
+
+In passport model, the credential of the Verifier is assumed to be stored at the Attester and the Relying Party, which means the Verifier is trusted by the Attester and the Relying Party to obtain the attestation result.
 
 # The Protocol {#protocol}
 
@@ -484,7 +484,6 @@ Request_structure = {
 
 The attestation result is generated and signed by the Verifier as a serialized EAT {{I-D.ietf-rats-eat}}.
 The Relying Party can decide what action to take with regards to the Attester based on the information elements in attetation result.
-One way for encoding the attestation result is defined by the RATS working group {{I-D.ietf-rats-ar4si}}.
 
 The EAD item is:
 
@@ -504,12 +503,12 @@ The format of the error message follows the one in EDHOC protocol(see {{Section 
 +----------+----------------+----------------------------------------+
 | ERR_CODE | ERR_INFO Type  | Description                            |
 +==========+================+========================================+
-|     TBD4 | attestation    | Attestation failed                     |
+|     TBD7 | attestation    | Attestation failed                     |
 +----------+----------------+----------------------------------------+
 ~~~~~~~~~~~
 {: #fig-error title="EDHOC error code and error information for Attestation failed."}
 
-Error code TBD4 indicates to the receiver that the remote attestation is failed after the evidence is sent.
+Error code TBD7 indicates to the receiver that the remote attestation is failed after the evidence is sent.
 This can occur in two cases:
 
 1. The Verifier evaluates the attestation evidence and returns a negative result based on the Verifier's appraisal policy.
@@ -529,13 +528,13 @@ EAD_1 is not resistant to either active attackers or passive attackers, because 
 
 Although EAD_2 is encrypted, the Initiator has not been authenticated, rendering EAD_2 vulnerable against the active attackers.
 
-The evidence type(s) in EAD_1 and EAD_2 MAY be very specific and potentially reveal sensitive information about the device.
-The leaking of the evidence type in EAD_1 and/or EAD_2 MAY risk to be used by the attackers for malicious purposes.
+The ead items in EAD_1 and EAD_2 MAY be very specific and potentially reveal sensitive information about the device.
+The leaking of the data in EAD_1 and/or EAD_2 MAY risk to be used by the attackers for malicious purposes.
 Data in EAD_3 and EAD_4 are protected between the Initiator and the Responder in EDHOC.
 
 Mutual attestation carries a lower risk for EAD items when the Responder is the Attester.
-Only the Attestation_proposal in EAD_2 is not protected to active attackers.
-Both the attestation_request in EAD_3 and the evidence in EAD_4 are protected.
+For the mutual attestation at the EDHOC Responder, only the Attestation_proposal/Result_proposal in EAD_2 is not protected to active attackers.
+Both the Attestation_request/Result_request in EAD_3 and the Evidence/Result in EAD_4 are protected.
 
 # IANA Considerations
 
@@ -639,16 +638,16 @@ The detailed procedure is TBD.
 
 The goal in this example is to verify that the firmware running on the device is the latest version, and is neither tampered or compromised.
 A device acts as the Attester, currently in an untrusted state.
-The Attester needs to generate the Evidence to attest itself.
+The Attester needs to generate the evidence to attest itself.
 A gateway that can communicate with the Attester and can control its access to the network acts as the Relying Party.
-The gateway will finally decide whether the device can join the network or not depending on the Attestation Result.
-The Attestation Result is produced by the Verifier, which is a web server that can be seen as the manufacturer of the device.
-Therefore it can appraise the Evidence that is sent by the Attester.
+The gateway will finally decide whether the device can join the network or not depending on the attestation result.
+The attestation result is produced by the Verifier, which is a web server that can be seen as the manufacturer of the device.
+Therefore it can appraise the evidence that is sent by the Attester.
 The remote attestation session starts with the Attester sending EAD_1 in EDHOC message 1, as specified in {{attestation-proposal}}.
 In EAD_1 field, the Attester indicates that the format of EAT is in CWT and the profile of EAT is Platform Security Architecture (PSA) attestation token {{I-D.tschofenig-rats-psa-token}}.
 PSA attestation token contains the claims relating to the security state of the platform, which are provided by PSA's Initial Attestation API.
 
-Therefore, the EAD_1 in EDHOC message_1 is:
+Therefore, an example of the EAD_1 in EDHOC message_1 could be:
 
 ~~~~~~~~~~~~~~~~
 {
@@ -745,4 +744,4 @@ TBD
 # Acknowledgments
 {:numbered="false"}
 
-The author would like to thank Thomas Fossati, Goran Selander, Malisa Vucinic, Ionut Mihalcea, Muhammad Usama Sardar and Michael Richardson for the provided feedback.
+The author would like to thank Thomas Fossati, Goran Selander, Malisa Vucinic, Ionut Mihalcea, Muhammad Usama Sardar and Michael Richardson for the provided ideas and feedback.
