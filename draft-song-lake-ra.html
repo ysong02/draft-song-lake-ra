@@ -9,11 +9,11 @@
 <meta content="
        This document specifies how to perform remote attestation as part of the lightweight authenticated Diffie-Hellman key exchange protocol EDHOC (Ephemeral Diffie-Hellman Over COSE), based on the Remote ATtestation procedureS (RATS) architecture. 
     " name="description">
-<meta content="xml2rfc 3.21.0" name="generator">
+<meta content="xml2rfc 3.22.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-song-lake-ra-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.21.0
+  xml2rfc 3.22.0
     Python 3.12.3
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
@@ -23,9 +23,8 @@
     platformdirs 4.2.2
     pycountry 22.3.5
     PyYAML 6.0.1
-    requests 2.31.0
+    requests 2.32.3
     setuptools 69.5.1
-    six 1.16.0
     wcwidth 0.2.13
 -->
 <link href="draft-song-lake-ra.xml" rel="alternate" type="application/rfc+xml">
@@ -1029,7 +1028,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Song</td>
-<td class="center">Expires 4 January 2025</td>
+<td class="center">Expires 6 January 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1042,12 +1041,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-song-lake-ra-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-07-03" class="published">3 July 2024</time>
+<time datetime="2024-07-05" class="published">5 July 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-01-04">4 January 2025</time></dd>
+<dd class="expires"><time datetime="2025-01-06">6 January 2025</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1097,7 +1096,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 4 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 6 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1265,10 +1264,9 @@ It resembles the procedure of how employers perform background checks to determi
 In this case, the employer acts as the Relying Party, the employee acts as the Attester and the organization acts as the Verifier.
 The Attester conveys evidence directly to the Relying Party and the Relying Party forwards the evidence to the Verifier for appraisal.
 Once the attestation result is computed by the Verifier, it is sent back to the Relying Party to decide what action to take based on the attestation result.
-Another model is called passport model, in which the Attester communicates directly with the Verifier.
-The Attester gives the evidence to the Verifier and gets an attestation result from the Verifier.
+Another model is called passport model, where the Attester communicates directly with the Verifier.
+The Attester presents the evidence to the Verifier and gets an attestation result from the Verifier.
 THen the Attester conveys the attestation result to the Relying Party.
-EDHOC can support both background-check model and passport model to perform remote attestation.
 This specification employs both the RATS background-check model and the passport model.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">One way of conveying attestation evidence/ attestation result is the Entity Attestation Token (EAT) <span>[<a href="#I-D.ietf-rats-eat" class="cite xref">I-D.ietf-rats-eat</a>]</span>.
 It provides an attested claims set which can be used to determine a level of trustworthiness.
@@ -1277,9 +1275,9 @@ This specification relies on the EAT as the format for attestation evidence and 
 In EDHOC, the two parties involved in the key exchange are referred to as the Initiator (I) and the Responder (R).
 EDHOC supports the transport of external authorization data, through the dedicated EAD fields.
 This specification delivers EAT through EDHOC.
-Specifically, EAT is transported as an ead item.
-There are also some new ead items defined in <a href="#ead-items" class="auto internal xref">Section 5.4</a>.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">For the generation of evidence in remote attestation, the Attester incorporates an internal attestation service, including a specific trusted element known as the "root of trust".
+Specifically, EAT is transported as an EAD item.
+There are also some new EAD items defined in <a href="#ead-items" class="auto internal xref">Section 5.4</a>.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">For the generation of evidence, the Attester incorporates an internal attestation service, including a specific trusted element known as the "root of trust".
 Root of trust serves as the starting point for establishing and validating the trustworthiness appraisals of other components on the system.
 The measurements signed by the attestation service are referred to as the Evidence.
 The signing is requested through an attestation API.
@@ -1347,7 +1345,7 @@ For example, doing remote attestation to verify that the latest version of firmw
           <h4 id="name-background-check-model">
 <a href="#section-5.1.1" class="section-number selfRef">5.1.1. </a><a href="#name-background-check-model" class="section-name selfRef">Background-check model</a>
           </h4>
-<p id="section-5.1.1-1">An overview of doing forward remote attestation over EDHOC is indicated in <a href="#fig-forward-attestation" class="auto internal xref">Figure 1</a>.
+<p id="section-5.1.1-1">An overview of doing forward remote attestation over EDHOC is established in <a href="#fig-forward-attestation" class="auto internal xref">Figure 1</a>.
 EDHOC session is between the Attester and the Relying Party in background-check model.
 EDHOC Initiator plays the role of the RATS Attester.
 EDHOC Responder plays the role of the RATS Relying Party.
@@ -1453,15 +1451,10 @@ An overview of the message flow is shown in <a href="#fig-reverse-attestation-ba
 The Relying Party triggers a new EDHOC session with a Uri-Path: "/.well-known/edhoc".
 EDHOC message_1 is then sent from the Attester with an Attestation proposal carried in EAD_1.
 The Attestation request is then carried in EAD_2 and the Evidence is carried in EAD_3.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.1-2">Since Attestation proposal is not a pre-request to have the Attestation request, a shorter procedure is possible.
-In this approacch, the Attestation request is sent directly during the trigger phase, and the Evidence is sent in EAD_1.
-However, it is crucial to think of the level of security outlined in <a href="#security-considerations" class="auto internal xref">Section 7</a>.
-Given that both the trigger and EAD_1 are not protected, the risk of data leakage is significantly elevated.
-So this approach is stongly discouraged due to the high security risks involved.<a href="#section-5.2.1-2" class="pilcrow">¶</a></p>
 <span id="name-overview-of-reverse-attesta"></span><div id="fig-reverse-attestation-background">
 <figure id="figure-2">
-            <div id="section-5.2.1-3.1">
-              <div class="alignCenter art-svg artwork" id="section-5.2.1-3.1.1">
+            <div id="section-5.2.1-2.1">
+              <div class="alignCenter art-svg artwork" id="section-5.2.1-2.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="400" width="552" viewBox="0 0 552 400" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
                   <path d="M 8,80 L 8,352" fill="none" stroke="black"></path>
                   <path d="M 96,80 L 96,352" fill="none" stroke="black"></path>
@@ -1524,7 +1517,7 @@ So this approach is stongly discouraged due to the high security risks involved.
                     <text x="352" y="388">EDHOC</text>
                     <text x="408" y="388">session</text>
                   </g>
-                </svg><a href="#section-5.2.1-3.1.1" class="pilcrow">¶</a>
+                </svg><a href="#section-5.2.1-2.1.1" class="pilcrow">¶</a>
 </div>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
@@ -1542,21 +1535,19 @@ So this approach is stongly discouraged due to the high security risks involved.
 The EDHOC session is between the Relying Party and the Attester.
 An overview of the message flow is illustrated in <a href="#fig-reverse-attestation-passport" class="auto internal xref">Figure 3</a>.
 The EAD items specific to the passport model are defined in <a href="#ead-items" class="auto internal xref">Section 5.4</a>.<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.2-2">The Attester sends EDHOC message_1 containing a Result proposal carried in EAD_1.
+<p id="section-5.2.2-2">During the EDHOC session using passport model, the Attester provides a list of the Verifier identities from which it can obtain the Attestation result.
+The Relying Party then selects a Verifier identity it trusts for the Attester to obtain the Attestation result from.<a href="#section-5.2.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2.2-3">The Attester sends EDHOC message_1 containing a Result proposal carried in EAD_1.
 The Result proposal includes a list of trusted Verifier identities by the Attester.
-In EAD_2, a Result request is sent including a selected Verifier identity and a nonce generated by the Relying Party.
-Upon receiving the Result request, the Attester contacts the designated Verifier to obtain the attestation result.
-The attestation result is then carried in EAD_3.<a href="#section-5.2.2-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.2-3">An open discussion here is the expected freshness of the Attestation result at the Verifier, considering two perspectives:
+In EAD_2, a Result request is sent including a selected Verifier identity from the Relying Party.
+Upon receiving the Result request, the Attester contacts the designated Verifier to obtain the Attestation result.
+The attestation result is then carried in EAD_3.<a href="#section-5.2.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2.2-4">An open discussion here is the expected freshness of the Attestation result at the Verifier, considering two perspectives:
 1. Fresh Remote Attestation: This approach invloves performing a fresh remote attestation when the Attester sends a Result request to the Verifier.
 The attestation result is generated with a nonce included from the Relying Party in Result request.
 2. Pre-stored Attestation with Timestamp: Alternatively, the remote attestation may finish when the Result request is sent, and the attestation result is stored at the Verifier with a timestamp indicating its validation period.
-In this case, the Relying Party needs to have the capability of time measurement and see whether the attestation result is still validated or not.<a href="#section-5.2.2-3" class="pilcrow">¶</a></p>
-<p id="section-5.2.2-4">Currently, we apply the first approach.<a href="#section-5.2.2-4" class="pilcrow">¶</a></p>
-<p id="section-5.2.2-5">Since Result proposal is not a pre-request to have the Result request, a shorter procedure is possible.
-In this approacch, the Result request is sent directly during the trigger phase, and the Result is sent in EAD_1.
-However, it is crucial to think of the level of security outlined in <a href="#security-considerations" class="auto internal xref">Section 7</a>.
-Given that both the trigger and EAD_1 are not protected, this approach is stongly discouraged due to the high security risks involved.<a href="#section-5.2.2-5" class="pilcrow">¶</a></p>
+In this case, the Relying Party needs to have the capability of time measurement and see whether the attestation result is still validated or not.<a href="#section-5.2.2-4" class="pilcrow">¶</a></p>
+<p id="section-5.2.2-5">We seek input from the working group on the expected freshness in the passport model.<a href="#section-5.2.2-5" class="pilcrow">¶</a></p>
 <span id="name-overview-of-reverse-attestat"></span><div id="fig-reverse-attestation-passport">
 <figure id="figure-3">
             <div id="section-5.2.2-6.1">
@@ -1643,15 +1634,25 @@ The second option is mutual attestation using a hybrid of the background-check m
           </h4>
 <p id="section-5.3.1-1">In this section, both the EDHOC Initiator and the EDHOC Responder perform remote attestation using the background-check model.
 This approach is suitable for devices with no connectivity constraints.
-The process is as follows:
-1. The EDHOC Initiator starts the remote attestation by sending an Attestation proposal in EAD_1.
-2. The EDHOC Responder initiates the second remote attestation by sending an Attestation proposal in EAD_2, along with an Attestation request in response to the EDHOC Initiator's proposal.
-3. In EAD_3, the EDHOC Initiator sends two ead items: the Evidence of the first remote attestation and an Attestation request for the second remote attestation.
-4. A forth EDHOC message is required to send the Evidence of the second remote attestation from the EDHOC Responder to the EDHOC Initiator.<a href="#section-5.3.1-1" class="pilcrow">¶</a></p>
+The process is as follows:<a href="#section-5.3.1-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5.3.1-2">
+<li id="section-5.3.1-2.1">
+              <p id="section-5.3.1-2.1.1">The EDHOC Initiator starts the remote attestation by sending an Attestation proposal in EAD_1.<a href="#section-5.3.1-2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-5.3.1-2.2">
+              <p id="section-5.3.1-2.2.1">The EDHOC Responder initiates the second remote attestation by sending an Attestation proposal in EAD_2, along with an Attestation request in response to the EDHOC Initiator's proposal.<a href="#section-5.3.1-2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-5.3.1-2.3">
+              <p id="section-5.3.1-2.3.1">In EAD_3, the EDHOC Initiator sends two EAD items: the Evidence of the first remote attestation and an Attestation request for the second remote attestation.<a href="#section-5.3.1-2.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-5.3.1-2.4">
+              <p id="section-5.3.1-2.4.1">A forth EDHOC message is required to send the Evidence of the second remote attestation from the EDHOC Responder to the EDHOC Initiator.<a href="#section-5.3.1-2.4.1" class="pilcrow">¶</a></p>
+</li>
+          </ol>
 <span id="name-overview-of-mutual-attestat"></span><div id="fig-mutual-attestation-BB">
 <figure id="figure-4">
-            <div id="section-5.3.1-2.1">
-              <div class="alignCenter art-svg artwork" id="section-5.3.1-2.1.1">
+            <div id="section-5.3.1-3.1">
+              <div class="alignCenter art-svg artwork" id="section-5.3.1-3.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="416" width="760" viewBox="0 0 760 416" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
                   <path d="M 8,80 L 8,368" fill="none" stroke="black"></path>
                   <path d="M 96,80 L 96,368" fill="none" stroke="black"></path>
@@ -1746,7 +1747,7 @@ The process is as follows:
                     <text x="344" y="404">EDHOC</text>
                     <text x="400" y="404">session</text>
                   </g>
-                </svg><a href="#section-5.3.1-2.1.1" class="pilcrow">¶</a>
+                </svg><a href="#section-5.3.1-3.1.1" class="pilcrow">¶</a>
 </div>
 </div>
 <figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
@@ -1761,18 +1762,28 @@ The process is as follows:
 <a href="#section-5.3.2" class="section-number selfRef">5.3.2. </a><a href="#name-background-check-model-pass" class="section-name selfRef">Background-check model -- Passport model</a>
           </h4>
 <p id="section-5.3.2-1">This use case is applicable when the EDHOC Initiator is constrained in terms of connectivity.
-In this case, the mutual attestation begins with a forward background-check attestation, followed by a reverse passport attestation.
-1. EDHOC Initiator sends the first EDHOC message with an Attestation proposal in EAD_1.
-2. In EAD_2, two ead items are included: an Attestation request responding to the EDHOC Initiator's proposal and a Result proposal to initiate a reverse passport attestation.
-The EDHOC Responder <span class="bcp14">SHOULD</span> connect to a Verifier to select the evidence type for the forward attestation in background-check model.
-3. In EAD_3, two ead items are included: an Evidence and a Result request.
+In this case, the mutual attestation begins with a forward background-check attestation, followed by a reverse passport attestation.<a href="#section-5.3.2-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5.3.2-2">
+<li id="section-5.3.2-2.1">
+              <p id="section-5.3.2-2.1.1">EDHOC Initiator sends the first EDHOC message with an Attestation proposal in EAD_1.<a href="#section-5.3.2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-5.3.2-2.2">
+              <p id="section-5.3.2-2.2.1">In EAD_2, two EAD items are included: an Attestation request responding to the EDHOC Initiator's proposal and a Result proposal to initiate a reverse passport attestation.
+The EDHOC Responder <span class="bcp14">SHOULD</span> connect to a Verifier to select the evidence type for the forward attestation in background-check model.<a href="#section-5.3.2-2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-5.3.2-2.3">
+              <p id="section-5.3.2-2.3.1">In EAD_3, two EAD items are included: an Evidence and a Result request.
 The EDHOC Responder <span class="bcp14">SHOULD</span> connect to the Verfier in the passport model(VP) indicated in the Result request to obtain the Result from that Verifier.
-Simultaneously, the EDHOC Responder sends the received Evidence to the Verifier in the background-check model(VB) to get the attestation result of the first forward attestation.
-4. The EDHOC Responder sends the Result that is obtained from VP to the EDHOC Initiator in EAD_4, and consumes the Attetation result from VB.<a href="#section-5.3.2-1" class="pilcrow">¶</a></p>
+Simultaneously, the EDHOC Responder sends the received Evidence to the Verifier in the background-check model(VB) to get the attestation result of the first forward attestation.<a href="#section-5.3.2-2.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-5.3.2-2.4">
+              <p id="section-5.3.2-2.4.1">The EDHOC Responder sends the Result that is obtained from VP to the EDHOC Initiator in EAD_4, and consumes the Attetation result from VB.<a href="#section-5.3.2-2.4.1" class="pilcrow">¶</a></p>
+</li>
+          </ol>
 <span id="name-overview-of-mutual-attestati"></span><div id="fig-mutual-attestation-BP">
 <figure id="figure-5">
-            <div id="section-5.3.2-2.1">
-              <div class="alignCenter art-svg artwork" id="section-5.3.2-2.1.1">
+            <div id="section-5.3.2-3.1">
+              <div class="alignCenter art-svg artwork" id="section-5.3.2-3.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="416" width="760" viewBox="0 0 760 416" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
                   <path d="M 8,32 L 8,368" fill="none" stroke="black"></path>
                   <path d="M 104,32 L 104,368" fill="none" stroke="black"></path>
@@ -1864,11 +1875,11 @@ Simultaneously, the EDHOC Responder sends the received Evidence to the Verifier 
                     <text x="128" y="404">EDHOC</text>
                     <text x="184" y="404">session</text>
                   </g>
-                </svg><a href="#section-5.3.2-2.1.1" class="pilcrow">¶</a>
+                </svg><a href="#section-5.3.2-3.1.1" class="pilcrow">¶</a>
 </div>
 </div>
 <figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
-<a href="#name-overview-of-mutual-attestati" class="selfRef">Overview of mutual attestation of Background-check model -- Passport model. EDHOC is used between A and RP. The link between V and RP is out of scope of this specification.</a>
+<a href="#name-overview-of-mutual-attestati" class="selfRef">Overview of mutual attestation of Background-check model -- Passport model. EDHOC is used between A and RP.</a>
             </figcaption></figure>
 </div>
 </section>
@@ -2048,8 +2059,7 @@ Relying Party generates a nonce to ensure the freshness of the attestation resul
 Result_request = bstr .cbor Request_structure
 
 Request_structure = {
-  selected_verifier: VerfierIdentity,
-  nonce: bstr
+  selected_verifier: VerfierIdentity
 }
 </pre><a href="#section-5.4.5-4" class="pilcrow">¶</a>
 </div>
