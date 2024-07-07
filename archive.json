@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-07-04T01:01:38.447600+00:00",
+  "timestamp": "2024-07-07T01:07:04.377201+00:00",
   "repo": "ysong02/draft-song-lake-ra",
   "labels": [
     {
@@ -515,24 +515,26 @@
       "id": "PR_kwDOK17GRM50RCOd",
       "title": "draft-01: modified based on Malisa's comments",
       "url": "https://github.com/ysong02/draft-song-lake-ra/pull/12",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "ysong02",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "* some word substitutions\r\n* deleted confusing sentences\r\n* clarify the list of verifier identities in message_1 using the pasport model\r\n* indicate the freshness in the passport model is seeking input from WG\r\n",
       "createdAt": "2024-07-03T02:23:55Z",
-      "updatedAt": "2024-07-03T02:23:55Z",
+      "updatedAt": "2024-07-05T12:36:23Z",
       "baseRepository": "ysong02/draft-song-lake-ra",
       "baseRefName": "main",
       "baseRefOid": "5c52eb23aaf28d6924ea1d0f137f5cd5c4e6f9b5",
       "headRepository": "ysong02/draft-song-lake-ra",
       "headRefName": "first-version01",
       "headRefOid": "1db14d2cc529f50f7c4c83dbbb483672fd423584",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-07-05T12:36:23Z",
+      "mergedAt": "2024-07-05T12:36:23Z",
+      "mergedBy": "ysong02",
+      "mergeCommit": {
+        "oid": "ce16a8def7ff7a5dcd61bd841a671779b131d29b"
+      },
       "comments": [],
       "reviews": []
     }
