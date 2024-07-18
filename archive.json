@@ -1,0 +1,542 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2024-07-18T01:02:12.506185+00:00",
+  "repo": "ysong02/draft-song-lake-ra",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOK17GRM5500U-",
+      "title": "Add introduction",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/issues/2",
+      "state": "CLOSED",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "introduction half completed",
+      "createdAt": "2023-12-15T15:06:26Z",
+      "updatedAt": "2023-12-20T14:34:18Z",
+      "closedAt": "2023-12-20T14:34:18Z",
+      "comments": [
+        {
+          "author": "ysong02",
+          "authorAssociation": "OWNER",
+          "body": "first version of introduction and abstract done",
+          "createdAt": "2023-12-18T16:52:46Z",
+          "updatedAt": "2023-12-18T16:52:46Z"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOK17GRM58nUSn",
+      "title": "rewrite the assumptions",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/issues/4",
+      "state": "CLOSED",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "The assumption that the authentication credential is the same as the attestation key should be removed. Should rewrite the assumptions that suit the background-check model. ",
+      "createdAt": "2024-01-19T14:28:00Z",
+      "updatedAt": "2024-03-04T16:05:53Z",
+      "closedAt": "2024-03-04T16:05:53Z",
+      "comments": []
+    },
+    {
+      "number": 5,
+      "id": "I_kwDOK17GRM58nYTd",
+      "title": "The fonctionality of Verifier in the draft",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/issues/5",
+      "state": "CLOSED",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Think about what is the fonctionality of Verifier, what Verifier gives to the Relying Party in the background-check model.",
+      "createdAt": "2024-01-19T14:37:43Z",
+      "updatedAt": "2024-03-04T16:05:53Z",
+      "closedAt": "2024-03-04T16:05:53Z",
+      "comments": []
+    },
+    {
+      "number": 6,
+      "id": "I_kwDOK17GRM59DFTV",
+      "title": "Add two figures, general and detailed message flow",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/issues/6",
+      "state": "CLOSED",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "One figure for the protocol overview and the other in Appendix.",
+      "createdAt": "2024-01-24T10:34:22Z",
+      "updatedAt": "2024-02-23T13:45:27Z",
+      "closedAt": "2024-02-23T13:45:27Z",
+      "comments": []
+    },
+    {
+      "number": 10,
+      "id": "I_kwDOK17GRM6LZnxn",
+      "title": "Add Error handling and Security considerations sections",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/issues/10",
+      "state": "CLOSED",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Add and complete:\r\n* Error handling section\r\n* Security Considerations section\r\n\r\nAdd but not complete:\r\n* Reversed attestation section\r\n* Mutual attestation\r\n\r\nChange:\r\n* Introduction: passport model is possible but is not covered in the draft\r\n* Problem Description: three cases (add reversed attestation and mutual attestation)\r\n* change Figure3 to clarify the EDHOC session\r\n",
+      "createdAt": "2024-06-06T16:59:08Z",
+      "updatedAt": "2024-07-03T01:24:38Z",
+      "closedAt": "2024-07-03T01:24:38Z",
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOK17GRM5iBAz_",
+      "title": "General structure and TODOs",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/pull/1",
+      "state": "MERGED",
+      "author": "malishav",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Work on the draft after the meeting on 14/12/2023.",
+      "createdAt": "2023-12-14T15:35:41Z",
+      "updatedAt": "2023-12-15T09:18:07Z",
+      "baseRepository": "ysong02/draft-song-lake-ra",
+      "baseRefName": "main",
+      "baseRefOid": "e16739a8691811faa7d58a8ea9beda63445bb3e7",
+      "headRepository": "malishav/draft-song-lake-ra",
+      "headRefName": "main",
+      "headRefOid": "e1f7fdc14093eaa532f7d99c57038ca6de56c7ee",
+      "closedAt": "2023-12-15T09:18:07Z",
+      "mergedAt": "2023-12-15T09:18:07Z",
+      "mergedBy": "ysong02",
+      "mergeCommit": {
+        "oid": "bf17aa48664a2518b95e4f3f1a3cc90c9bef7176"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOK17GRM5iHqKR",
+      "title": "Introduction of draft completed",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/pull/3",
+      "state": "MERGED",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #2 \r\n",
+      "createdAt": "2023-12-15T15:07:56Z",
+      "updatedAt": "2024-06-06T12:03:30Z",
+      "baseRepository": "ysong02/draft-song-lake-ra",
+      "baseRefName": "main",
+      "baseRefOid": "bf17aa48664a2518b95e4f3f1a3cc90c9bef7176",
+      "headRepository": "ysong02/draft-song-lake-ra",
+      "headRefName": "introduction",
+      "headRefOid": "d649f58215000ca552159f082b4443631cf94332",
+      "closedAt": "2023-12-20T14:34:17Z",
+      "mergedAt": "2023-12-20T14:34:17Z",
+      "mergedBy": "ysong02",
+      "mergeCommit": {
+        "oid": "2b7007dfa635dc9b6dea9bb1c5ba49d85e63468f"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOK17GRM5noWX9",
+      "title": "First version",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/pull/7",
+      "state": "MERGED",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "preliminary first version, Fixes #6 #5 #4 ",
+      "createdAt": "2024-02-22T10:40:36Z",
+      "updatedAt": "2024-06-06T12:03:55Z",
+      "baseRepository": "ysong02/draft-song-lake-ra",
+      "baseRefName": "main",
+      "baseRefOid": "89bb7c292a77e56babc42463a2400e26333dad47",
+      "headRepository": "ysong02/draft-song-lake-ra",
+      "headRefName": "firstversion",
+      "headRefOid": "d53c4c47ad2d47acd9531c3b8ed5d952e5fe359d",
+      "closedAt": "2024-02-23T13:45:26Z",
+      "mergedAt": "2024-02-23T13:45:26Z",
+      "mergedBy": "ysong02",
+      "mergeCommit": {
+        "oid": "30e05e5d2b1f6498b135425e1930e21f9b0984e7"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOK17GRM5olvUQ",
+      "title": "firmware example",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/pull/8",
+      "state": "MERGED",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #4 \r\nFixes #5 \r\nfirmware example, change the overview figure",
+      "createdAt": "2024-03-04T13:20:31Z",
+      "updatedAt": "2024-03-04T16:05:51Z",
+      "baseRepository": "ysong02/draft-song-lake-ra",
+      "baseRefName": "main",
+      "baseRefOid": "30e05e5d2b1f6498b135425e1930e21f9b0984e7",
+      "headRepository": "ysong02/draft-song-lake-ra",
+      "headRefName": "Example-firmware",
+      "headRefOid": "f6242ba038c0af1ec78181d2bb12250aa98ab38d",
+      "closedAt": "2024-03-04T16:05:51Z",
+      "mergedAt": "2024-03-04T16:05:51Z",
+      "mergedBy": "ysong02",
+      "mergeCommit": {
+        "oid": "eb1f3556d0a01f1c72bb093ee7651ad2c7ebdc5d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOK17GRM5yGry-",
+          "commit": {
+            "abbreviatedOid": "546788f"
+          },
+          "author": "malishav",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Inline are some little comments on the PR to fix before merging",
+          "createdAt": "2024-03-04T13:47:58Z",
+          "updatedAt": "2024-03-04T14:02:08Z",
+          "comments": [
+            {
+              "originalPosition": 42,
+              "body": "replace \"authentification\" with \"authentication\"",
+              "createdAt": "2024-03-04T13:47:58Z",
+              "updatedAt": "2024-03-04T14:02:08Z"
+            },
+            {
+              "originalPosition": 130,
+              "body": "Replace the sentence with \"This section gives an example of a remote attestation protocol flow defined by this specification\".",
+              "createdAt": "2024-03-04T13:53:22Z",
+              "updatedAt": "2024-03-04T14:02:08Z"
+            },
+            {
+              "originalPosition": 132,
+              "body": "Remove \"who is\"",
+              "createdAt": "2024-03-04T13:53:55Z",
+              "updatedAt": "2024-03-04T14:02:08Z"
+            },
+            {
+              "originalPosition": 138,
+              "body": "Remove newline",
+              "createdAt": "2024-03-04T13:54:34Z",
+              "updatedAt": "2024-03-04T14:02:08Z"
+            },
+            {
+              "originalPosition": 142,
+              "body": "Sentence not clear",
+              "createdAt": "2024-03-04T13:56:18Z",
+              "updatedAt": "2024-03-04T14:02:08Z"
+            },
+            {
+              "originalPosition": 152,
+              "body": "Aren't you repeating the `Proposed_EvidenceType` definition here? An example should instantiate it",
+              "createdAt": "2024-03-04T13:57:34Z",
+              "updatedAt": "2024-03-04T14:02:08Z"
+            },
+            {
+              "originalPosition": 157,
+              "body": "I am not sure if this is the right way of citing a registry.",
+              "createdAt": "2024-03-04T13:58:47Z",
+              "updatedAt": "2024-03-04T14:02:08Z"
+            },
+            {
+              "originalPosition": 169,
+              "body": "Remove newline",
+              "createdAt": "2024-03-04T14:00:02Z",
+              "updatedAt": "2024-03-04T14:02:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOK17GRM5yH0Fv",
+          "commit": {
+            "abbreviatedOid": "546788f"
+          },
+          "author": "ysong02",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-03-04T15:40:41Z",
+          "updatedAt": "2024-03-04T15:40:41Z",
+          "comments": [
+            {
+              "originalPosition": 157,
+              "body": "this is from https://www.ietf.org/archive/id/draft-tschofenig-rats-psa-token-22.html#name-coap-content-formats-regist ",
+              "createdAt": "2024-03-04T15:40:41Z",
+              "updatedAt": "2024-03-04T15:40:41Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOK17GRM5xs8ie",
+      "title": "first version-01",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/pull/9",
+      "state": "MERGED",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #10 \r\nNew section added and complete:\r\n* Error handling section\r\n* Security Considerations section\r\n* Reversed attestation section (both background-check and passport)\r\n* Mutual attestation section (both 2*backgroud-check and background-check--passport )\r\n* 3 new ead items for transferring attestation result\r\n\r\nSections modified:\r\n* Introduction: passport model is also covered\r\n* Problem Description: three cases (add reversed attestation and mutual attestation)\r\n\r\n",
+      "createdAt": "2024-06-06T16:10:36Z",
+      "updatedAt": "2024-07-03T02:05:45Z",
+      "baseRepository": "ysong02/draft-song-lake-ra",
+      "baseRefName": "main",
+      "baseRefOid": "346e0b783283ca6d178848e9c872b7234ae743e5",
+      "headRepository": "ysong02/draft-song-lake-ra",
+      "headRefName": "first-version01",
+      "headRefOid": "15b4379bcaf80f74bd916a11f08e7d3ef1ad4249",
+      "closedAt": "2024-07-03T01:24:37Z",
+      "mergedAt": "2024-07-03T01:24:37Z",
+      "mergedBy": "ysong02",
+      "mergeCommit": {
+        "oid": "5c52eb23aaf28d6924ea1d0f137f5cd5c4e6f9b5"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOK17GRM6AZbA4",
+          "commit": {
+            "abbreviatedOid": "15b4379"
+          },
+          "author": "malishav",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Some comments inline",
+          "createdAt": "2024-07-02T15:10:11Z",
+          "updatedAt": "2024-07-02T16:06:22Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "s/in which/where",
+              "createdAt": "2024-07-02T15:10:11Z",
+              "updatedAt": "2024-07-02T16:06:22Z"
+            },
+            {
+              "originalPosition": 45,
+              "body": "s/gives/presents",
+              "createdAt": "2024-07-02T15:10:24Z",
+              "updatedAt": "2024-07-02T16:06:22Z"
+            },
+            {
+              "originalPosition": 47,
+              "body": "What does it mean \"EDHOC can support both models\". How does EDHOC support both models, it is this specification that supports them, not EDHOC.. Proposal to delete the sentence",
+              "createdAt": "2024-07-02T15:12:18Z",
+              "updatedAt": "2024-07-02T16:06:22Z"
+            },
+            {
+              "originalPosition": 66,
+              "body": "s/ead/EAD\r\n\r\nApplies throughout",
+              "createdAt": "2024-07-02T15:13:11Z",
+              "updatedAt": "2024-07-02T16:06:22Z"
+            },
+            {
+              "originalPosition": 72,
+              "body": "\"in remote attestation\" does not seem needed, really",
+              "createdAt": "2024-07-02T15:14:34Z",
+              "updatedAt": "2024-07-02T16:06:22Z"
+            },
+            {
+              "originalPosition": 90,
+              "body": "I believe that at this point, the reader does not know what \"forward\", \"reverse\" or \"mutual\" remote attestation is. Are these terms defined in RATS somewhere? If not, I would add a paragraph in the terminology section what these terms mean.",
+              "createdAt": "2024-07-02T15:16:43Z",
+              "updatedAt": "2024-07-02T16:06:22Z"
+            },
+            {
+              "originalPosition": 100,
+              "body": "Don't say \"details of the protocol\". This is how a security session is established between these entities. Proposal to rephrase to \"How the security session is established between the Relying Party and the Verifier, in the background check model, and between the Attester and the Verifier, in the passport model, is out of scope\". ",
+              "createdAt": "2024-07-02T15:43:35Z",
+              "updatedAt": "2024-07-02T16:06:22Z"
+            },
+            {
+              "originalPosition": 123,
+              "body": "s/doing/performing",
+              "createdAt": "2024-07-02T15:46:40Z",
+              "updatedAt": "2024-07-02T16:06:22Z"
+            },
+            {
+              "originalPosition": 128,
+              "body": "Rephrase to \"an overview of the remote attestation flow over EDHOC is indicated in..\"",
+              "createdAt": "2024-07-02T15:47:34Z",
+              "updatedAt": "2024-07-02T16:06:22Z"
+            },
+            {
+              "originalPosition": 129,
+              "body": "is established",
+              "createdAt": "2024-07-02T15:48:02Z",
+              "updatedAt": "2024-07-02T16:06:22Z"
+            },
+            {
+              "originalPosition": 179,
+              "body": "You are writing a specification which needs to tell the developer what protocol to implement. Mentioning this possibility without specifying it has no value. I would recommend removing it.",
+              "createdAt": "2024-07-02T15:54:57Z",
+              "updatedAt": "2024-07-02T16:06:22Z"
+            },
+            {
+              "originalPosition": 221,
+              "body": "It is not clear at this point why there might be multiple identities carries in message_1.",
+              "createdAt": "2024-07-02T15:57:43Z",
+              "updatedAt": "2024-07-02T16:06:22Z"
+            },
+            {
+              "originalPosition": 234,
+              "body": "What does this mean in a specification \"we apply the first approach\" ? Do you specify it somewhere?",
+              "createdAt": "2024-07-02T15:59:50Z",
+              "updatedAt": "2024-07-02T16:06:22Z"
+            },
+            {
+              "originalPosition": 240,
+              "body": "Again, don't mention it then if it is strognly discouraged.",
+              "createdAt": "2024-07-02T16:00:46Z",
+              "updatedAt": "2024-07-02T16:06:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOK17GRM6Ada7O",
+          "commit": {
+            "abbreviatedOid": "15b4379"
+          },
+          "author": "ysong02",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-03T02:05:45Z",
+          "updatedAt": "2024-07-03T02:05:45Z",
+          "comments": [
+            {
+              "originalPosition": 234,
+              "body": "A nonce was added in Result_request item, but currently changed this sentence to \"We seek input from the working group on the expected freshness in the passport model.\", and temporarily remove the use of nonce to allow for open discussion.",
+              "createdAt": "2024-07-03T02:05:45Z",
+              "updatedAt": "2024-07-03T02:05:45Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOK17GRM5zWFe8",
+      "title": "Fix editor's copy link on readme",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/pull/11",
+      "state": "MERGED",
+      "author": "geonnave",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "As the title says; allows for easier access to latest version.",
+      "createdAt": "2024-06-24T10:14:28Z",
+      "updatedAt": "2024-06-26T06:55:00Z",
+      "baseRepository": "ysong02/draft-song-lake-ra",
+      "baseRefName": "main",
+      "baseRefOid": "346e0b783283ca6d178848e9c872b7234ae743e5",
+      "headRepository": "geonnave/draft-song-lake-ra",
+      "headRefName": "fix-editor-copy-link",
+      "headRefOid": "40439555062cb51d20832d7293ac24e36ae3a7d4",
+      "closedAt": "2024-06-26T06:54:59Z",
+      "mergedAt": "2024-06-26T06:54:59Z",
+      "mergedBy": "ysong02",
+      "mergeCommit": {
+        "oid": "e8226ae0513280a4fd2ea55e6ea73df386e55cc1"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOK17GRM50RCOd",
+      "title": "draft-01: modified based on Malisa's comments",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/pull/12",
+      "state": "MERGED",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "* some word substitutions\r\n* deleted confusing sentences\r\n* clarify the list of verifier identities in message_1 using the pasport model\r\n* indicate the freshness in the passport model is seeking input from WG\r\n",
+      "createdAt": "2024-07-03T02:23:55Z",
+      "updatedAt": "2024-07-05T12:36:23Z",
+      "baseRepository": "ysong02/draft-song-lake-ra",
+      "baseRefName": "main",
+      "baseRefOid": "5c52eb23aaf28d6924ea1d0f137f5cd5c4e6f9b5",
+      "headRepository": "ysong02/draft-song-lake-ra",
+      "headRefName": "first-version01",
+      "headRefOid": "1db14d2cc529f50f7c4c83dbbb483672fd423584",
+      "closedAt": "2024-07-05T12:36:23Z",
+      "mergedAt": "2024-07-05T12:36:23Z",
+      "mergedBy": "ysong02",
+      "mergeCommit": {
+        "oid": "ce16a8def7ff7a5dcd61bd841a671779b131d29b"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
