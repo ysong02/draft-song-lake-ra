@@ -1252,7 +1252,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">Remote attestation is a security process which verifies and confirms the integrity and trustworthiness of a remote device or system in the network.
-This process helps establish a level of trust in the remote system before allowing the device to e.g. join the network or get the access to some sensitive information and resources.
+This process helps establish a level of trust in the remote system before allowing the device to e.g. join the network or get access to some sensitive information and resources.
 The use cases that require remote attestation include secure boot and firmware management, cloud computing, network access control, etc.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">The IETF working group Remote ATtestation procedureS (RATS) has defined an architecture <span>[<a href="#RFC9334" class="cite xref">RFC9334</a>]</span> for remote attestation.
 The three main roles in the RATS architecture are the Attester, the Verifier and the Relying Party.
@@ -1302,24 +1302,24 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       </h2>
 <p id="section-3-1">This specification describes how to perform remote attestation over the EDHOC protocol, following the RATS architecture.
 EDHOC provides the benefit of minimal message overhead and reduced round trips for a lightweight authentication.
-More importantly, by integrating remote attestation with EDHOC, attestation can be run in parallel with authentication, improving the efficiency and maintaining lightweight properties.
-Remote attestation protocol elements are carried within EDHOC's External Authorization Data (EAD) fields.
+More importantly, by integrating remote attestation with EDHOC, attestation can be run in parallel with authentication, improving the efficiency and maintaining lightweight properties.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">Remote attestation protocol elements are carried within EDHOC's External Authorization Data (EAD) fields.
 EDHOC <span>[<a href="#RFC9528" class="cite xref">RFC9528</a>]</span> supports one or more EAD items in each EAD field.
 EAD item is a CBOR sequence of an ead_label and an optional ead_value.
-More specifically, we define three independent aspects <a href="#attestation-aspects" class="auto internal xref">Section 5</a> for performing remote attestation over EDHOC:<a href="#section-3-1" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3-2">
-<li id="section-3-2.1">
-          <p id="section-3-2.1.1">Attestation Targets <a href="#targets" class="auto internal xref">Section 5.1</a>: remote attestation of IoT device / remote attestation of cloud/network service<a href="#section-3-2.1.1" class="pilcrow">¶</a></p>
+More specifically, we define three independent aspects <a href="#attestation-aspects" class="auto internal xref">Section 5</a> for performing remote attestation over EDHOC:<a href="#section-3-2" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3-3">
+<li id="section-3-3.1">
+          <p id="section-3-3.1.1">Attestation Targets (see in <a href="#targets" class="auto internal xref">Section 5.1</a>): remote attestation of IoT device / remote attestation of network service<a href="#section-3-3.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-3-2.2">
-          <p id="section-3-2.2.1">Attestation Models <a href="#models" class="auto internal xref">Section 5.2</a>: remote attestation in RATS background-check model / RATS passport model<a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
+        <li id="section-3-3.2">
+          <p id="section-3-3.2.1">Attestation Models (see in <a href="#models" class="auto internal xref">Section 5.2</a>): remote attestation in RATS background-check model / RATS passport model<a href="#section-3-3.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-3-2.3">
-          <p id="section-3-2.3.1">Atttestation Message Flow <a href="#flow" class="auto internal xref">Section 5.3</a>: EDHOC forward message flow / EDHOC reverse message flow
-All combinations of one item from each of the three aspects are possible, resulting in 8 different cases.
-In this specification, we discuss about the cases that are better matched to the EDHOC use case and the constrained IoT device and network setting.<a href="#section-3-2.3.1" class="pilcrow">¶</a></p>
+        <li id="section-3-3.3">
+          <p id="section-3-3.3.1">Atttestation Message Flow (see in <a href="#flow" class="auto internal xref">Section 5.3</a>): EDHOC forward message flow / EDHOC reverse message flow<a href="#section-3-3.3.1" class="pilcrow">¶</a></p>
 </li>
       </ol>
+<p id="section-3-4">All combinations of one item from each of the three aspects are possible, resulting in 8 different cases.
+In this specification, we discuss about the cases that are better matched to the EDHOC use case and the constrained IoT device and network setting.<a href="#section-3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="assumptions">
@@ -1389,8 +1389,8 @@ The detailed EAT items definitions are in <a href="#ead-bg" class="auto internal
           </h4>
 <p id="section-5.2.1-1">In background-check model, the Attester sends the evidence to the Relying Party.
 The Relying Party transfers the evidence to the Verifier and gets back the attestation result from the Verifier.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.1-2">EDHOC session is between the Attester and the Relying Party.
-A negotiation of the evidence type is required Before the Attester sends the evidence.
+<p id="section-5.2.1-2">An EDHOC session is established between the Attester and the Relying Party.
+A negotiation of the evidence type is required before the Attester sends the evidence.
 All three parties need to be aligned with one selected evidence type.
 The Attester first sends a list of the provided evidence types formatted to a Attestation proposal as an EDHOC EAD item to the Relying Party,  .
 The Relying Party transfers the list to the Verifier and should receive at least one supported evidence type from the Verifier.
@@ -1425,7 +1425,7 @@ The Proposed_EvidenceType is encoded in CBOR in the form of a sequence.<a href="
 <pre>
 Attestation_proposal = bstr .cbor Proposed_EvidenceType
 
-Proposed_EvidenceType = [ + content-format]
+Proposed_EvidenceType = [ + content-format ]
 
 content-format = uint
 </pre><a href="#section-5.2.1.1.1-4" class="pilcrow">¶</a>
@@ -1442,8 +1442,8 @@ content-format = uint
                   <p id="section-5.2.1.1.1-6.3.1">content-format is an indicator of the format type (e.g., application/eat+cwt with an appropriate eat_profile parameter set), from <span>[<a href="#IANA-CoAP-Content-Formats" class="cite xref">IANA-CoAP-Content-Formats</a>]</span>.<a href="#section-5.2.1.1.1-6.3.1" class="pilcrow">¶</a></p>
 </li>
               </ul>
-<p id="section-5.2.1.1.1-7">The sign of ead_label TBD1 <span class="bcp14">MUST</span> be negative to indicate that the EAT item is critical.
-If the receiver cannot recognize the critical EAD item, or cannot process the information in the critical EAD item, then the receiver <span class="bcp14">MUST</span> send an EDHOC error message back.<a href="#section-5.2.1.1.1-7" class="pilcrow">¶</a></p>
+<p id="section-5.2.1.1.1-7">The sign of ead_label TBD1 <span class="bcp14">MUST</span> be negative to indicate that the EAD item is critical.
+If the receiver cannot recognize the critical EAD item, or cannot process the information in the critical EAD item, then the receiver <span class="bcp14">MUST</span> send an EDHOC error message back as defined in <span><a href="https://rfc-editor.org/rfc/rfc9528#section-6" class="relref">Section 6</a> of [<a href="#RFC9528" class="cite xref">RFC9528</a>]</span>.<a href="#section-5.2.1.1.1-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="attestation-request">
@@ -1465,6 +1465,7 @@ In case none of the evidence types is supported, the Relying Party rejects the f
 <div class="alignLeft art-text artwork" id="section-5.2.1.1.2-4">
 <pre>
 Attestation_request = bstr .cbor Selected_EvidenceType
+
 Selected_EvidenceType = (
   content-format: uint,
   nonce: bstr .size 8..64
@@ -1480,8 +1481,8 @@ Selected_EvidenceType = (
                   <p id="section-5.2.1.1.2-6.2.1">nonce is generated by the Verifier and forwarded by the Relying Party.<a href="#section-5.2.1.1.2-6.2.1" class="pilcrow">¶</a></p>
 </li>
               </ul>
-<p id="section-5.2.1.1.2-7">The sign of ead_label TBD2 <span class="bcp14">MUST</span> be negative to indicate that the EAT item is critical.
-If the receiver cannot recognize the critical EAD item, or cannot process the information in the critical EAD item, then the receiver <span class="bcp14">MUST</span> send an EDHOC error message back.<a href="#section-5.2.1.1.2-7" class="pilcrow">¶</a></p>
+<p id="section-5.2.1.1.2-7">The sign of ead_label TBD2 <span class="bcp14">MUST</span> be negative to indicate that the EAD item is critical.
+If the receiver cannot recognize the critical EAD item, or cannot process the information in the critical EAD item, then the receiver <span class="bcp14">MUST</span> send an EDHOC error message back as defined in <span><a href="https://rfc-editor.org/rfc/rfc9528#section-6" class="relref">Section 6</a> of [<a href="#RFC9528" class="cite xref">RFC9528</a>]</span>.<a href="#section-5.2.1.1.2-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="evidence">
@@ -1532,7 +1533,7 @@ The ead_value can be empty, using ead_label plays the role of the trigger.<a hre
           </h4>
 <p id="section-5.2.2-1">In passport model, the Attester sends the evidence to the Verifier.
 After the Attester receives the attestation result from the Verifier, the Attester sends the attestation result to the Relying Party.<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.2-2">EDHOC session is between the Attester and the Relying Party.
+<p id="section-5.2.2-2">An EDHOC session is established between the Attester and the Relying Party.
 The Attester and the Relying Party should decide from which Verifier the Attester obtains the attestation result and transfers it to the Relying Party.
 The Attester first sends a list of the Verifier identities that it can get the attestation result.
 The Relying Party selects one trusted Verifier identity and sends it back as a Result request.<a href="#section-5.2.2-2" class="pilcrow">¶</a></p>
@@ -1564,7 +1565,7 @@ The identification of credentials relies on COSE header parameters <span>[<a hre
               </ul>
 <div class="alignLeft art-text artwork" id="section-5.2.2.1.1-4">
 <pre>
-Result_proposal = bstr .cbor Proposed_VerfierIdentity
+Result_proposal = bstr .cbor Proposed_VerifierIdentity
 Proposed_VerifierIdentity = [ + VerifierIdentity ]
 
 VerifierIdentity = {
@@ -1723,75 +1724,77 @@ The Verifier evaluates the Evidence and sends the Attestation result to the Rely
 <figure id="figure-1">
           <div id="section-6.1-4.1">
             <div class="alignCenter art-svg artwork" id="section-6.1-4.1.1">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="496" width="544" viewBox="0 0 544 496" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="544" width="592" viewBox="0 0 592 544" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
                 <path d="M 8,32 L 8,144" fill="none" stroke="black"></path>
-                <path d="M 56,144 L 56,448" fill="none" stroke="black"></path>
+                <path d="M 56,144 L 56,512" fill="none" stroke="black"></path>
                 <path d="M 104,32 L 104,144" fill="none" stroke="black"></path>
-                <path d="M 224,32 L 224,144" fill="none" stroke="black"></path>
-                <path d="M 272,144 L 272,448" fill="none" stroke="black"></path>
-                <path d="M 320,32 L 320,144" fill="none" stroke="black"></path>
-                <path d="M 448,112 L 448,144" fill="none" stroke="black"></path>
-                <path d="M 496,144 L 496,448" fill="none" stroke="black"></path>
-                <path d="M 536,112 L 536,144" fill="none" stroke="black"></path>
+                <path d="M 272,32 L 272,144" fill="none" stroke="black"></path>
+                <path d="M 320,144 L 320,512" fill="none" stroke="black"></path>
+                <path d="M 368,32 L 368,144" fill="none" stroke="black"></path>
+                <path d="M 496,112 L 496,144" fill="none" stroke="black"></path>
+                <path d="M 544,144 L 544,512" fill="none" stroke="black"></path>
+                <path d="M 584,112 L 584,144" fill="none" stroke="black"></path>
                 <path d="M 8,32 L 104,32" fill="none" stroke="black"></path>
-                <path d="M 224,32 L 320,32" fill="none" stroke="black"></path>
+                <path d="M 272,32 L 368,32" fill="none" stroke="black"></path>
                 <path d="M 8,64 L 104,64" fill="none" stroke="black"></path>
-                <path d="M 224,64 L 320,64" fill="none" stroke="black"></path>
+                <path d="M 272,64 L 368,64" fill="none" stroke="black"></path>
                 <path d="M 8,112 L 104,112" fill="none" stroke="black"></path>
-                <path d="M 224,112 L 320,112" fill="none" stroke="black"></path>
-                <path d="M 448,112 L 536,112" fill="none" stroke="black"></path>
+                <path d="M 272,112 L 368,112" fill="none" stroke="black"></path>
+                <path d="M 496,112 L 584,112" fill="none" stroke="black"></path>
                 <path d="M 8,144 L 104,144" fill="none" stroke="black"></path>
-                <path d="M 224,144 L 320,144" fill="none" stroke="black"></path>
-                <path d="M 448,144 L 536,144" fill="none" stroke="black"></path>
-                <path d="M 56,192 L 264,192" fill="none" stroke="black"></path>
-                <path d="M 272,240 L 488,240" fill="none" stroke="black"></path>
-                <path d="M 280,256 L 496,256" fill="none" stroke="black"></path>
-                <path d="M 64,288 L 272,288" fill="none" stroke="black"></path>
-                <path d="M 64,352 L 264,352" fill="none" stroke="black"></path>
-                <path d="M 272,384 L 488,384" fill="none" stroke="black"></path>
-                <path d="M 280,400 L 488,400" fill="none" stroke="black"></path>
-                <path d="M 64,448 L 88,448" fill="none" stroke="black"></path>
-                <path d="M 112,448 L 128,448" fill="none" stroke="black"></path>
-                <path d="M 152,448 L 168,448" fill="none" stroke="black"></path>
-                <path d="M 192,448 L 208,448" fill="none" stroke="black"></path>
-                <path d="M 232,448 L 248,448" fill="none" stroke="black"></path>
-                <polygon class="arrowhead" points="496,384 484,378.4 484,389.6" fill="black" transform="rotate(0,488,384)"></polygon>
-                <polygon class="arrowhead" points="496,240 484,234.4 484,245.6" fill="black" transform="rotate(0,488,240)"></polygon>
-                <polygon class="arrowhead" points="288,400 276,394.4 276,405.6" fill="black" transform="rotate(180,280,400)"></polygon>
-                <polygon class="arrowhead" points="288,256 276,250.4 276,261.6" fill="black" transform="rotate(180,280,256)"></polygon>
-                <polygon class="arrowhead" points="272,352 260,346.4 260,357.6" fill="black" transform="rotate(0,264,352)"></polygon>
-                <polygon class="arrowhead" points="272,192 260,186.4 260,197.6" fill="black" transform="rotate(0,264,192)"></polygon>
-                <polygon class="arrowhead" points="72,448 60,442.4 60,453.6" fill="black" transform="rotate(180,64,448)"></polygon>
-                <polygon class="arrowhead" points="72,288 60,282.4 60,293.6" fill="black" transform="rotate(180,64,288)"></polygon>
+                <path d="M 272,144 L 368,144" fill="none" stroke="black"></path>
+                <path d="M 496,144 L 584,144" fill="none" stroke="black"></path>
+                <path d="M 56,192 L 312,192" fill="none" stroke="black"></path>
+                <path d="M 320,240 L 536,240" fill="none" stroke="black"></path>
+                <path d="M 328,256 L 544,256" fill="none" stroke="black"></path>
+                <path d="M 64,320 L 320,320" fill="none" stroke="black"></path>
+                <path d="M 56,368 L 312,368" fill="none" stroke="black"></path>
+                <path d="M 320,400 L 536,400" fill="none" stroke="black"></path>
+                <path d="M 328,416 L 544,416" fill="none" stroke="black"></path>
+                <path d="M 72,496 L 304,496" fill="none" stroke="black"></path>
+                <polygon class="arrowhead" points="544,400 532,394.4 532,405.6" fill="black" transform="rotate(0,536,400)"></polygon>
+                <polygon class="arrowhead" points="544,240 532,234.4 532,245.6" fill="black" transform="rotate(0,536,240)"></polygon>
+                <polygon class="arrowhead" points="336,416 324,410.4 324,421.6" fill="black" transform="rotate(180,328,416)"></polygon>
+                <polygon class="arrowhead" points="336,256 324,250.4 324,261.6" fill="black" transform="rotate(180,328,256)"></polygon>
+                <polygon class="arrowhead" points="320,368 308,362.4 308,373.6" fill="black" transform="rotate(0,312,368)"></polygon>
+                <polygon class="arrowhead" points="320,192 308,186.4 308,197.6" fill="black" transform="rotate(0,312,192)"></polygon>
+                <polygon class="arrowhead" points="312,496 300,490.4 300,501.6" fill="black" transform="rotate(0,304,496)"></polygon>
+                <polygon class="arrowhead" points="80,496 68,490.4 68,501.6" fill="black" transform="rotate(180,72,496)"></polygon>
+                <polygon class="arrowhead" points="72,320 60,314.4 60,325.6" fill="black" transform="rotate(180,64,320)"></polygon>
                 <g class="text">
                   <text x="24" y="52">IoT</text>
                   <text x="68" y="52">device</text>
-                  <text x="240" y="52">Net</text>
-                  <text x="288" y="52">service</text>
-                  <text x="48" y="84">EDHOC</text>
-                  <text x="272" y="84">EDHOC</text>
+                  <text x="288" y="52">Net</text>
+                  <text x="336" y="52">service</text>
+                  <text x="56" y="84">EDHOC</text>
+                  <text x="320" y="84">EDHOC</text>
                   <text x="56" y="100">Initiator</text>
-                  <text x="272" y="100">Responder</text>
+                  <text x="320" y="100">Responder</text>
                   <text x="52" y="132">Attester</text>
-                  <text x="276" y="132">RP</text>
-                  <text x="492" y="132">Verifier</text>
-                  <text x="120" y="180">Attestation</text>
-                  <text x="204" y="180">proposal</text>
-                  <text x="328" y="228">Attestation</text>
-                  <text x="416" y="228">proposal,</text>
-                  <text x="472" y="228">C_R</text>
-                  <text x="356" y="276">EvidenceType(s),</text>
-                  <text x="448" y="276">Nonce</text>
-                  <text x="128" y="308">Attestation</text>
-                  <text x="208" y="308">request</text>
-                  <text x="156" y="340">Evidence</text>
-                  <text x="376" y="372">Evidence,</text>
-                  <text x="432" y="372">C_R</text>
-                  <text x="352" y="420">Attestation</text>
-                  <text x="428" y="420">result</text>
-                  <text x="264" y="452">&gt;</text>
-                  <text x="136" y="468">EDHOC</text>
-                  <text x="192" y="468">session</text>
+                  <text x="324" y="132">RP</text>
+                  <text x="540" y="132">Verifier</text>
+                  <text x="96" y="180">EAD_1</text>
+                  <text x="128" y="180">=</text>
+                  <text x="184" y="180">Attestation</text>
+                  <text x="268" y="180">proposal</text>
+                  <text x="376" y="228">Attestation</text>
+                  <text x="464" y="228">proposal,</text>
+                  <text x="520" y="228">C_R</text>
+                  <text x="404" y="276">EvidenceType(s),</text>
+                  <text x="496" y="276">Nonce</text>
+                  <text x="96" y="308">EAD_2</text>
+                  <text x="128" y="308">=</text>
+                  <text x="184" y="308">Attestation</text>
+                  <text x="264" y="308">request</text>
+                  <text x="96" y="356">EAD_3</text>
+                  <text x="128" y="356">=</text>
+                  <text x="172" y="356">Evidence</text>
+                  <text x="408" y="388">Evidence,</text>
+                  <text x="464" y="388">C_R</text>
+                  <text x="400" y="436">Attestation</text>
+                  <text x="476" y="436">result</text>
+                  <text x="152" y="516">EDHOC</text>
+                  <text x="208" y="516">session</text>
                 </g>
               </svg><a href="#section-6.1-4.1.1" class="pilcrow">¶</a>
 </div>
@@ -1825,76 +1828,81 @@ A fourth EDHOC message is required to send the Result from the Attester to the R
 <figure id="figure-2">
           <div id="section-6.2-4.1">
             <div class="alignCenter art-svg artwork" id="section-6.2-4.1.1">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="448" width="544" viewBox="0 0 544 448" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="464" width="560" viewBox="0 0 560 464" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
                 <path d="M 8,32 L 8,144" fill="none" stroke="black"></path>
-                <path d="M 56,144 L 56,416" fill="none" stroke="black"></path>
+                <path d="M 56,144 L 56,448" fill="none" stroke="black"></path>
                 <path d="M 104,32 L 104,144" fill="none" stroke="black"></path>
-                <path d="M 224,32 L 224,144" fill="none" stroke="black"></path>
-                <path d="M 272,144 L 272,416" fill="none" stroke="black"></path>
-                <path d="M 320,32 L 320,144" fill="none" stroke="black"></path>
-                <path d="M 448,112 L 448,144" fill="none" stroke="black"></path>
-                <path d="M 496,144 L 496,416" fill="none" stroke="black"></path>
-                <path d="M 536,112 L 536,144" fill="none" stroke="black"></path>
+                <path d="M 240,32 L 240,144" fill="none" stroke="black"></path>
+                <path d="M 288,144 L 288,448" fill="none" stroke="black"></path>
+                <path d="M 336,32 L 336,144" fill="none" stroke="black"></path>
+                <path d="M 464,112 L 464,144" fill="none" stroke="black"></path>
+                <path d="M 512,144 L 512,448" fill="none" stroke="black"></path>
+                <path d="M 552,112 L 552,144" fill="none" stroke="black"></path>
                 <path d="M 8,32 L 104,32" fill="none" stroke="black"></path>
-                <path d="M 224,32 L 320,32" fill="none" stroke="black"></path>
+                <path d="M 240,32 L 336,32" fill="none" stroke="black"></path>
                 <path d="M 8,64 L 104,64" fill="none" stroke="black"></path>
-                <path d="M 224,64 L 320,64" fill="none" stroke="black"></path>
+                <path d="M 240,64 L 336,64" fill="none" stroke="black"></path>
                 <path d="M 8,112 L 104,112" fill="none" stroke="black"></path>
-                <path d="M 224,112 L 320,112" fill="none" stroke="black"></path>
-                <path d="M 448,112 L 536,112" fill="none" stroke="black"></path>
+                <path d="M 240,112 L 336,112" fill="none" stroke="black"></path>
+                <path d="M 464,112 L 552,112" fill="none" stroke="black"></path>
                 <path d="M 8,144 L 104,144" fill="none" stroke="black"></path>
-                <path d="M 224,144 L 320,144" fill="none" stroke="black"></path>
-                <path d="M 448,144 L 536,144" fill="none" stroke="black"></path>
-                <path d="M 56,192 L 264,192" fill="none" stroke="black"></path>
-                <path d="M 64,224 L 272,224" fill="none" stroke="black"></path>
-                <path d="M 56,288 L 264,288" fill="none" stroke="black"></path>
-                <path d="M 272,304 L 296,304" fill="none" stroke="black"></path>
-                <path d="M 320,304 L 336,304" fill="none" stroke="black"></path>
-                <path d="M 360,304 L 376,304" fill="none" stroke="black"></path>
-                <path d="M 400,304 L 416,304" fill="none" stroke="black"></path>
-                <path d="M 440,304 L 456,304" fill="none" stroke="black"></path>
-                <path d="M 280,320 L 304,320" fill="none" stroke="black"></path>
-                <path d="M 328,320 L 344,320" fill="none" stroke="black"></path>
-                <path d="M 368,320 L 384,320" fill="none" stroke="black"></path>
-                <path d="M 408,320 L 424,320" fill="none" stroke="black"></path>
-                <path d="M 448,320 L 464,320" fill="none" stroke="black"></path>
-                <path d="M 64,368 L 272,368" fill="none" stroke="black"></path>
-                <path d="M 64,416 L 88,416" fill="none" stroke="black"></path>
-                <path d="M 112,416 L 128,416" fill="none" stroke="black"></path>
-                <path d="M 152,416 L 168,416" fill="none" stroke="black"></path>
-                <path d="M 192,416 L 208,416" fill="none" stroke="black"></path>
-                <path d="M 232,416 L 248,416" fill="none" stroke="black"></path>
-                <polygon class="arrowhead" points="288,320 276,314.4 276,325.6" fill="black" transform="rotate(180,280,320)"></polygon>
-                <polygon class="arrowhead" points="272,288 260,282.4 260,293.6" fill="black" transform="rotate(0,264,288)"></polygon>
-                <polygon class="arrowhead" points="272,192 260,186.4 260,197.6" fill="black" transform="rotate(0,264,192)"></polygon>
-                <polygon class="arrowhead" points="72,416 60,410.4 60,421.6" fill="black" transform="rotate(180,64,416)"></polygon>
+                <path d="M 240,144 L 336,144" fill="none" stroke="black"></path>
+                <path d="M 464,144 L 552,144" fill="none" stroke="black"></path>
+                <path d="M 56,192 L 280,192" fill="none" stroke="black"></path>
+                <path d="M 64,240 L 288,240" fill="none" stroke="black"></path>
+                <path d="M 56,288 L 280,288" fill="none" stroke="black"></path>
+                <path d="M 288,304 L 312,304" fill="none" stroke="black"></path>
+                <path d="M 336,304 L 352,304" fill="none" stroke="black"></path>
+                <path d="M 376,304 L 392,304" fill="none" stroke="black"></path>
+                <path d="M 416,304 L 432,304" fill="none" stroke="black"></path>
+                <path d="M 456,304 L 472,304" fill="none" stroke="black"></path>
+                <path d="M 488,304 L 504,304" fill="none" stroke="black"></path>
+                <path d="M 296,320 L 320,320" fill="none" stroke="black"></path>
+                <path d="M 344,320 L 360,320" fill="none" stroke="black"></path>
+                <path d="M 384,320 L 400,320" fill="none" stroke="black"></path>
+                <path d="M 424,320 L 440,320" fill="none" stroke="black"></path>
+                <path d="M 456,320 L 472,320" fill="none" stroke="black"></path>
+                <path d="M 496,320 L 512,320" fill="none" stroke="black"></path>
+                <path d="M 64,368 L 288,368" fill="none" stroke="black"></path>
+                <path d="M 72,432 L 272,432" fill="none" stroke="black"></path>
+                <polygon class="arrowhead" points="512,304 500,298.4 500,309.6" fill="black" transform="rotate(0,504,304)"></polygon>
+                <polygon class="arrowhead" points="304,320 292,314.4 292,325.6" fill="black" transform="rotate(180,296,320)"></polygon>
+                <polygon class="arrowhead" points="288,288 276,282.4 276,293.6" fill="black" transform="rotate(0,280,288)"></polygon>
+                <polygon class="arrowhead" points="288,192 276,186.4 276,197.6" fill="black" transform="rotate(0,280,192)"></polygon>
+                <polygon class="arrowhead" points="280,432 268,426.4 268,437.6" fill="black" transform="rotate(0,272,432)"></polygon>
+                <polygon class="arrowhead" points="80,432 68,426.4 68,437.6" fill="black" transform="rotate(180,72,432)"></polygon>
                 <polygon class="arrowhead" points="72,368 60,362.4 60,373.6" fill="black" transform="rotate(180,64,368)"></polygon>
-                <polygon class="arrowhead" points="72,224 60,218.4 60,229.6" fill="black" transform="rotate(180,64,224)"></polygon>
+                <polygon class="arrowhead" points="72,240 60,234.4 60,245.6" fill="black" transform="rotate(180,64,240)"></polygon>
                 <g class="text">
                   <text x="24" y="52">IoT</text>
                   <text x="68" y="52">device</text>
-                  <text x="240" y="52">Net</text>
-                  <text x="288" y="52">service</text>
-                  <text x="48" y="84">EDHOC</text>
-                  <text x="272" y="84">EDHOC</text>
+                  <text x="256" y="52">Net</text>
+                  <text x="304" y="52">service</text>
+                  <text x="56" y="84">EDHOC</text>
+                  <text x="288" y="84">EDHOC</text>
                   <text x="56" y="100">Initiator</text>
-                  <text x="272" y="100">Responder</text>
-                  <text x="60" y="132">RP</text>
-                  <text x="268" y="132">Attester</text>
-                  <text x="492" y="132">Verifier</text>
-                  <text x="148" y="180">trigger_PP</text>
-                  <text x="132" y="244">Result</text>
-                  <text x="196" y="244">proposal</text>
-                  <text x="132" y="276">Result</text>
-                  <text x="192" y="276">request</text>
-                  <text x="376" y="292">(request)</text>
-                  <text x="484" y="308">-&gt;</text>
-                  <text x="488" y="324">-</text>
-                  <text x="372" y="340">Result</text>
+                  <text x="288" y="100">Responder</text>
+                  <text x="52" y="132">RP</text>
+                  <text x="284" y="132">Attester</text>
+                  <text x="508" y="132">Verifier</text>
+                  <text x="96" y="180">EAD_1</text>
+                  <text x="128" y="180">=</text>
+                  <text x="180" y="180">trigger_PP</text>
+                  <text x="96" y="228">EAD_2</text>
+                  <text x="128" y="228">=</text>
+                  <text x="164" y="228">Result</text>
+                  <text x="228" y="228">proposal</text>
+                  <text x="96" y="276">EAD_3</text>
+                  <text x="128" y="276">=</text>
+                  <text x="164" y="276">Result</text>
+                  <text x="224" y="276">request</text>
+                  <text x="392" y="292">(request)</text>
+                  <text x="388" y="340">Result</text>
+                  <text x="96" y="356">EAD_4</text>
+                  <text x="128" y="356">=</text>
                   <text x="164" y="356">Result</text>
-                  <text x="264" y="420">&gt;</text>
-                  <text x="136" y="436">EDHOC</text>
-                  <text x="192" y="436">session</text>
+                  <text x="136" y="452">EDHOC</text>
+                  <text x="192" y="452">session</text>
                 </g>
               </svg><a href="#section-6.2-4.1.1" class="pilcrow">¶</a>
 </div>
@@ -1934,117 +1942,122 @@ EAD_4 has the EAD item Result for the passport model.<a href="#section-7.1-1" cl
 <figure id="figure-3">
           <div id="section-7.1-2.1">
             <div class="alignCenter art-svg artwork" id="section-7.1-2.1.1">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="688" width="784" viewBox="0 0 784 688" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="768" width="840" viewBox="0 0 840 768" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
                 <path d="M 8,32 L 8,144" fill="none" stroke="black"></path>
-                <path d="M 56,144 L 56,640" fill="none" stroke="black"></path>
+                <path d="M 56,144 L 56,736" fill="none" stroke="black"></path>
                 <path d="M 104,32 L 104,144" fill="none" stroke="black"></path>
-                <path d="M 224,32 L 224,144" fill="none" stroke="black"></path>
-                <path d="M 272,144 L 272,640" fill="none" stroke="black"></path>
-                <path d="M 320,32 L 320,144" fill="none" stroke="black"></path>
-                <path d="M 448,112 L 448,144" fill="none" stroke="black"></path>
-                <path d="M 504,144 L 504,640" fill="none" stroke="black"></path>
-                <path d="M 552,112 L 552,144" fill="none" stroke="black"></path>
-                <path d="M 672,112 L 672,144" fill="none" stroke="black"></path>
-                <path d="M 728,144 L 728,640" fill="none" stroke="black"></path>
-                <path d="M 776,112 L 776,144" fill="none" stroke="black"></path>
+                <path d="M 280,32 L 280,144" fill="none" stroke="black"></path>
+                <path d="M 328,144 L 328,736" fill="none" stroke="black"></path>
+                <path d="M 376,32 L 376,144" fill="none" stroke="black"></path>
+                <path d="M 504,112 L 504,144" fill="none" stroke="black"></path>
+                <path d="M 560,144 L 560,736" fill="none" stroke="black"></path>
+                <path d="M 608,112 L 608,144" fill="none" stroke="black"></path>
+                <path d="M 728,112 L 728,144" fill="none" stroke="black"></path>
+                <path d="M 784,144 L 784,736" fill="none" stroke="black"></path>
+                <path d="M 832,112 L 832,144" fill="none" stroke="black"></path>
                 <path d="M 8,32 L 104,32" fill="none" stroke="black"></path>
-                <path d="M 224,32 L 320,32" fill="none" stroke="black"></path>
+                <path d="M 280,32 L 376,32" fill="none" stroke="black"></path>
                 <path d="M 8,64 L 104,64" fill="none" stroke="black"></path>
-                <path d="M 224,64 L 320,64" fill="none" stroke="black"></path>
+                <path d="M 280,64 L 376,64" fill="none" stroke="black"></path>
                 <path d="M 8,112 L 104,112" fill="none" stroke="black"></path>
-                <path d="M 224,112 L 320,112" fill="none" stroke="black"></path>
-                <path d="M 448,112 L 552,112" fill="none" stroke="black"></path>
-                <path d="M 672,112 L 776,112" fill="none" stroke="black"></path>
+                <path d="M 280,112 L 376,112" fill="none" stroke="black"></path>
+                <path d="M 504,112 L 608,112" fill="none" stroke="black"></path>
+                <path d="M 728,112 L 832,112" fill="none" stroke="black"></path>
                 <path d="M 8,144 L 104,144" fill="none" stroke="black"></path>
-                <path d="M 224,144 L 320,144" fill="none" stroke="black"></path>
-                <path d="M 448,144 L 552,144" fill="none" stroke="black"></path>
-                <path d="M 672,144 L 776,144" fill="none" stroke="black"></path>
-                <path d="M 56,192 L 264,192" fill="none" stroke="black"></path>
-                <path d="M 272,256 L 496,256" fill="none" stroke="black"></path>
-                <path d="M 280,272 L 504,272" fill="none" stroke="black"></path>
-                <path d="M 64,320 L 272,320" fill="none" stroke="black"></path>
-                <path d="M 56,400 L 264,400" fill="none" stroke="black"></path>
-                <path d="M 272,448 L 496,448" fill="none" stroke="black"></path>
-                <path d="M 272,464 L 296,464" fill="none" stroke="black"></path>
-                <path d="M 312,464 L 328,464" fill="none" stroke="black"></path>
-                <path d="M 344,464 L 360,464" fill="none" stroke="black"></path>
-                <path d="M 376,464 L 392,464" fill="none" stroke="black"></path>
-                <path d="M 408,464 L 424,464" fill="none" stroke="black"></path>
-                <path d="M 440,464 L 456,464" fill="none" stroke="black"></path>
-                <path d="M 472,464 L 488,464" fill="none" stroke="black"></path>
-                <path d="M 504,464 L 528,464" fill="none" stroke="black"></path>
-                <path d="M 552,464 L 568,464" fill="none" stroke="black"></path>
-                <path d="M 592,464 L 608,464" fill="none" stroke="black"></path>
-                <path d="M 632,464 L 648,464" fill="none" stroke="black"></path>
-                <path d="M 672,464 L 688,464" fill="none" stroke="black"></path>
-                <path d="M 280,512 L 504,512" fill="none" stroke="black"></path>
-                <path d="M 280,544 L 304,544" fill="none" stroke="black"></path>
-                <path d="M 328,544 L 344,544" fill="none" stroke="black"></path>
-                <path d="M 368,544 L 384,544" fill="none" stroke="black"></path>
-                <path d="M 408,544 L 424,544" fill="none" stroke="black"></path>
-                <path d="M 448,544 L 464,544" fill="none" stroke="black"></path>
-                <path d="M 488,544 L 504,544" fill="none" stroke="black"></path>
-                <path d="M 520,544 L 536,544" fill="none" stroke="black"></path>
-                <path d="M 560,544 L 576,544" fill="none" stroke="black"></path>
-                <path d="M 600,544 L 616,544" fill="none" stroke="black"></path>
-                <path d="M 640,544 L 656,544" fill="none" stroke="black"></path>
-                <path d="M 680,544 L 696,544" fill="none" stroke="black"></path>
-                <path d="M 64,592 L 272,592" fill="none" stroke="black"></path>
-                <path d="M 64,640 L 88,640" fill="none" stroke="black"></path>
-                <path d="M 112,640 L 128,640" fill="none" stroke="black"></path>
-                <path d="M 152,640 L 168,640" fill="none" stroke="black"></path>
-                <path d="M 192,640 L 208,640" fill="none" stroke="black"></path>
-                <path d="M 232,640 L 248,640" fill="none" stroke="black"></path>
-                <polygon class="arrowhead" points="504,448 492,442.4 492,453.6" fill="black" transform="rotate(0,496,448)"></polygon>
-                <polygon class="arrowhead" points="504,256 492,250.4 492,261.6" fill="black" transform="rotate(0,496,256)"></polygon>
-                <polygon class="arrowhead" points="288,544 276,538.4 276,549.6" fill="black" transform="rotate(180,280,544)"></polygon>
-                <polygon class="arrowhead" points="288,512 276,506.4 276,517.6" fill="black" transform="rotate(180,280,512)"></polygon>
-                <polygon class="arrowhead" points="288,272 276,266.4 276,277.6" fill="black" transform="rotate(180,280,272)"></polygon>
-                <polygon class="arrowhead" points="272,400 260,394.4 260,405.6" fill="black" transform="rotate(0,264,400)"></polygon>
-                <polygon class="arrowhead" points="272,192 260,186.4 260,197.6" fill="black" transform="rotate(0,264,192)"></polygon>
+                <path d="M 280,144 L 376,144" fill="none" stroke="black"></path>
+                <path d="M 504,144 L 608,144" fill="none" stroke="black"></path>
+                <path d="M 728,144 L 832,144" fill="none" stroke="black"></path>
+                <path d="M 56,208 L 320,208" fill="none" stroke="black"></path>
+                <path d="M 328,272 L 552,272" fill="none" stroke="black"></path>
+                <path d="M 336,288 L 560,288" fill="none" stroke="black"></path>
+                <path d="M 64,352 L 328,352" fill="none" stroke="black"></path>
+                <path d="M 56,432 L 320,432" fill="none" stroke="black"></path>
+                <path d="M 328,480 L 552,480" fill="none" stroke="black"></path>
+                <path d="M 328,496 L 352,496" fill="none" stroke="black"></path>
+                <path d="M 368,496 L 384,496" fill="none" stroke="black"></path>
+                <path d="M 400,496 L 416,496" fill="none" stroke="black"></path>
+                <path d="M 432,496 L 448,496" fill="none" stroke="black"></path>
+                <path d="M 464,496 L 480,496" fill="none" stroke="black"></path>
+                <path d="M 496,496 L 512,496" fill="none" stroke="black"></path>
+                <path d="M 536,496 L 560,496" fill="none" stroke="black"></path>
+                <path d="M 576,496 L 592,496" fill="none" stroke="black"></path>
+                <path d="M 616,496 L 632,496" fill="none" stroke="black"></path>
+                <path d="M 656,496 L 672,496" fill="none" stroke="black"></path>
+                <path d="M 688,496 L 704,496" fill="none" stroke="black"></path>
+                <path d="M 720,496 L 736,496" fill="none" stroke="black"></path>
+                <path d="M 752,496 L 776,496" fill="none" stroke="black"></path>
+                <path d="M 336,560 L 560,560" fill="none" stroke="black"></path>
+                <path d="M 336,592 L 360,592" fill="none" stroke="black"></path>
+                <path d="M 384,592 L 400,592" fill="none" stroke="black"></path>
+                <path d="M 424,592 L 440,592" fill="none" stroke="black"></path>
+                <path d="M 464,592 L 480,592" fill="none" stroke="black"></path>
+                <path d="M 504,592 L 520,592" fill="none" stroke="black"></path>
+                <path d="M 544,592 L 560,592" fill="none" stroke="black"></path>
+                <path d="M 576,592 L 592,592" fill="none" stroke="black"></path>
+                <path d="M 616,592 L 632,592" fill="none" stroke="black"></path>
+                <path d="M 656,592 L 672,592" fill="none" stroke="black"></path>
+                <path d="M 688,592 L 704,592" fill="none" stroke="black"></path>
+                <path d="M 728,592 L 744,592" fill="none" stroke="black"></path>
+                <path d="M 760,592 L 784,592" fill="none" stroke="black"></path>
+                <path d="M 64,640 L 328,640" fill="none" stroke="black"></path>
+                <path d="M 72,720 L 312,720" fill="none" stroke="black"></path>
+                <polygon class="arrowhead" points="784,496 772,490.4 772,501.6" fill="black" transform="rotate(0,776,496)"></polygon>
+                <polygon class="arrowhead" points="560,480 548,474.4 548,485.6" fill="black" transform="rotate(0,552,480)"></polygon>
+                <polygon class="arrowhead" points="560,272 548,266.4 548,277.6" fill="black" transform="rotate(0,552,272)"></polygon>
+                <polygon class="arrowhead" points="344,592 332,586.4 332,597.6" fill="black" transform="rotate(180,336,592)"></polygon>
+                <polygon class="arrowhead" points="344,560 332,554.4 332,565.6" fill="black" transform="rotate(180,336,560)"></polygon>
+                <polygon class="arrowhead" points="344,288 332,282.4 332,293.6" fill="black" transform="rotate(180,336,288)"></polygon>
+                <polygon class="arrowhead" points="328,432 316,426.4 316,437.6" fill="black" transform="rotate(0,320,432)"></polygon>
+                <polygon class="arrowhead" points="328,208 316,202.4 316,213.6" fill="black" transform="rotate(0,320,208)"></polygon>
+                <polygon class="arrowhead" points="320,720 308,714.4 308,725.6" fill="black" transform="rotate(0,312,720)"></polygon>
+                <polygon class="arrowhead" points="80,720 68,714.4 68,725.6" fill="black" transform="rotate(180,72,720)"></polygon>
                 <polygon class="arrowhead" points="72,640 60,634.4 60,645.6" fill="black" transform="rotate(180,64,640)"></polygon>
-                <polygon class="arrowhead" points="72,592 60,586.4 60,597.6" fill="black" transform="rotate(180,64,592)"></polygon>
-                <polygon class="arrowhead" points="72,320 60,314.4 60,325.6" fill="black" transform="rotate(180,64,320)"></polygon>
+                <polygon class="arrowhead" points="72,352 60,346.4 60,357.6" fill="black" transform="rotate(180,64,352)"></polygon>
                 <g class="text">
                   <text x="24" y="52">IoT</text>
                   <text x="68" y="52">device</text>
-                  <text x="240" y="52">Net</text>
-                  <text x="288" y="52">service</text>
+                  <text x="296" y="52">Net</text>
+                  <text x="344" y="52">service</text>
                   <text x="48" y="84">EDHOC</text>
-                  <text x="272" y="84">EDHOC</text>
+                  <text x="328" y="84">EDHOC</text>
                   <text x="56" y="100">Initiator</text>
-                  <text x="272" y="100">Responder</text>
+                  <text x="328" y="100">Responder</text>
                   <text x="52" y="132">A_1/RP_2</text>
-                  <text x="268" y="132">RP_1/A_2</text>
-                  <text x="500" y="132">Verifier_1</text>
-                  <text x="724" y="132">Verifier_2</text>
-                  <text x="120" y="180">Attestation</text>
-                  <text x="204" y="180">proposal</text>
-                  <text x="156" y="212">trigger_PP</text>
-                  <text x="336" y="244">Attestation</text>
-                  <text x="424" y="244">proposal,</text>
-                  <text x="480" y="244">C_R</text>
-                  <text x="364" y="292">EvidenceType(s),</text>
-                  <text x="456" y="292">Nonce</text>
-                  <text x="128" y="308">Attestation</text>
-                  <text x="208" y="308">request</text>
-                  <text x="124" y="340">Result</text>
-                  <text x="188" y="340">proposal</text>
-                  <text x="156" y="388">Evidence</text>
-                  <text x="132" y="420">Result</text>
-                  <text x="192" y="420">request</text>
-                  <text x="368" y="436">Evidence,</text>
-                  <text x="424" y="436">C_R</text>
-                  <text x="616" y="452">(Request)</text>
-                  <text x="716" y="468">-&gt;</text>
-                  <text x="352" y="500">Attestation</text>
-                  <text x="428" y="500">result</text>
-                  <text x="720" y="548">-</text>
-                  <text x="396" y="564">Result</text>
-                  <text x="164" y="612">Result</text>
-                  <text x="264" y="644">&gt;</text>
-                  <text x="136" y="660">EDHOC</text>
-                  <text x="192" y="660">session</text>
+                  <text x="324" y="132">RP_1/A_2</text>
+                  <text x="556" y="132">Verifier_1</text>
+                  <text x="780" y="132">Verifier_2</text>
+                  <text x="96" y="180">EAD_1</text>
+                  <text x="128" y="180">=</text>
+                  <text x="184" y="180">Attestation</text>
+                  <text x="272" y="180">proposal,</text>
+                  <text x="180" y="196">trigger_PP</text>
+                  <text x="392" y="260">Attestation</text>
+                  <text x="480" y="260">proposal,</text>
+                  <text x="536" y="260">C_R</text>
+                  <text x="420" y="308">EvidenceType(s),</text>
+                  <text x="512" y="308">Nonce</text>
+                  <text x="96" y="324">EAD_2</text>
+                  <text x="128" y="324">=</text>
+                  <text x="184" y="324">Attestation</text>
+                  <text x="268" y="324">request,</text>
+                  <text x="164" y="340">Result</text>
+                  <text x="228" y="340">proposal</text>
+                  <text x="96" y="404">EAD_3</text>
+                  <text x="128" y="404">=</text>
+                  <text x="176" y="404">Evidence,</text>
+                  <text x="164" y="420">Result</text>
+                  <text x="224" y="420">request</text>
+                  <text x="424" y="468">Evidence,</text>
+                  <text x="480" y="468">C_R</text>
+                  <text x="672" y="484">(Request)</text>
+                  <text x="408" y="548">Attestation</text>
+                  <text x="484" y="548">result</text>
+                  <text x="452" y="612">Result</text>
+                  <text x="96" y="628">EAD_4</text>
+                  <text x="128" y="628">=</text>
+                  <text x="164" y="628">Result</text>
+                  <text x="160" y="740">EDHOC</text>
+                  <text x="216" y="740">session</text>
                 </g>
               </svg><a href="#section-7.1-2.1.1" class="pilcrow">¶</a>
 </div>
@@ -2144,26 +2157,87 @@ Both the Attestation_request/Result_request in EAD_3 and the Evidence/Result in 
         <h3 id="name-edhoc-external-authorizatio">
 <a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-edhoc-external-authorizatio" class="section-name selfRef">EDHOC External Authorization Data Registry</a>
         </h3>
-<p id="section-10.1-1">IANA is requested to register the following entry in the "EDHOC External Authorization Data" registry under the group name "Ephemeral Diffie-Hellman Over Cose (EDHOC)".
-The ead_label = TBD1 corresponds to the ead_value Attestation_proposal in <a href="#attestation-proposal" class="auto internal xref">Section 5.2.1.1.1</a>, Attestation_request in <a href="#attestation-request" class="auto internal xref">Section 5.2.1.1.2</a> and Evidence in <a href="#evidence" class="auto internal xref">Section 5.2.1.1.3</a>.
-The ead_label = TBD2 corresponds to the EAT item trigger_bg as specified in <a href="#trigger-bg" class="auto internal xref">Section 5.2.1.1.4</a>.
-The ead_label = TBD3 corresponds to the ead_value Result_proposal in <a href="#result-proposal" class="auto internal xref">Section 5.2.2.1.1</a>, Result_request in <a href="#result-request" class="auto internal xref">Section 5.2.2.1.2</a> and the Result in <a href="#result" class="auto internal xref">Section 5.2.2.1.3</a>.
-The ead_lable = TBD4 corresponds to the EAT item trigger_pp as specified in <a href="#trigger-pp" class="auto internal xref">Section 5.2.2.1.4</a>.<a href="#section-10.1-1" class="pilcrow">¶</a></p>
-<p id="section-10.1-2">+-----------+-------+------------------------+-------------------+
-| Name      | Label | Description            | Reference         |
-+===========+=======+========================+===================+
-| TBD       | TBD1  | BG model               |                   |
-|           |       | related information    | Section 5.2.1.1   |
-+-----------+-------+------------------------+-------------------+
-| TBD       | TBD2  | trigger to start       |                   |
-|           |       | attestation in BG      | Secion 5.2.1.1    |
-+-----------+-------+------------------------+-------------------+
-| TBD       | TBD3  | PP model               |                   |
-|           |       | related information    | Section 5.2.2.1   |
-+-----------+-------+------------------------+-------------------+
-| TBD       | TBD4  | trigger to start       |                   |
-|           |       | attestation in PP      | Secion 5.2.2.1    |
-+-----------+-------+------------------------+-------------------+<a href="#section-10.1-2" class="pilcrow">¶</a></p>
+<p id="section-10.1-1">IANA is requested to register the following entry in the "EDHOC External Authorization Data" registry under the group name "Ephemeral Diffie-Hellman Over Cose (EDHOC)".<a href="#section-10.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-10.1-2.1">
+            <p id="section-10.1-2.1.1">The ead_label = TBD1 corresponds to the ead_value Attestation_proposal in <a href="#attestation-proposal" class="auto internal xref">Section 5.2.1.1.1</a>, Attestation_request in <a href="#attestation-request" class="auto internal xref">Section 5.2.1.1.2</a> and Evidence in <a href="#evidence" class="auto internal xref">Section 5.2.1.1.3</a>.<a href="#section-10.1-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-10.1-2.2">
+            <p id="section-10.1-2.2.1">The ead_label = TBD2 corresponds to the EAT item trigger_bg as specified in <a href="#trigger-bg" class="auto internal xref">Section 5.2.1.1.4</a>.<a href="#section-10.1-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-10.1-2.3">
+            <p id="section-10.1-2.3.1">The ead_label = TBD3 corresponds to the ead_value Result_proposal in <a href="#result-proposal" class="auto internal xref">Section 5.2.2.1.1</a>, Result_request in <a href="#result-request" class="auto internal xref">Section 5.2.2.1.2</a> and the Result in <a href="#result" class="auto internal xref">Section 5.2.2.1.3</a>.<a href="#section-10.1-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-10.1-2.4">
+            <p id="section-10.1-2.4.1">The ead_lable = TBD4 corresponds to the EAT item trigger_pp as specified in <a href="#trigger-pp" class="auto internal xref">Section 5.2.2.1.4</a>.<a href="#section-10.1-2.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<span id="name-ead-labels"></span><div id="fig-ead-labels">
+<figure id="figure-5">
+          <div id="section-10.1-3.1">
+            <div class="alignLeft art-svg artwork" id="section-10.1-3.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="272" width="536" viewBox="0 0 536 272" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                <path d="M 8,32 L 8,256" fill="none" stroke="black"></path>
+                <path d="M 104,32 L 104,256" fill="none" stroke="black"></path>
+                <path d="M 168,32 L 168,256" fill="none" stroke="black"></path>
+                <path d="M 368,32 L 368,256" fill="none" stroke="black"></path>
+                <path d="M 528,32 L 528,256" fill="none" stroke="black"></path>
+                <path d="M 8,32 L 528,32" fill="none" stroke="black"></path>
+                <path d="M 8,62 L 528,62" fill="none" stroke="black"></path>
+                <path d="M 8,66 L 528,66" fill="none" stroke="black"></path>
+                <path d="M 8,112 L 528,112" fill="none" stroke="black"></path>
+                <path d="M 8,160 L 528,160" fill="none" stroke="black"></path>
+                <path d="M 8,208 L 528,208" fill="none" stroke="black"></path>
+                <path d="M 8,256 L 528,256" fill="none" stroke="black"></path>
+                <g class="text">
+                  <text x="36" y="52">Name</text>
+                  <text x="136" y="52">Label</text>
+                  <text x="224" y="52">Description</text>
+                  <text x="416" y="52">Reference</text>
+                  <text x="32" y="84">TBD</text>
+                  <text x="132" y="84">TBD1</text>
+                  <text x="188" y="84">BG</text>
+                  <text x="224" y="84">model</text>
+                  <text x="208" y="100">related</text>
+                  <text x="288" y="100">information</text>
+                  <text x="408" y="100">Section</text>
+                  <text x="472" y="100">5.2.1.1</text>
+                  <text x="32" y="132">TBD</text>
+                  <text x="132" y="132">TBD2</text>
+                  <text x="208" y="132">trigger</text>
+                  <text x="252" y="132">to</text>
+                  <text x="288" y="132">start</text>
+                  <text x="224" y="148">attestation</text>
+                  <text x="284" y="148">in</text>
+                  <text x="308" y="148">BG</text>
+                  <text x="404" y="148">Secion</text>
+                  <text x="464" y="148">5.2.1.1</text>
+                  <text x="32" y="180">TBD</text>
+                  <text x="132" y="180">TBD3</text>
+                  <text x="188" y="180">PP</text>
+                  <text x="224" y="180">model</text>
+                  <text x="208" y="196">related</text>
+                  <text x="288" y="196">information</text>
+                  <text x="408" y="196">Section</text>
+                  <text x="472" y="196">5.2.2.1</text>
+                  <text x="32" y="228">TBD</text>
+                  <text x="132" y="228">TBD4</text>
+                  <text x="208" y="228">trigger</text>
+                  <text x="252" y="228">to</text>
+                  <text x="288" y="228">start</text>
+                  <text x="224" y="244">attestation</text>
+                  <text x="284" y="244">in</text>
+                  <text x="308" y="244">PP</text>
+                  <text x="404" y="244">Secion</text>
+                  <text x="464" y="244">5.2.2.1</text>
+                </g>
+              </svg><a href="#section-10.1-3.1.1" class="pilcrow">¶</a>
+</div>
+</div>
+<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<a href="#name-ead-labels" class="selfRef">EAD labels.</a>
+          </figcaption></figure>
+</div>
 </section>
 </div>
 </section>
@@ -2247,7 +2321,7 @@ The ead_lable = TBD4 corresponds to the EAT item trigger_pp as specified in <a h
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-example-remote-attestation-" class="section-name selfRef">Example: Remote Attestation Flow</a>
       </h2>
 <span id="name-example-of-remote-attestati"></span><div id="_figure-iot-example">
-<figure id="figure-5">
+<figure id="figure-6">
         <div id="appendix-A-1.1">
           <div class="alignLeft art-svg artwork" id="appendix-A-1.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="992" width="576" viewBox="0 0 576 992" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
@@ -2358,7 +2432,7 @@ The ead_lable = TBD4 corresponds to the EAT item trigger_pp as specified in <a h
             </svg><a href="#appendix-A-1.1.1" class="pilcrow">¶</a>
 </div>
 </div>
-<figcaption><a href="#figure-5" class="selfRef">Figure 5</a>:
+<figcaption><a href="#figure-6" class="selfRef">Figure 6</a>:
 <a href="#name-example-of-remote-attestati" class="selfRef">Example of remote attestation.</a>
         </figcaption></figure>
 </div>
