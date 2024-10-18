@@ -192,7 +192,7 @@ Table of Contents
    External Authorization Data (EAD) fields.  EDHOC [RFC9528] supports
    one or more EAD items in each EAD field.  EAD item is a CBOR sequence
    of an ead_label and an optional ead_value.  More specifically, we
-   define three independent aspects Section 5 for performing remote
+   define three independent aspects in Section 5 for performing remote
    attestation over EDHOC:
 
    1.  Attestation Targets (see in Section 5.1): remote attestation of
@@ -205,9 +205,11 @@ Table of Contents
        message flow / EDHOC reverse message flow
 
    All combinations of one item from each of the three aspects are
-   possible, resulting in 8 different cases.  In this specification, we
-   discuss about the cases that are better matched to the EDHOC use case
-   and the constrained IoT device and network setting.
+   possible, resulting in 8 different cases.
+
+   In this specification, we discuss about the cases that are better
+   matched to the EDHOC use case and the constrained IoT device and
+   network setting.
 
 4.  Assumptions
 
@@ -247,8 +249,9 @@ Table of Contents
    This refers to the process of ensuring the integrity and
    trustworthiness of IoT devices before they can interact with the
    cloud or network.  Attestation of IoT devices verifies that the
-   devices have not been tampered with and are oprating correctly.  The
-   IoT device acts as the Attester.  We assume in this specification
+   devices have not been tampered with and are oprating correctly.
+
+   The IoT device acts as the Attester.  We assume in this specification
    that the IoT devices are low-power constrained devices that have
    computation and connection constraints.
 
@@ -256,22 +259,23 @@ Table of Contents
 
    This involves verifying the trustworthiness of network services or
    cloud entities.  It ensures that the services the IoT devices are
-   communication with are legitimate and secure.  For example, a network
+   communicating with are legitimate and secure.  For example, a network
    service attestation should be done before a IoT device shares some
-   sensitive data with the network service.  The network service acts as
-   the Attester.  Unlike IoT devices, network services typically have
-   more computational power and capabilities, enabling them to handle
-   complex attestation processes when more work for the Attester is
-   required.
+   sensitive data with the network service.
+
+   The network service acts as the Attester.  Unlike IoT devices,
+   network services typically have more computational power and
+   capabilities, enabling them to handle complex attestation processes
+   when more demanding tasks are required of the Attester.
 
 5.2.  Attestation Models
 
-   This specification supports both the RATS background-check model
-   Section 5.2.1 and passport model Section 5.2.2.  The corresponding
-   EAD items for background-check model and the passport model are
-   independent between each other.  The detailed EAT items definitions
-   are in Section 5.2.1.1 for background-check model and Section 5.2.2.1
-   for passport model.
+   This specification supports both the RATS background-check model (see
+   in Section 5.2.1) and passport model (see inSection 5.2.2).  The
+   corresponding EAD items for background-check model and the passport
+   model are independent between each other.  The detailed EAD items
+   definitions are in Section 5.2.1.1 for the background-check model and
+   Section 5.2.2.1 for the passport model.
 
 5.2.1.  Background-check Model (BG)
 
@@ -281,23 +285,24 @@ Table of Contents
 
    An EDHOC session is established between the Attester and the Relying
    Party.  A negotiation of the evidence type is required before the
-   Attester sends the evidence.  All three parties need to be aligned
-   with one selected evidence type.  The Attester first sends a list of
-   the provided evidence types formatted to a Attestation proposal as an
-   EDHOC EAD item to the Relying Party, . The Relying Party transfers
-   the list to the Verifier and should receive at least one supported
-   evidence type from the Verifier.  If the Relying Party receives more
-   than one evidence type, a single evidence type should be selected by
-   the Relying Party and sends it back as an Attestation request to the
-   Attester.
+   Attester sends the evidence.  All three parties must agree on a
+   selected evidence type.
+
+   The Attester first sends a list of the provided evidence types,
+   formatted as an Attestation proposal in an EDHOC EAD item, to the
+   Relying Party.  The Relying Party transfers the list to the Verifier
+   and should receive at least one supported evidence type from the
+   Verifier.  If the Relying Party receives more than one evidence type,
+   a single evidence type should be selected by the Relying Party and
+   sends it back as an Attestation request to the Attester.
 
    We use nonce (at least 8 bytes according to [I-D.ietf-rats-eat]) to
    guarantee the freshness for the attestation session, which is
    generated by the Verifier and sends to the Relying Party.  The
    Relying Party puts nonce and the selected evidence type together in a
-   tuple to generate the EAD item Attestation request.
+   tuple to generate an Attestation request as an EAD item.
 
-   If the Attestation checks that the received evidence type from the
+   If the Attester checks that the received evidence type from the
    Relying Party is within the list of its provided evidence types, it
    can call its attestation service to generate the evidence, with nonce
    value as one of the inputs.
@@ -423,13 +428,12 @@ Table of Contents
    Relying Party selects one trusted Verifier identity and sends it back
    as a Result request.
 
-   Regarding the freshness in passport model, the Attester could choose
-   to either have a real-time connection with the selected Verifier, or
-   benefit by a pre-stored attestation result from the selected
-   Verifier.  If the attestation result is not from a real-time
-   connection session, the attestation result should have a time stamp
-   and/or expiry time to indicate the validity of the attestation
-   result.  The synchronization of the time is out of scope in this
+   Regarding the freshness in passport model, the Attester could either
+   establish a real-time connection with the selected Verifier, or use a
+   pre-stored attestation result from the selected Verifier.  If the
+   attestation result is not obtained via a real-time connection, it
+   should include a time stamp and/or expiry time to indicate its
+   validity.  The synchronization of the time is out of scope in this
    specification, and depends on the different device policies.
 
    Once the Attester obtains the attestation result from the selected
@@ -521,11 +525,12 @@ Table of Contents
 
 5.3.  EDHOC Message Flow
 
-   EDHOC protocol defines two types of athentication message flows.  In
-   this specification, we support both the EDHOC remote message flow and
-   the EDHOC reverse message flow (see Appendix A.2.2 of [RFC9528]) to
-   perform remote attestation.  No matter which type of the message flow
-   is used, the EDHOC Initiator always sends the first EDHOC message_1.
+   The EDHOC protocol defines two types of athentication message flows.
+   In this specification, we support both the EDHOC remote message flow
+   and the EDHOC reverse message flow (see Appendix A.2.2 of [RFC9528])
+   to perform remote attestation.  No matter which type of the message
+   flow is used, the EDHOC Initiator always sends the first EDHOC
+   message_1.
 
 5.3.1.  EDHOC Forward Message Flow (Fwd)
 
@@ -629,13 +634,13 @@ Table of Contents
    items specific to the passport model are defined in Section 5.2.2.1.
 
    The Relying Party asks the Attester to do a remote attestation by
-   sending a trigger_PP in EDHOC message_1.  The Attester replies to the
-   Relying Party with a Result proposal in EAD_2.  Then the Relying
-   Party selects a trusted Verifier identity and send it as a Result
-   request.  How the Attester negotiates with the selected Verifier to
-   get the attestation result is not detailed in this specification.  A
-   fourth EDHOC message is required to send the Result from the Attester
-   to the Relying Party.
+   sending a trigger_pp (see in Section 5.2.2.1.4) in EDHOC message_1.
+   The Attester replies to the Relying Party with a Result proposal in
+   EAD_2.  Then the Relying Party selects a trusted Verifier identity
+   and send it as a Result request.  How the Attester negotiates with
+   the selected Verifier to get the attestation result is not detailed
+   in this specification.  A fourth EDHOC message is required to send
+   the Result from the Attester to the Relying Party.
 
    +-----------+                +-----------+
    |IoT device |                |Net service|
@@ -689,15 +694,16 @@ Table of Contents
    In this example, the mutual attestation is performed in EDHOC forward
    message flow, by one IoT device attestation in background-check model
    and another network service attestation in passport model.  The
-   process is illustrated in Figure Figure 3.  How the Network service
-   connects with the Verifier_1 and protential Verifier_2 is out of
-   scope in this specification.  The first remote attestation is
-   initiated by the IoT device (A_1) in background-check model.
-   Meanwhile, the IoT device (Attester 1) asks the network service (A_2)
-   to perform a remote attestation in passport model.  EAD_2 has the EAD
-   items Attestation request and Result proposal.  EAD_3 carries the EAD
-   items Evidence and Result request.  EAD_4 has the EAD item Result for
-   the passport model.
+   process is illustrated in Figure 3.  How the Network service connects
+   with the Verifier_1 and protential Verifier_2 is out of scope in this
+   specification.
+
+   The first remote attestation is initiated by the IoT device (A_1) in
+   background-check model.  Meanwhile, the IoT device (A_1) asks the
+   network service (A_2) to perform a remote attestation in passport
+   model.  EAD_2 has the EAD items Attestation request and Result
+   proposal.  EAD_3 carries the EAD items Evidence and Result request.
+   EAD_4 has the EAD item Result for the passport model.
 
 +-----------+                     +-----------+
 |IoT device |                     |Net service|
@@ -831,7 +837,7 @@ Table of Contents
       in Section 5.2.2.1.1, Result_request in Section 5.2.2.1.2 and the
       Result in Section 5.2.2.1.3.
 
-   *  The ead_lable = TBD4 corresponds to the EAT item trigger_pp as
+   *  The ead_label = TBD4 corresponds to the EAT item trigger_pp as
       specified in Section 5.2.2.1.4.
 
    +-----------+-------+------------------------+-------------------+
@@ -1056,19 +1062,22 @@ Appendix C.  Example: Firmware Version
    complete resulting COSE object is:
 
 18([
-/*protected header*/
-h'a10127',
-/*unprotected header*/
-{},
-/*payload*/
-h'a30a48a29f62a4c6cdaae5190100636262621901118182190102a500636161610177446f74426f74206669726d7761726520696d616765203102a2181f6841747465737465721821010c0003a11181a318187819706172746974696f6e302d6e72663532383430646b2e62696e141a0010f447078201582006294f6806b9c685eea795048579cfd02a0c025bc8b5abca42a19ea0ec23e81a',
-/*signature*/
-h'd4100901f4c3e51312c3110c6ddc8dcf7f68d8f5d3791c19133f2f0ac158c1f5ee6edafe9d7c3d6eb3d2d197f82e733d375fdda9fb258b304961dfc38558950d'
+    /*protected header*/
+    h'a10127',
+
+    /*unprotected header*/
+    {},
+
+    /*payload*/
+    h'A30A48A29F62A4C6CDAAE519010047616161626263631901118182190102A5004574616749440C00016F446F74426F74206669726D7761726502A2181F68417474657374657218210103A11181A218187819706172746974696F6E302D6E72663532383430646B2E62696E078201582006294F6806B9C685EEA795048579CFD02A0C025BC8B5ABCA42A19EA0EC23E81A',
+
+    /*signature*/
+    h'd4100901f4c3e51312c3110c6ddc8dcf7f68d8f5d3791c19133f2f0ac158c1f5ee6edafe9d7c3d6eb3d2d197f82e733d375fdda9fb258b304961dfc38558950d'
 ])
 
    which has the following base16 encoding:
 
-D28443A10127A05898A30A48A29F62A4C6CDAAE5190100636262621901118182190102A500636161610177446F74426F74206669726D7761726520696D616765203102A2181F6841747465737465721821010C0003A11181A318187819706172746974696F6E302D6E72663532383430646B2E62696E141A0010F447078201582006294F6806B9C685EEA795048579CFD02A0C025BC8B5ABCA42A19EA0EC23E81A5840D4100901F4C3E51312C3110C6DDC8DCF7F68D8F5D3791C19133F2F0AC158C1F5EE6EDAFE9D7C3D6EB3D2D197F82E733D375FDDA9FB258B304961DFC38558950D
+D28443A10127A05890A30A48A29F62A4C6CDAAE519010047616161626263631901118182190102A5004574616749440C00016F446F74426F74206669726D7761726502A2181F68417474657374657218210103A11181A218187819706172746974696F6E302D6E72663532383430646B2E62696E078201582006294F6806B9C685EEA795048579CFD02A0C025BC8B5ABCA42A19EA0EC23E81A5840D4100901F4C3E51312C3110C6DDC8DCF7F68D8F5D3791C19133F2F0AC158C1F5EE6EDAFE9D7C3D6EB3D2D197F82E733D375FDDA9FB258B304961DFC38558950D
 
    The Relying Party (co-located with the gateway) then treats the
    Evidence as opaque and sends it to the Verifier.  Once the Verifier
@@ -1082,8 +1091,8 @@ Appendix D.  Open discussion: remote attestation over EDHOC/ over OSCORE
 Acknowledgments
 
    The author would like to thank Thomas Fossati, Goran Selander, Malisa
-   Vucinic, Ionut Mihalcea, Muhammad Usama Sardar and Michael Richardson
-   for the provided ideas and feedback.
+   Vucinic, Ionut Mihalcea, Muhammad Usama Sardar, Michael Richardson
+   and Geovane Fedrecheski for the provided ideas and feedback.
 
 Author's Address
 
