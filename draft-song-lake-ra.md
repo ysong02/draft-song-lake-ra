@@ -55,7 +55,7 @@ This document specifies how to perform remote attestation as part of the lightwe
 
 <!--Discuss remote attestation and mention some use cases.-->
 Remote attestation is a security process which verifies and confirms the integrity and trustworthiness of a remote device or system in the network.
-This process helps establish a level of trust in the remote system before allowing the device to e.g. join the network or get the access to some sensitive information and resources.
+This process helps establish a level of trust in the remote system before allowing the device to e.g. join the network or get access to some sensitive information and resources.
 The use cases that require remote attestation include secure boot and firmware management, cloud computing, network access control, etc.
 
 <!--Summarize RATS architecture {{RFC9334}} and main roles.-->
@@ -106,14 +106,16 @@ The reader is assumed to be familiar with the terms and concepts defined in EDHO
 This specification describes how to perform remote attestation over the EDHOC protocol, following the RATS architecture.
 EDHOC provides the benefit of minimal message overhead and reduced round trips for a lightweight authentication.
 More importantly, by integrating remote attestation with EDHOC, attestation can be run in parallel with authentication, improving the efficiency and maintaining lightweight properties.
+
 Remote attestation protocol elements are carried within EDHOC's External Authorization Data (EAD) fields.
 EDHOC {{RFC9528}} supports one or more EAD items in each EAD field.
 EAD item is a CBOR sequence of an ead_label and an optional ead_value.
 More specifically, we define three independent aspects {{attestation-aspects}} for performing remote attestation over EDHOC:
 
-  1. Attestation Targets {{targets}}: remote attestation of IoT device / remote attestation of cloud/network service
-  2. Attestation Models {{models}}: remote attestation in RATS background-check model / RATS passport model
-  3. Atttestation Message Flow {{flow}}: EDHOC forward message flow / EDHOC reverse message flow
+  1. Attestation Targets (see in {{targets}}): remote attestation of IoT device / remote attestation of network service
+  2. Attestation Models (see in {{models}}): remote attestation in RATS background-check model / RATS passport model
+  3. Atttestation Message Flow (see in {{flow}}): EDHOC forward message flow / EDHOC reverse message flow
+
 All combinations of one item from each of the three aspects are possible, resulting in 8 different cases.
 In this specification, we discuss about the cases that are better matched to the EDHOC use case and the constrained IoT device and network setting.
 
@@ -163,8 +165,8 @@ The detailed EAT items definitions are in {{ead-bg}} for background-check model 
 In background-check model, the Attester sends the evidence to the Relying Party.
 The Relying Party transfers the evidence to the Verifier and gets back the attestation result from the Verifier.
 
-EDHOC session is between the Attester and the Relying Party.
-A negotiation of the evidence type is required Before the Attester sends the evidence.
+An EDHOC session is established between the Attester and the Relying Party.
+A negotiation of the evidence type is required before the Attester sends the evidence.
 All three parties need to be aligned with one selected evidence type.
 The Attester first sends a list of the provided evidence types formatted to a Attestation proposal as an EDHOC EAD item to the Relying Party,  .
 The Relying Party transfers the list to the Verifier and should receive at least one supported evidence type from the Verifier.
@@ -193,7 +195,7 @@ The EAD item for an attestation proposal is:
 ~~~~~~~~~~~~~~~~
 Attestation_proposal = bstr .cbor Proposed_EvidenceType
 
-Proposed_EvidenceType = [ + content-format]
+Proposed_EvidenceType = [ + content-format ]
 
 content-format = uint
 ~~~~~~~~~~~~~~~~
@@ -204,8 +206,8 @@ where
 * There MUST be at least one item in the array.
 * content-format is an indicator of the format type (e.g., application/eat+cwt with an appropriate eat_profile parameter set), from {{IANA-CoAP-Content-Formats}}.
 
-The sign of ead_label TBD1 MUST be negative to indicate that the EAT item is critical.
-If the receiver cannot recognize the critical EAD item, or cannot process the information in the critical EAD item, then the receiver MUST send an EDHOC error message back.
+The sign of ead_label TBD1 MUST be negative to indicate that the EAD item is critical.
+If the receiver cannot recognize the critical EAD item, or cannot process the information in the critical EAD item, then the receiver MUST send an EDHOC error message back as defined in {{Section 6 of RFC9528}}.
 
 ##### Attestation_request {#attestation-request}
 
@@ -219,6 +221,7 @@ The EAD item for an attestation request is:
 
 ~~~~~~~~~~~~~~~~
 Attestation_request = bstr .cbor Selected_EvidenceType
+
 Selected_EvidenceType = (
   content-format: uint,
   nonce: bstr .size 8..64
@@ -230,8 +233,8 @@ where
 * content-format is the selected evidence type by the Relying Party and supported by the Verifier.
 * nonce is generated by the Verifier and forwarded by the Relying Party.
 
-The sign of ead_label TBD2 MUST be negative to indicate that the EAT item is critical.
-If the receiver cannot recognize the critical EAD item, or cannot process the information in the critical EAD item, then the receiver MUST send an EDHOC error message back.
+The sign of ead_label TBD2 MUST be negative to indicate that the EAD item is critical.
+If the receiver cannot recognize the critical EAD item, or cannot process the information in the critical EAD item, then the receiver MUST send an EDHOC error message back as defined in {{Section 6 of RFC9528}}.
 
 ##### Evidence {#evidence}
 
@@ -260,7 +263,7 @@ The EAD item is:
 In passport model, the Attester sends the evidence to the Verifier.
 After the Attester receives the attestation result from the Verifier, the Attester sends the attestation result to the Relying Party.
 
-EDHOC session is between the Attester and the Relying Party.
+An EDHOC session is established between the Attester and the Relying Party.
 The Attester and the Relying Party should decide from which Verifier the Attester obtains the attestation result and transfers it to the Relying Party.
 The Attester first sends a list of the Verifier identities that it can get the attestation result.
 The Relying Party selects one trusted Verifier identity and sends it back as a Result request.
@@ -286,7 +289,7 @@ The EAD item for an attestation result proposal is:
 * ead_value = Result_proposal, which is a CBOR byte string:
 
 ~~~~~~~~~~~~~~~~
-Result_proposal = bstr .cbor Proposed_VerfierIdentity
+Result_proposal = bstr .cbor Proposed_VerifierIdentity
 Proposed_VerifierIdentity = [ + VerifierIdentity ]
 
 VerifierIdentity = {
@@ -385,34 +388,37 @@ The Attester sends the Evidence to the Relying Party in EAD_3.
 The Verifier evaluates the Evidence and sends the Attestation result to the Relying Party.
 
 ~~~~~~~~~~~ aasvg
-+-----------+              +-----------+
-|IoT device |              |Net service|
-+-----------+              +-----------+
-|  EDHOC    |              |   EDHOC   |
-| Initiator |              | Responder |
-+-----------+              +-----------+               +----------+
-| Attester  |              |     RP    |               | Verifier |
-+-----+-----+              +-----+-----+               +-----+----+
-      |                          |                           |
-      |  Attestation proposal    |                           |
-      +------------------------->|                           |
-      |                          |                           |
-      |                          | Attestation proposal, C_R |
-      |                          +-------------------------->|
-      |                          |<--------------------------+
-      |                          |  EvidenceType(s), Nonce   |
-      |<-------------------------+                           |
-      |   Attestation request    |                           |
-      |                          |                           |
-      |        Evidence          |                           |
-      |------------------------->|                           |
-      |                          |        Evidence, C_R      |
-      |                          +-------------------------->|
-      |                          |<--------------------------|
-      |                          |    Attestation result     |
-      |                          |                           |
-      |<---  ---  ---  ---  --- >|                           |
-              EDHOC session
++-----------+                    +-----------+
+|IoT device |                    |Net service|
++-----------+                    +-----------+
+|   EDHOC   |                    |   EDHOC   |
+| Initiator |                    | Responder |
++-----------+                    +-----------+               +----------+
+| Attester  |                    |     RP    |               | Verifier |
++-----+-----+                    +-----+-----+               +-----+----+
+      |                                |                           |
+      |  EAD_1 = Attestation proposal  |                           |
+      +------------------------------->|                           |
+      |                                |                           |
+      |                                | Attestation proposal, C_R |
+      |                                +-------------------------->|
+      |                                |<--------------------------+
+      |                                |  EvidenceType(s), Nonce   |
+      |                                |                           |
+      |  EAD_2 = Attestation request   |                           |
+      |<-------------------------------+                           |
+      |                                |                           |
+      |  EAD_3 = Evidence              |                           |
+      +------------------------------->|                           |
+      |                                |      Evidence, C_R        |
+      |                                +-------------------------->|
+      |                                |<--------------------------+
+      |                                |    Attestation result     |
+      |                                |                           |
+      |                                |                           |
+      |                                |                           |
+      | <----------------------------> |                           |
+      |         EDHOC session          |                           |
 
 ~~~~~~~~~~~
 {: #fig-iot-bg-fwd title="Overview of IoT device attestation in background-check model and EDHOC forward message flow. EDHOC is used between A and RP." artwork-align="center"}
@@ -438,32 +444,33 @@ A fourth EDHOC message is required to send the Result from the Attester to the R
 
 
 ~~~~~~~~~~~ aasvg
-+-----------+              +-----------+
-|IoT device |              |Net service|
-+-----------+              +-----------+
-|  EDHOC    |              |   EDHOC   |
-| Initiator |              | Responder |
-+-----------+              +-----------+               +----------+
-|     RP    |              | Attester  |               | Verifier |
-+-----+-----+              +-----+-----+               +-----+----+
-      |                          |                           |
-      |      trigger_PP          |                           |
-      +------------------------->|                           |
-      |                          |                           |
-      |<-------------------------+                           |
-      |      Result proposal     |                           |
-      |                          |                           |
-      |      Result request      |                           |
-      +------------------------->|        (request)          |
-      |                          +---  ---  ---  ---  ---  ->|
-      |                          |<---  ---  ---  ---  ---  -+
-      |                          |         Result            |
-      |          Result          |                           |
-      |<-------------------------+                           |
-      |                          |                           |
-      |                          |                           |
-      |<---  ---  ---  ---  --- >|                           |
-              EDHOC session
++-----------+                +-----------+
+|IoT device |                |Net service|
++-----------+                +-----------+
+|   EDHOC   |                |   EDHOC   |
+| Initiator |                | Responder |
++-----------+                +-----------+               +----------+
+|    RP     |                | Attester  |               | Verifier |
++-----+-----+                +-----+-----+               +-----+----+
+      |                            |                           |
+      |  EAD_1 = trigger_PP        |                           |
+      +--------------------------->|                           |
+      |                            |                           |
+      |  EAD_2 = Result proposal   |                           |
+      |<---------------------------+                           |
+      |                            |                           |
+      |  EAD_3 = Result request    |                           |
+      +--------------------------->|        (request)          |
+      |                            +---  ---  ---  ---  --- -->|
+      |                            |<---  ---  ---  --- ---  --+
+      |                            |         Result            |
+      |  EAD_4 = Result            |                           |
+      |<---------------------------+                           |
+      |                            |                           |
+      |                            |                           |
+      |                            |                           |
+      | <------------------------> |                           |
+      |       EDHOC session        |                           |
 ~~~~~~~~~~~
 {: #fig-net-pp-fwd title="Overview of network service attestation in passport model and EDHOC forward message flow. EDHOC is used between RP and A." artwork-align="center"}
 
@@ -488,46 +495,51 @@ EAD_3 carries the EAD items Evidence and Result request.
 EAD_4 has the EAD item Result for the passport model.
 
 ~~~~~~~~~~~ aasvg
-+-----------+              +-----------+
-|IoT device |              |Net service|
-+-----------+              +-----------+
-|  EDHOC    |              |   EDHOC   |
-| Initiator |              | Responder |
-+-----------+              +-----------+               +------------+              +------------+
-| A_1/RP_2  |              | RP_1/A_2  |               | Verifier_1 |              | Verifier_2 |
-+-----+-----+              +-----+-----+               +------+-----+              +------+-----+
-      |                          |                            |                           |
-      |  Attestation proposal    |                            |                           |
-      +------------------------->|                            |                           |
-      |       trigger_PP         |                            |                           |
-      |                          |                            |                           |
-      |                          |  Attestation proposal, C_R |                           |
-      |                          +--------------------------->|                           |
-      |                          |<---------------------------+                           |
-      |                          |   EvidenceType(s), Nonce   |                           |
-      |   Attestation request    |                            |                           |
-      |<-------------------------+                            |                           |
-      |     Result proposal      |                            |                           |
-      |                          |                            |                           |
-      |                          |                            |                           |
-      |        Evidence          |                            |                           |
-      +------------------------->|                            |                           |
-      |      Result request      |                            |                           |
-      |                          |       Evidence, C_R        |                           |
-      |                          +--------------------------->|         (Request)         |
-      |                          +--- --- --- --- --- --- --- +---  ---  ---  ---  ---  ->|
-      |                          |                            |                           |
-      |                          |    Attestation result      |                           |
-      |                          |<---------------------------+                           |
-      |                          |                            |                           |
-      |                          |<---  ---  ---  ---  ---  --+ ---  ---  ---  ---  ---  -+
-      |                          |            Result          |                           |
-      |                          |                            |                           |
-      |<-------------------------+                            |                           |
-      |          Result          |                            |                           |
-      |                          |                            |                           |
-      |<---  ---  ---  ---  --- >|                            |                           |
-              EDHOC session
++-----------+                     +-----------+
+|IoT device |                     |Net service|
++-----------+                     +-----------+
+|  EDHOC    |                     |   EDHOC   |
+| Initiator |                     | Responder |
++-----------+                     +-----------+               +------------+              +------------+
+| A_1/RP_2  |                     | RP_1/A_2  |               | Verifier_1 |              | Verifier_2 |
++-----+-----+                     +-----+-----+               +------+-----+              +------+-----+
+      |                                 |                            |                           |
+      |  EAD_1 = Attestation proposal,  |                            |                           |
+      |          trigger_PP             |                            |                           |
+      +-------------------------------->|                            |                           |
+      |                                 |                            |                           |
+      |                                 |                            |                           |
+      |                                 |  Attestation proposal, C_R |                           |
+      |                                 +--------------------------->|                           |
+      |                                 |<---------------------------+                           |
+      |                                 |   EvidenceType(s), Nonce   |                           |
+      |  EAD_2 = Attestation request,   |                            |                           |
+      |          Result proposal        |                            |                           |
+      |<--------------------------------+                            |                           |
+      |                                 |                            |                           |
+      |                                 |                            |                           |
+      |  EAD_3 = Evidence,              |                            |                           |
+      |          Result request         |                            |                           |
+      +-------------------------------->|                            |                           |
+      |                                 |                            |                           |
+      |                                 |       Evidence, C_R        |                           |
+      |                                 +--------------------------->|         (Request)         |
+      |                                 +--- --- --- --- --- ---  ---+ ---  ---  --- --- --- --->|
+      |                                 |                            |                           |
+      |                                 |                            |                           |
+      |                                 |    Attestation result      |                           |
+      |                                 |<---------------------------+                           |
+      |                                 |                            |                           |
+      |                                 |<---  ---  ---  ---  ---  --+ ---  ---  --- ---  --- ---+
+      |                                 |            Result          |                           |
+      |  EAD_4 = Result                 |                            |                           |
+      |<--------------------------------+                            |                           |
+      |                                 |                            |                           |
+      |                                 |                            |                           |
+      |                                 |                            |                           |
+      |                                 |                            |                           |
+      | <-----------------------------> |                            |                           |
+      |          EDHOC session          |                            |                           |
 
 ~~~~~~~~~~~
 {: #fig-mutual-attestation-BP title="Overview of mutual attestation of (IoT, BG, Fwd) - (Net, PP, Fwd). EDHOC is used between A and RP." artwork-align="center"}
@@ -584,11 +596,13 @@ Both the Attestation_request/Result_request in EAD_3 and the Evidence/Result in 
 ## EDHOC External Authorization Data Registry
 
 IANA is requested to register the following entry in the "EDHOC External Authorization Data" registry under the group name "Ephemeral Diffie-Hellman Over Cose (EDHOC)".
-The ead_label = TBD1 corresponds to the ead_value Attestation_proposal in {{attestation-proposal}}, Attestation_request in {{attestation-request}} and Evidence in {{evidence}}.
-The ead_label = TBD2 corresponds to the EAT item trigger_bg as specified in {{trigger-bg}}.
-The ead_label = TBD3 corresponds to the ead_value Result_proposal in {{result-proposal}}, Result_request in {{result-request}} and the Result in {{result}}.
-The ead_lable = TBD4 corresponds to the EAT item trigger_pp as specified in {{trigger-pp}}.
 
+* The ead_label = TBD1 corresponds to the ead_value Attestation_proposal in {{attestation-proposal}}, Attestation_request in {{attestation-request}} and Evidence in {{evidence}}.
+* The ead_label = TBD2 corresponds to the EAT item trigger_bg as specified in {{trigger-bg}}.
+* The ead_label = TBD3 corresponds to the ead_value Result_proposal in {{result-proposal}}, Result_request in {{result-request}} and the Result in {{result}}.
+* The ead_lable = TBD4 corresponds to the EAT item trigger_pp as specified in {{trigger-pp}}.
+
+~~~~~~~~~~~ aasvg
 +-----------+-------+------------------------+-------------------+
 | Name      | Label | Description            | Reference         |
 +===========+=======+========================+===================+
@@ -604,7 +618,7 @@ The ead_lable = TBD4 corresponds to the EAT item trigger_pp as specified in {{tr
 | TBD       | TBD4  | trigger to start       |                   |
 |           |       | attestation in PP      | Secion 5.2.2.1    |
 +-----------+-------+------------------------+-------------------+
-
+~~~~~~~~~~~
 {: #fig-ead-labels title="EAD labels."}
 
 --- back
