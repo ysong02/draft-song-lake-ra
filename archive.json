@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-17T01:11:57.142493+00:00",
+  "timestamp": "2024-10-20T01:17:42.817744+00:00",
   "repo": "ysong02/draft-song-lake-ra",
   "labels": [
     {
@@ -136,6 +136,22 @@
       "createdAt": "2024-06-06T16:59:08Z",
       "updatedAt": "2024-07-03T01:24:38Z",
       "closedAt": "2024-07-03T01:24:38Z",
+      "comments": []
+    },
+    {
+      "number": 14,
+      "id": "I_kwDOK17GRM6a0yPP",
+      "title": "draft version 02",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/issues/14",
+      "state": "OPEN",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Updates are:\r\n- delete section Protocol\r\n- create section Remote Attestation Aspects in EDHOC\r\n- cerate section emote Attestation Aspect Combinations\r\n- create section Mutual Attestation in EDHOC\r\n- new EAD items: trigger_bg and trigger_pp\r\n- replace Problem Description section to Overview section\r\n- replace the example from PSA to EAT with CoSWID\r\n- correct IANA table for ead labels\r\n- improve all the figure",
+      "createdAt": "2024-10-18T13:30:50Z",
+      "updatedAt": "2024-10-18T13:30:50Z",
+      "closedAt": null,
       "comments": []
     }
   ],
@@ -535,6 +551,32 @@
       "mergeCommit": {
         "oid": "ce16a8def7ff7a5dcd61bd841a671779b131d29b"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDOK17GRM5_GPz7",
+      "title": "draft version 02",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/pull/13",
+      "state": "OPEN",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "- delete section Protocol\r\n- create section Remote Attestation Aspects in EDHOC\r\n- cerate section emote Attestation Aspect Combinations\r\n- create section Mutual Attestation in EDHOC \r\n- new EAD items: trigger_bg and trigger_pp\r\n- replace Problem Description section to Overview section\r\n- replace the example from PSA to EAT with CoSWID\r\n- correct IANA table for ead labels\r\n- improve all the figures\r\n\r\nFixes #14",
+      "createdAt": "2024-10-18T12:25:38Z",
+      "updatedAt": "2024-10-18T14:46:29Z",
+      "baseRepository": "ysong02/draft-song-lake-ra",
+      "baseRefName": "main",
+      "baseRefOid": "ce16a8def7ff7a5dcd61bd841a671779b131d29b",
+      "headRepository": "ysong02/draft-song-lake-ra",
+      "headRefName": "version02",
+      "headRefOid": "4cd729ee8b15275e5a44758eb1e5e0082e8f3055",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
