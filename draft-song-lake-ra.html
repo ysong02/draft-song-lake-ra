@@ -1138,10 +1138,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-assumptions" class="internal xref">Assumptions</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-remote-attestation-aspects-" class="internal xref">Remote Attestation Aspects in EDHOC</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-remote-attestation-in-edhoc" class="internal xref">Remote Attestation in EDHOC</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
-                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-attestation-targets" class="internal xref">Attestation Targets</a></p>
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-target" class="internal xref">Target</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1.2.1">
                     <p id="section-toc.1-1.5.2.1.2.1.1"><a href="#section-5.1.1" class="auto internal xref">5.1.1</a>.  <a href="#name-iot-device-attestation-iot" class="internal xref">IoT Device Attestation (IoT)</a></p>
@@ -1152,7 +1152,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-attestation-models" class="internal xref">Attestation Models</a></p>
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-model" class="internal xref">Model</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.1">
                     <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="auto internal xref">5.2.1</a>.  <a href="#name-background-check-model-bg" class="internal xref">Background-check Model (BG)</a></p>
@@ -1176,7 +1176,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-remote-attestation-aspect-c" class="internal xref">Remote Attestation Aspect Combinations</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-instantiation-of-remote-att" class="internal xref">Instantiation of Remote Attestation Protocol</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
                 <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-iot-bg-fwd-iot-device-attes" class="internal xref">(IoT, BG, Fwd): IoT Device Attestation</a></p>
@@ -1267,20 +1267,23 @@ Another model is called passport model, where the Attester communicates directly
 The Attester presents the evidence to the Verifier and gets an attestation result from the Verifier.
 Then the Attester conveys the attestation result to the Relying Party.
 This specification employs both the RATS background-check model and the passport model.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">One way of conveying attestation evidence/ attestation result is the Entity Attestation Token (EAT) <span>[<a href="#I-D.ietf-rats-eat" class="cite xref">I-D.ietf-rats-eat</a>]</span>.
+<p id="section-1-4">This document specifies the protocol between the Attester and the Relying Party.
+The details of the protocol between the Relying Party and the Verifier in the background-check model, and the protocol between the Attester and the Verifier in the passport model are out of the scope.
+This communication may be secured through protocols such as EDHOC, TLS or other security protocols that support the secure transmission to and from the Verifier.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">One way of conveying attestation evidence or the attestation result is the Entity Attestation Token (EAT) <span>[<a href="#I-D.ietf-rats-eat" class="cite xref">I-D.ietf-rats-eat</a>]</span>.
 It provides an attested claims set which can be used to determine a level of trustworthiness.
-This specification relies on the EAT as the format for attestation evidence and the attestation result.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">Ephemeral Diffie-Hellman over COSE (EDHOC) <span>[<a href="#RFC9528" class="cite xref">RFC9528</a>]</span> is a lightweight authenticated key exchange protocol for highly constrained networks.
+This specification relies on the EAT as the format for attestation evidence and the attestation result.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">Ephemeral Diffie-Hellman over COSE (EDHOC) <span>[<a href="#RFC9528" class="cite xref">RFC9528</a>]</span> is a lightweight authenticated key exchange protocol for highly constrained networks.
 In EDHOC, the two parties involved in the key exchange are referred to as the Initiator (I) and the Responder (R).
 EDHOC supports the transport of external authorization data, through the dedicated EAD fields.
 This specification delivers EAT through EDHOC.
 Specifically, EAT is transported as an EAD item.
-There are also some new EAD items defined for performing remote attesation over EDHOC in <a href="#ead-bg" class="auto internal xref">Section 5.2.1.1</a> and <a href="#ead-pp" class="auto internal xref">Section 5.2.2.1</a>.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">For the generation of evidence, the Attester incorporates an internal attestation service, including a specific trusted element known as the "root of trust".
+This specification also defines new EAD items needed to perform remote attesation over EDHOC in <a href="#ead-bg" class="auto internal xref">Section 5.2.1.1</a> and <a href="#ead-pp" class="auto internal xref">Section 5.2.2.1</a>.<a href="#section-1-6" class="pilcrow">¶</a></p>
+<p id="section-1-7">For the generation of evidence, the Attester incorporates an internal attestation service, including a specific trusted element known as the "root of trust".
 Root of trust serves as the starting point for establishing and validating the trustworthiness appraisals of other components on the system.
 The measurements signed by the attestation service are referred to as the Evidence.
 The signing is requested through an attestation API.
-How the components are separated between the secure and non-secure worlds on a device is out of scope of this specification.<a href="#section-1-6" class="pilcrow">¶</a></p>
+How the components are separated between the secure and non-secure worlds on a device is out of scope of this specification.<a href="#section-1-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1304,22 +1307,21 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 EDHOC provides the benefit of minimal message overhead and reduced round trips for a lightweight authentication.
 More importantly, by integrating remote attestation with EDHOC, attestation can be run in parallel with authentication, improving the efficiency and maintaining lightweight properties.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">Remote attestation protocol elements are carried within EDHOC's External Authorization Data (EAD) fields.
-EDHOC <span>[<a href="#RFC9528" class="cite xref">RFC9528</a>]</span> supports one or more EAD items in each EAD field.
-EAD item is a CBOR sequence of an ead_label and an optional ead_value.
-More specifically, we define three independent aspects in <a href="#attestation-aspects" class="auto internal xref">Section 5</a> for performing remote attestation over EDHOC:<a href="#section-3-2" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3-3">
-<li id="section-3-3.1">
-          <p id="section-3-3.1.1">Attestation Targets (see in <a href="#targets" class="auto internal xref">Section 5.1</a>): remote attestation of IoT device / remote attestation of network service<a href="#section-3-3.1.1" class="pilcrow">¶</a></p>
+EDHOC <span>[<a href="#RFC9528" class="cite xref">RFC9528</a>]</span> supports one or more EAD items in each EAD field.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">In <a href="#attestation-dimensions" class="auto internal xref">Section 5</a>, this document defines three independent dimensions for performing remote attestation over EDHOC:<a href="#section-3-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3-4">
+<li id="section-3-4.1">
+          <p id="section-3-4.1.1">Target (see <a href="#targets" class="auto internal xref">Section 5.1</a>) defining the entity that undergoes the attestation process (IoT device or network service).<a href="#section-3-4.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-3-3.2">
-          <p id="section-3-3.2.1">Attestation Models (see in <a href="#models" class="auto internal xref">Section 5.2</a>): remote attestation in RATS background-check model / RATS passport model<a href="#section-3-3.2.1" class="pilcrow">¶</a></p>
+        <li id="section-3-4.2">
+          <p id="section-3-4.2.1">Model (see <a href="#models" class="auto internal xref">Section 5.2</a>) defining the attestation model in use based on the RATS architecture (background-check model or passport model).<a href="#section-3-4.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li id="section-3-3.3">
-          <p id="section-3-3.3.1">Atttestation Message Flow (see in <a href="#flow" class="auto internal xref">Section 5.3</a>): EDHOC forward message flow / EDHOC reverse message flow<a href="#section-3-3.3.1" class="pilcrow">¶</a></p>
+        <li id="section-3-4.3">
+          <p id="section-3-4.3.1">Message Flow (see <a href="#flow" class="auto internal xref">Section 5.3</a>) defining the EDHOC message flow in use (forward message flow or reverse message flow).<a href="#section-3-4.3.1" class="pilcrow">¶</a></p>
 </li>
       </ol>
-<p id="section-3-4">All combinations of one item from each of the three aspects are possible, resulting in 8 different cases.<a href="#section-3-4" class="pilcrow">¶</a></p>
-<p id="section-3-5">In this specification, we discuss about the cases that are better matched to the EDHOC use case and the constrained IoT device and network setting.<a href="#section-3-5" class="pilcrow">¶</a></p>
+<p id="section-3-5">This document specifies the cases that are suited for constrained IoT environments.<a href="#section-3-5" class="pilcrow">¶</a></p>
+<p id="section-3-6">EDITOR NOTE: add an overview figure<a href="#section-3-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="assumptions">
@@ -1327,37 +1329,32 @@ More specifically, we define three independent aspects in <a href="#attestation-
       <h2 id="name-assumptions">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-assumptions" class="section-name selfRef">Assumptions</a>
       </h2>
-<p id="section-4-1">The details of the protocol between Relying Party and Verifier in background-check model, and the protocol between the Attester and the Verifier in passport model are out of the scope.
-The communication may utilize protocols such as EDHOC, TLS or other security protocols that support the secure transmission to and from the Verifier.
-Additionally, the Verifier is not assumed to be a low-power device.<a href="#section-4-1" class="pilcrow">¶</a></p>
-<p id="section-4-2">In background-check model, one assumption is that the Verifier outputs a fresh nonce and that same nonce is passed on to the EDHOC session.
-The Verifier is supposed to know how to verify more than one format of the evidence type.
-Therefore, the Verifier <span class="bcp14">MUST</span> send back at least one format to the Relying Party.
-We assume in this specification, the Relying Party also has knowledge about the Attester, so it can narrow down the type selection and send to the Attester only one format of evidence type.
-The Attester should have an explicit relation with the Verifier, such as from device manufacuture, so that the Verifier can evaluate the Evidence that is produced by the Attester.<a href="#section-4-2" class="pilcrow">¶</a></p>
-<p id="section-4-3">In passport model, the credential identity of the Verifier is assumed to be stored at the Attester and the Relying Party, which means the Verifier is trusted by the Attester and the Relying Party to obtain the attestation result.<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-1">In background-check model, one assumption is that the Verifier outputs a fresh nonce and that same nonce is passed on to the EDHOC session.
+The Verifier is assumed to know how to verify multiple formats of the evidence type.
+This specification assumes that the Relying Party also has knowledge about the Attester, so it can narrow down the evidence type selection and send to the Attester only one format of the evidence type.
+The Attester should have an explicit relation with the Verifier, such as from device manufacturing, so that the Verifier can evaluate the Evidence that is produced by the Attester.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">In the passport model, the credential identity of the Verifier is assumed to be stored at the Attester and the Relying Party, which means the Verifier is trusted by the Attester and the Relying Party to obtain the attestation result.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<p id="section-4-3">EDITOR NOTE: add attestation public key stored in Verifier<a href="#section-4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="attestation-aspects">
+<div id="attestation-dimensions">
 <section id="section-5">
-      <h2 id="name-remote-attestation-aspects-">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-remote-attestation-aspects-" class="section-name selfRef">Remote Attestation Aspects in EDHOC</a>
+      <h2 id="name-remote-attestation-in-edhoc">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-remote-attestation-in-edhoc" class="section-name selfRef">Remote Attestation in EDHOC</a>
       </h2>
-<p id="section-5-1">This section outlines three independent aspects that characterize the remote attestation process over EDHOC.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">This section specifies three independent dimensions that characterize the remote attestation process over EDHOC.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <div id="targets">
 <section id="section-5.1">
-        <h3 id="name-attestation-targets">
-<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-attestation-targets" class="section-name selfRef">Attestation Targets</a>
+        <h3 id="name-target">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-target" class="section-name selfRef">Target</a>
         </h3>
+<p id="section-5.1-1">Defines the entity that undergoes the attestation process.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <div id="iot-device-attestation-iot">
 <section id="section-5.1.1">
           <h4 id="name-iot-device-attestation-iot">
 <a href="#section-5.1.1" class="section-number selfRef">5.1.1. </a><a href="#name-iot-device-attestation-iot" class="section-name selfRef">IoT Device Attestation (IoT)</a>
           </h4>
-<p id="section-5.1.1-1">This refers to the process of ensuring the integrity and trustworthiness of IoT devices before they can interact with the cloud or network.
-Attestation of IoT devices verifies that the devices have not been tampered with and are oprating correctly.<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1.1-2">The IoT device acts as the Attester.
-We assume in this specification that the IoT devices are low-power constrained devices that have computation and connection constraints.<a href="#section-5.1.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.1.1-1">The IoT device acts as the Attester.<a href="#section-5.1.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="network-service-attestation-net">
@@ -1365,39 +1362,40 @@ We assume in this specification that the IoT devices are low-power constrained d
           <h4 id="name-network-service-attestation">
 <a href="#section-5.1.2" class="section-number selfRef">5.1.2. </a><a href="#name-network-service-attestation" class="section-name selfRef">Network Service Attestation (Net)</a>
           </h4>
-<p id="section-5.1.2-1">This involves verifying the trustworthiness of network services or cloud entities.
-It ensures that the services the IoT devices are communicating with are legitimate and secure.
-For example, a network service attestation should be done before a IoT device shares some sensitive data with the network service.<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.1.2-2">The network service acts as the Attester.
-Unlike IoT devices, network services typically have more computational power and capabilities, enabling them to handle complex attestation processes when more demanding tasks are required of the Attester.<a href="#section-5.1.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.1.2-1">The network service acts as the Attester.<a href="#section-5.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.1.2-2">Unlike IoT devices, network services typically have more computational power and capabilities, enabling them to handle complex attestation processes when more demanding tasks are required of the Attester.<a href="#section-5.1.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="models">
 <section id="section-5.2">
-        <h3 id="name-attestation-models">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-attestation-models" class="section-name selfRef">Attestation Models</a>
+        <h3 id="name-model">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-model" class="section-name selfRef">Model</a>
         </h3>
-<p id="section-5.2-1">This specification supports both the RATS background-check model (see in <a href="#bg" class="auto internal xref">Section 5.2.1</a>) and passport model (see in<a href="#pp" class="auto internal xref">Section 5.2.2</a>).
-The corresponding EAD items for background-check model and the passport model are independent between each other.
-The detailed EAD items definitions are in <a href="#ead-bg" class="auto internal xref">Section 5.2.1.1</a> for the background-check model and <a href="#ead-pp" class="auto internal xref">Section 5.2.2.1</a> for the passport model.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-1">Defines the attestation models based on RATS architecture.
+This specification supports both the RATS background-check model (see <a href="#bg" class="auto internal xref">Section 5.2.1</a>) and the passport model (see <a href="#pp" class="auto internal xref">Section 5.2.2</a>).
+The corresponding EAD items for background-check model and the passport model are independent of each other.
+The EAD items are specified in <a href="#ead-bg" class="auto internal xref">Section 5.2.1.1</a> for the background-check model and in <a href="#ead-pp" class="auto internal xref">Section 5.2.2.1</a> for the passport model.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <div id="bg">
 <section id="section-5.2.1">
           <h4 id="name-background-check-model-bg">
 <a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-background-check-model-bg" class="section-name selfRef">Background-check Model (BG)</a>
           </h4>
-<p id="section-5.2.1-1">In background-check model, the Attester sends the evidence to the Relying Party.
+<p id="section-5.2.1-1">In the background-check model, the Attester sends the evidence to the Relying Party.
 The Relying Party transfers the evidence to the Verifier and gets back the attestation result from the Verifier.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.2.1-2">An EDHOC session is established between the Attester and the Relying Party.
 A negotiation of the evidence type is required before the Attester sends the evidence.
 All three parties must agree on a selected evidence type.<a href="#section-5.2.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.1-3">The Attester first sends a list of the provided evidence types, formatted as an Attestation proposal in an EDHOC EAD item, to the Relying Party.
-The Relying Party transfers the list to the Verifier and should receive at least one supported evidence type from the Verifier.
-If the Relying Party receives more than one evidence type, a single evidence type should be selected by the Relying Party and sends it back as an Attestation request to the Attester.<a href="#section-5.2.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.2.1-4">We use nonce (at least 8 bytes according to <span>[<a href="#I-D.ietf-rats-eat" class="cite xref">I-D.ietf-rats-eat</a>]</span>) to guarantee the freshness for the attestation session, which is generated by the Verifier and sends to the Relying Party.
-The Relying Party puts nonce and the selected evidence type together in a tuple to generate an Attestation request as an EAD item.<a href="#section-5.2.1-4" class="pilcrow">¶</a></p>
-<p id="section-5.2.1-5">If the Attester checks that the received evidence type from the Relying Party is within the list of its provided evidence types, it can call its attestation service to generate the evidence, with nonce value as one of the inputs.<a href="#section-5.2.1-5" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-3">The Attester first sends a list of the proposed evidence types to the Relying Party.
+The list is formatted as an Attestation proposal in an EDHOC EAD item.
+The Relying Party relays the list to the Verifier and receives at least one supported evidence type from the Verifier in return.
+If the Relying Party receives more than one evidence type, a single evidence type should be selected by the Relying Party based on its knowledge of the Attester.
+The Relying Party then sends it back within the Attestation request to the Attester.<a href="#section-5.2.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-4">A nonce, at least 8-bytes long <span>[<a href="#I-D.ietf-rats-eat" class="cite xref">I-D.ietf-rats-eat</a>]</span>), guarantees the freshness of the attestation session.
+The nonce is generated by the Verifier and sent to the Relying Party.
+The Relying Party puts the nonce and the selected evidence type together in a tuple to generate an Attestation request.<a href="#section-5.2.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.2.1-5">Once the Attester receives the Attestation request, it can call its attestation service to generate the evidence, with the nonce value as one of the inputs.<a href="#section-5.2.1-5" class="pilcrow">¶</a></p>
 <div id="ead-bg">
 <section id="section-5.2.1.1">
             <h5 id="name-external-authorization-data">
@@ -1500,7 +1498,7 @@ If the receiver cannot recognize the critical EAD item, or cannot process the in
                   <p id="section-5.2.1.1.3-3.2.1">ead_value is a serialized EAT.<a href="#section-5.2.1.1.3-3.2.1" class="pilcrow">¶</a></p>
 </li>
               </ul>
-<p id="section-5.2.1.1.3-4">More details about EAT are in <span>[<a href="#I-D.ietf-rats-eat" class="cite xref">I-D.ietf-rats-eat</a>]</span>.<a href="#section-5.2.1.1.3-4" class="pilcrow">¶</a></p>
+<p id="section-5.2.1.1.3-4">EAT is specified in <span>[<a href="#I-D.ietf-rats-eat" class="cite xref">I-D.ietf-rats-eat</a>]</span>.<a href="#section-5.2.1.1.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="trigger-bg">
@@ -1508,9 +1506,9 @@ If the receiver cannot recognize the critical EAD item, or cannot process the in
               <h6 id="name-trigger_bg">
 <a href="#section-5.2.1.1.4" class="section-number selfRef">5.2.1.1.4. </a><a href="#name-trigger_bg" class="section-name selfRef">trigger_bg</a>
               </h6>
-<p id="section-5.2.1.1.4-1">The EAD item trigger_bg is used when the sender triggers the receiver to start a remote attestation in background-check model.
-The receiver <span class="bcp14">MUST</span> reply with an EAD item for background-check model.
-The ead_value can be empty, using ead_label plays the role of the trigger.<a href="#section-5.2.1.1.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.1.1.4-1">The EAD item trigger_bg is used when the sender triggers the receiver to start a remote attestation in the background-check model.
+The receiver <span class="bcp14">MUST</span> reply with an EAD item corresponding to the background-check model.
+The ead_value can be empty, as the ead_label serves as the trigger.<a href="#section-5.2.1.1.4-1" class="pilcrow">¶</a></p>
 <p id="section-5.2.1.1.4-2">The EAD item is:<a href="#section-5.2.1.1.4-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.2.1.1.4-3.1">
@@ -1531,7 +1529,7 @@ The ead_value can be empty, using ead_label plays the role of the trigger.<a hre
           <h4 id="name-passport-model-pp">
 <a href="#section-5.2.2" class="section-number selfRef">5.2.2. </a><a href="#name-passport-model-pp" class="section-name selfRef">Passport Model (PP)</a>
           </h4>
-<p id="section-5.2.2-1">In passport model, the Attester sends the evidence to the Verifier.
+<p id="section-5.2.2-1">In the passport model, the Attester sends the evidence to the Verifier.
 After the Attester receives the attestation result from the Verifier, the Attester sends the attestation result to the Relying Party.<a href="#section-5.2.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.2.2-2">An EDHOC session is established between the Attester and the Relying Party.
 The Attester and the Relying Party should decide from which Verifier the Attester obtains the attestation result and transfers it to the Relying Party.
@@ -1539,7 +1537,7 @@ The Attester first sends a list of the Verifier identities that it can get the a
 The Relying Party selects one trusted Verifier identity and sends it back as a Result request.<a href="#section-5.2.2-2" class="pilcrow">¶</a></p>
 <p id="section-5.2.2-3">Regarding the freshness in passport model, the Attester could either establish a real-time connection with the selected Verifier, or use a pre-stored attestation result from the selected Verifier.
 If the attestation result is not obtained via a real-time connection, it should include a time stamp and/or expiry time to indicate its validity.
-The synchronization of the time is out of scope in this specification, and depends on the different device policies.<a href="#section-5.2.2-3" class="pilcrow">¶</a></p>
+Time synchronization is out of scope of this specification.<a href="#section-5.2.2-3" class="pilcrow">¶</a></p>
 <p id="section-5.2.2-4">Once the Attester obtains the attestation result from the selected Verifier, it sends the attestation result to the Relying Party.<a href="#section-5.2.2-4" class="pilcrow">¶</a></p>
 <div id="ead-pp">
 <section id="section-5.2.2.1">
@@ -1553,8 +1551,8 @@ The synchronization of the time is out of scope in this specification, and depen
 <a href="#section-5.2.2.1.1" class="section-number selfRef">5.2.2.1.1. </a><a href="#name-result_proposal" class="section-name selfRef">Result_proposal</a>
               </h6>
 <p id="section-5.2.2.1.1-1">An attestation result proposal contains the identification of the credentials of the Verifiers to indicate Verifiers' indentities.
-The identification of credentials relies on COSE header parameters <span>[<a href="#IANA-COSE-Header-Parameters" class="cite xref">IANA-COSE-Header-Parameters</a>]</span>, with a header lable and credential value.<a href="#section-5.2.2.1.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.2.2.1.1-2">The EAD item for an attestation result proposal is:<a href="#section-5.2.2.1.1-2" class="pilcrow">¶</a></p>
+The identification of credentials relies on COSE header parameters <span>[<a href="#IANA-COSE-Header-Parameters" class="cite xref">IANA-COSE-Header-Parameters</a>]</span>, with a header label and credential value.<a href="#section-5.2.2.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.2.1.1-2">The EAD item for the attestation result proposal is:<a href="#section-5.2.2.1.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.2.2.1.1-3.1">
                   <p id="section-5.2.2.1.1-3.1.1">ead_label = TBD3<a href="#section-5.2.2.1.1-3.1.1" class="pilcrow">¶</a></p>
@@ -1643,9 +1641,9 @@ The Relying Party can decide what action to take with regards to the Attester ba
               <h6 id="name-trigger_pp">
 <a href="#section-5.2.2.1.4" class="section-number selfRef">5.2.2.1.4. </a><a href="#name-trigger_pp" class="section-name selfRef">trigger_pp</a>
               </h6>
-<p id="section-5.2.2.1.4-1">The EAD item trigger_pp is used when the sender triggers the receiver to start a remote attestation in passport model.
-The receiver <span class="bcp14">MUST</span> reply with an EAD item for passport model.
-The ead_value can be empty, using ead_label plays the role of the trigger.<a href="#section-5.2.2.1.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.2.2.1.4-1">The EAD item trigger_pp is used when the sender triggers the receiver to start a remote attestation in the passport model.
+The receiver <span class="bcp14">MUST</span> reply with an EAD item correspondign to the passport model.
+The ead_value can be empty, as the ead_label serves as the trigger.<a href="#section-5.2.2.1.4-1" class="pilcrow">¶</a></p>
 <p id="section-5.2.2.1.4-2">The EAD item is:<a href="#section-5.2.2.1.4-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.2.2.1.4-3.1">
@@ -1668,9 +1666,8 @@ The ead_value can be empty, using ead_label plays the role of the trigger.<a hre
         <h3 id="name-edhoc-message-flow">
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-edhoc-message-flow" class="section-name selfRef">EDHOC Message Flow</a>
         </h3>
-<p id="section-5.3-1">The EDHOC protocol defines two types of athentication message flows.
-In this specification, we support both the EDHOC remote message flow and the EDHOC reverse message flow (see <span><a href="https://rfc-editor.org/rfc/rfc9528#appendix-A.2.2" class="relref">Appendix A.2.2</a> of [<a href="#RFC9528" class="cite xref">RFC9528</a>]</span>) to perform remote attestation.
-No matter which type of the message flow is used, the EDHOC Initiator always sends the first EDHOC message_1.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3-1">The EDHOC protocol defines two possible message flows, namely the EDHOC forward message flow and the EDHOC reverse message flow (see <span><a href="https://rfc-editor.org/rfc/rfc9528#appendix-A.2.2" class="relref">Appendix A.2.2</a> of [<a href="#RFC9528" class="cite xref">RFC9528</a>]</span>).
+In this specification, both flows can be used to perform remote attestation.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <div id="edhoc-forward-message-flow-fwd">
 <section id="section-5.3.1">
           <h4 id="name-edhoc-forward-message-flow-">
@@ -1695,14 +1692,12 @@ A new EDHOC session begins with an empty POST request to the server's resource f
 </div>
 <div id="attestation-combinations">
 <section id="section-6">
-      <h2 id="name-remote-attestation-aspect-c">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-remote-attestation-aspect-c" class="section-name selfRef">Remote Attestation Aspect Combinations</a>
+      <h2 id="name-instantiation-of-remote-att">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-instantiation-of-remote-att" class="section-name selfRef">Instantiation of Remote Attestation Protocol</a>
       </h2>
-<p id="section-6-1">We use the format (Target, Model, Message Flow) to denote combinations.
+<p id="section-6-1">We use the format (Target, Model, Message Flow) to denote instantiations.
 For example, (IoT, BG, Fwd) represents IoT device attestation using the background-check model with forward EDHOC message flow.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">Among the three remote attestation aspects, each aspect is independent from one another.
-All 8 cases (IoT/Net, BG/PP, Fwd/Rev) are possible.
-In this specification, we list the most relevant combinations for constrained IoT environments.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-2">Although there are 8 cases (IoT/Net, BG/PP, Fwd/Rev), this document specifies the most relevant instantiations for constrained IoT environments.<a href="#section-6-2" class="pilcrow">¶</a></p>
 <div id="iot-bg-fwd-iot-device-attestation">
 <section id="section-6.1">
         <h3 id="name-iot-bg-fwd-iot-device-attes">
@@ -1724,77 +1719,78 @@ The Verifier evaluates the Evidence and sends the Attestation result to the Rely
 <figure id="figure-1">
           <div id="section-6.1-4.1">
             <div class="alignCenter art-svg artwork" id="section-6.1-4.1.1">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="544" width="592" viewBox="0 0 592 544" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
-                <path d="M 8,32 L 8,144" fill="none" stroke="black"></path>
-                <path d="M 56,144 L 56,512" fill="none" stroke="black"></path>
-                <path d="M 104,32 L 104,144" fill="none" stroke="black"></path>
-                <path d="M 272,32 L 272,144" fill="none" stroke="black"></path>
-                <path d="M 320,144 L 320,512" fill="none" stroke="black"></path>
-                <path d="M 368,32 L 368,144" fill="none" stroke="black"></path>
-                <path d="M 496,112 L 496,144" fill="none" stroke="black"></path>
-                <path d="M 544,144 L 544,512" fill="none" stroke="black"></path>
-                <path d="M 584,112 L 584,144" fill="none" stroke="black"></path>
-                <path d="M 8,32 L 104,32" fill="none" stroke="black"></path>
-                <path d="M 272,32 L 368,32" fill="none" stroke="black"></path>
-                <path d="M 8,64 L 104,64" fill="none" stroke="black"></path>
-                <path d="M 272,64 L 368,64" fill="none" stroke="black"></path>
-                <path d="M 8,112 L 104,112" fill="none" stroke="black"></path>
-                <path d="M 272,112 L 368,112" fill="none" stroke="black"></path>
-                <path d="M 496,112 L 584,112" fill="none" stroke="black"></path>
-                <path d="M 8,144 L 104,144" fill="none" stroke="black"></path>
-                <path d="M 272,144 L 368,144" fill="none" stroke="black"></path>
-                <path d="M 496,144 L 584,144" fill="none" stroke="black"></path>
-                <path d="M 56,192 L 312,192" fill="none" stroke="black"></path>
-                <path d="M 320,240 L 536,240" fill="none" stroke="black"></path>
-                <path d="M 328,256 L 544,256" fill="none" stroke="black"></path>
-                <path d="M 64,320 L 320,320" fill="none" stroke="black"></path>
-                <path d="M 56,368 L 312,368" fill="none" stroke="black"></path>
-                <path d="M 320,400 L 536,400" fill="none" stroke="black"></path>
-                <path d="M 328,416 L 544,416" fill="none" stroke="black"></path>
-                <path d="M 72,496 L 304,496" fill="none" stroke="black"></path>
-                <polygon class="arrowhead" points="544,400 532,394.4 532,405.6" fill="black" transform="rotate(0,536,400)"></polygon>
-                <polygon class="arrowhead" points="544,240 532,234.4 532,245.6" fill="black" transform="rotate(0,536,240)"></polygon>
-                <polygon class="arrowhead" points="336,416 324,410.4 324,421.6" fill="black" transform="rotate(180,328,416)"></polygon>
-                <polygon class="arrowhead" points="336,256 324,250.4 324,261.6" fill="black" transform="rotate(180,328,256)"></polygon>
-                <polygon class="arrowhead" points="320,368 308,362.4 308,373.6" fill="black" transform="rotate(0,312,368)"></polygon>
-                <polygon class="arrowhead" points="320,192 308,186.4 308,197.6" fill="black" transform="rotate(0,312,192)"></polygon>
-                <polygon class="arrowhead" points="312,496 300,490.4 300,501.6" fill="black" transform="rotate(0,304,496)"></polygon>
-                <polygon class="arrowhead" points="80,496 68,490.4 68,501.6" fill="black" transform="rotate(180,72,496)"></polygon>
-                <polygon class="arrowhead" points="72,320 60,314.4 60,325.6" fill="black" transform="rotate(180,64,320)"></polygon>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="528" width="616" viewBox="0 0 616 528" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                <path d="M 8,32 L 8,128" fill="none" stroke="black"></path>
+                <path d="M 80,128 L 80,496" fill="none" stroke="black"></path>
+                <path d="M 152,32 L 152,128" fill="none" stroke="black"></path>
+                <path d="M 272,32 L 272,128" fill="none" stroke="black"></path>
+                <path d="M 344,128 L 344,496" fill="none" stroke="black"></path>
+                <path d="M 416,32 L 416,128" fill="none" stroke="black"></path>
+                <path d="M 520,96 L 520,128" fill="none" stroke="black"></path>
+                <path d="M 568,128 L 568,496" fill="none" stroke="black"></path>
+                <path d="M 608,96 L 608,128" fill="none" stroke="black"></path>
+                <path d="M 8,32 L 152,32" fill="none" stroke="black"></path>
+                <path d="M 272,32 L 416,32" fill="none" stroke="black"></path>
+                <path d="M 8,64 L 152,64" fill="none" stroke="black"></path>
+                <path d="M 272,64 L 416,64" fill="none" stroke="black"></path>
+                <path d="M 8,96 L 152,96" fill="none" stroke="black"></path>
+                <path d="M 272,96 L 416,96" fill="none" stroke="black"></path>
+                <path d="M 520,96 L 608,96" fill="none" stroke="black"></path>
+                <path d="M 8,128 L 152,128" fill="none" stroke="black"></path>
+                <path d="M 272,128 L 416,128" fill="none" stroke="black"></path>
+                <path d="M 520,128 L 608,128" fill="none" stroke="black"></path>
+                <path d="M 80,176 L 336,176" fill="none" stroke="black"></path>
+                <path d="M 344,224 L 560,224" fill="none" stroke="black"></path>
+                <path d="M 352,240 L 568,240" fill="none" stroke="black"></path>
+                <path d="M 88,304 L 344,304" fill="none" stroke="black"></path>
+                <path d="M 80,352 L 336,352" fill="none" stroke="black"></path>
+                <path d="M 344,384 L 560,384" fill="none" stroke="black"></path>
+                <path d="M 352,400 L 568,400" fill="none" stroke="black"></path>
+                <path d="M 96,480 L 328,480" fill="none" stroke="black"></path>
+                <polygon class="arrowhead" points="568,384 556,378.4 556,389.6" fill="black" transform="rotate(0,560,384)"></polygon>
+                <polygon class="arrowhead" points="568,224 556,218.4 556,229.6" fill="black" transform="rotate(0,560,224)"></polygon>
+                <polygon class="arrowhead" points="360,400 348,394.4 348,405.6" fill="black" transform="rotate(180,352,400)"></polygon>
+                <polygon class="arrowhead" points="360,240 348,234.4 348,245.6" fill="black" transform="rotate(180,352,240)"></polygon>
+                <polygon class="arrowhead" points="344,352 332,346.4 332,357.6" fill="black" transform="rotate(0,336,352)"></polygon>
+                <polygon class="arrowhead" points="344,176 332,170.4 332,181.6" fill="black" transform="rotate(0,336,176)"></polygon>
+                <polygon class="arrowhead" points="336,480 324,474.4 324,485.6" fill="black" transform="rotate(0,328,480)"></polygon>
+                <polygon class="arrowhead" points="104,480 92,474.4 92,485.6" fill="black" transform="rotate(180,96,480)"></polygon>
+                <polygon class="arrowhead" points="96,304 84,298.4 84,309.6" fill="black" transform="rotate(180,88,304)"></polygon>
                 <g class="text">
-                  <text x="24" y="52">IoT</text>
-                  <text x="68" y="52">device</text>
-                  <text x="288" y="52">Net</text>
-                  <text x="336" y="52">service</text>
-                  <text x="56" y="84">EDHOC</text>
-                  <text x="320" y="84">EDHOC</text>
-                  <text x="56" y="100">Initiator</text>
-                  <text x="320" y="100">Responder</text>
-                  <text x="52" y="132">Attester</text>
-                  <text x="324" y="132">RP</text>
-                  <text x="540" y="132">Verifier</text>
-                  <text x="96" y="180">EAD_1</text>
-                  <text x="128" y="180">=</text>
-                  <text x="184" y="180">Attestation</text>
-                  <text x="268" y="180">proposal</text>
-                  <text x="376" y="228">Attestation</text>
-                  <text x="464" y="228">proposal,</text>
-                  <text x="520" y="228">C_R</text>
-                  <text x="404" y="276">EvidenceType(s),</text>
-                  <text x="496" y="276">Nonce</text>
-                  <text x="96" y="308">EAD_2</text>
-                  <text x="128" y="308">=</text>
-                  <text x="184" y="308">Attestation</text>
-                  <text x="264" y="308">request</text>
-                  <text x="96" y="356">EAD_3</text>
-                  <text x="128" y="356">=</text>
-                  <text x="172" y="356">Evidence</text>
-                  <text x="408" y="388">Evidence,</text>
-                  <text x="464" y="388">C_R</text>
-                  <text x="400" y="436">Attestation</text>
-                  <text x="476" y="436">result</text>
-                  <text x="152" y="516">EDHOC</text>
-                  <text x="208" y="516">session</text>
+                  <text x="48" y="52">IoT</text>
+                  <text x="92" y="52">device</text>
+                  <text x="312" y="52">Network</text>
+                  <text x="376" y="52">service</text>
+                  <text x="40" y="84">EDHOC</text>
+                  <text x="104" y="84">Initiator</text>
+                  <text x="304" y="84">EDHOC</text>
+                  <text x="368" y="84">Responder</text>
+                  <text x="84" y="116">Attester</text>
+                  <text x="320" y="116">Relying</text>
+                  <text x="376" y="116">Party</text>
+                  <text x="564" y="116">Verifier</text>
+                  <text x="120" y="164">EAD_1</text>
+                  <text x="152" y="164">=</text>
+                  <text x="208" y="164">Attestation</text>
+                  <text x="292" y="164">proposal</text>
+                  <text x="400" y="212">Attestation</text>
+                  <text x="488" y="212">proposal,</text>
+                  <text x="544" y="212">C_R</text>
+                  <text x="428" y="260">EvidenceType(s),</text>
+                  <text x="520" y="260">Nonce</text>
+                  <text x="120" y="292">EAD_2</text>
+                  <text x="152" y="292">=</text>
+                  <text x="208" y="292">Attestation</text>
+                  <text x="288" y="292">request</text>
+                  <text x="120" y="340">EAD_3</text>
+                  <text x="152" y="340">=</text>
+                  <text x="196" y="340">Evidence</text>
+                  <text x="432" y="372">Evidence,</text>
+                  <text x="488" y="372">C_R</text>
+                  <text x="424" y="420">Attestation</text>
+                  <text x="500" y="420">result</text>
+                  <text x="176" y="500">EDHOC</text>
+                  <text x="232" y="500">session</text>
                 </g>
               </svg><a href="#section-6.1-4.1.1" class="pilcrow">¶</a>
 </div>
@@ -1816,99 +1812,99 @@ In (Net, PP, Fwd), the network server acts as an Attester and the client acts as
 <p id="section-6.2-2">An overview of the message flow is illustrated in <a href="#fig-net-pp-fwd" class="auto internal xref">Figure 2</a>.
 EDHOC Initiator plays the role of the RATS Relying Party.
 EDHOC Responder plays the role of the RATS Attester.
-The Attester and the Relying Party communicate by transporting messages within EDHOC's External Authorization Data (EAD) fields.
 An external entity, out of scope of this specification, plays the role of the RATS Verifier.
 The EAD items specific to the passport model are defined in <a href="#ead-pp" class="auto internal xref">Section 5.2.2.1</a>.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
-<p id="section-6.2-3">The Relying Party asks the Attester to do a remote attestation by sending a trigger_pp (see in <a href="#trigger-pp" class="auto internal xref">Section 5.2.2.1.4</a>) in EDHOC message_1.
+<p id="section-6.2-3">The Relying Party asks the Attester to do a remote attestation by sending a trigger_pp (see <a href="#trigger-pp" class="auto internal xref">Section 5.2.2.1.4</a>) in EDHOC message_1.
 The Attester replies to the Relying Party with a Result proposal in EAD_2.
-Then the Relying Party selects a trusted Verifier identity and send it as a Result request.
-How the Attester negotiates with the selected Verifier to get the attestation result is not detailed in this specification.
+Then the Relying Party selects a trusted Verifier identity and sends it as a Result request.
+How the Attester negotiates with the selected Verifier to get the attestation result is out of scope of this specification.
 A fourth EDHOC message is required to send the Result from the Attester to the Relying Party.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
 <span id="name-overview-of-network-service"></span><div id="fig-net-pp-fwd">
 <figure id="figure-2">
           <div id="section-6.2-4.1">
             <div class="alignCenter art-svg artwork" id="section-6.2-4.1.1">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="464" width="560" viewBox="0 0 560 464" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
-                <path d="M 8,32 L 8,144" fill="none" stroke="black"></path>
-                <path d="M 56,144 L 56,448" fill="none" stroke="black"></path>
-                <path d="M 104,32 L 104,144" fill="none" stroke="black"></path>
-                <path d="M 240,32 L 240,144" fill="none" stroke="black"></path>
-                <path d="M 288,144 L 288,448" fill="none" stroke="black"></path>
-                <path d="M 336,32 L 336,144" fill="none" stroke="black"></path>
-                <path d="M 464,112 L 464,144" fill="none" stroke="black"></path>
-                <path d="M 512,144 L 512,448" fill="none" stroke="black"></path>
-                <path d="M 552,112 L 552,144" fill="none" stroke="black"></path>
-                <path d="M 8,32 L 104,32" fill="none" stroke="black"></path>
-                <path d="M 240,32 L 336,32" fill="none" stroke="black"></path>
-                <path d="M 8,64 L 104,64" fill="none" stroke="black"></path>
-                <path d="M 240,64 L 336,64" fill="none" stroke="black"></path>
-                <path d="M 8,112 L 104,112" fill="none" stroke="black"></path>
-                <path d="M 240,112 L 336,112" fill="none" stroke="black"></path>
-                <path d="M 464,112 L 552,112" fill="none" stroke="black"></path>
-                <path d="M 8,144 L 104,144" fill="none" stroke="black"></path>
-                <path d="M 240,144 L 336,144" fill="none" stroke="black"></path>
-                <path d="M 464,144 L 552,144" fill="none" stroke="black"></path>
-                <path d="M 56,192 L 280,192" fill="none" stroke="black"></path>
-                <path d="M 64,240 L 288,240" fill="none" stroke="black"></path>
-                <path d="M 56,288 L 280,288" fill="none" stroke="black"></path>
-                <path d="M 288,304 L 312,304" fill="none" stroke="black"></path>
-                <path d="M 336,304 L 352,304" fill="none" stroke="black"></path>
-                <path d="M 376,304 L 392,304" fill="none" stroke="black"></path>
-                <path d="M 416,304 L 432,304" fill="none" stroke="black"></path>
-                <path d="M 456,304 L 472,304" fill="none" stroke="black"></path>
-                <path d="M 488,304 L 504,304" fill="none" stroke="black"></path>
-                <path d="M 296,320 L 320,320" fill="none" stroke="black"></path>
-                <path d="M 344,320 L 360,320" fill="none" stroke="black"></path>
-                <path d="M 384,320 L 400,320" fill="none" stroke="black"></path>
-                <path d="M 424,320 L 440,320" fill="none" stroke="black"></path>
-                <path d="M 456,320 L 472,320" fill="none" stroke="black"></path>
-                <path d="M 496,320 L 512,320" fill="none" stroke="black"></path>
-                <path d="M 64,368 L 288,368" fill="none" stroke="black"></path>
-                <path d="M 72,432 L 272,432" fill="none" stroke="black"></path>
-                <polygon class="arrowhead" points="512,304 500,298.4 500,309.6" fill="black" transform="rotate(0,504,304)"></polygon>
-                <polygon class="arrowhead" points="304,320 292,314.4 292,325.6" fill="black" transform="rotate(180,296,320)"></polygon>
-                <polygon class="arrowhead" points="288,288 276,282.4 276,293.6" fill="black" transform="rotate(0,280,288)"></polygon>
-                <polygon class="arrowhead" points="288,192 276,186.4 276,197.6" fill="black" transform="rotate(0,280,192)"></polygon>
-                <polygon class="arrowhead" points="280,432 268,426.4 268,437.6" fill="black" transform="rotate(0,272,432)"></polygon>
-                <polygon class="arrowhead" points="80,432 68,426.4 68,437.6" fill="black" transform="rotate(180,72,432)"></polygon>
-                <polygon class="arrowhead" points="72,368 60,362.4 60,373.6" fill="black" transform="rotate(180,64,368)"></polygon>
-                <polygon class="arrowhead" points="72,240 60,234.4 60,245.6" fill="black" transform="rotate(180,64,240)"></polygon>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="448" width="584" viewBox="0 0 584 448" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                <path d="M 8,32 L 8,128" fill="none" stroke="black"></path>
+                <path d="M 80,128 L 80,432" fill="none" stroke="black"></path>
+                <path d="M 152,32 L 152,128" fill="none" stroke="black"></path>
+                <path d="M 240,32 L 240,128" fill="none" stroke="black"></path>
+                <path d="M 312,128 L 312,432" fill="none" stroke="black"></path>
+                <path d="M 384,32 L 384,128" fill="none" stroke="black"></path>
+                <path d="M 488,96 L 488,128" fill="none" stroke="black"></path>
+                <path d="M 536,128 L 536,432" fill="none" stroke="black"></path>
+                <path d="M 576,96 L 576,128" fill="none" stroke="black"></path>
+                <path d="M 8,32 L 152,32" fill="none" stroke="black"></path>
+                <path d="M 240,32 L 384,32" fill="none" stroke="black"></path>
+                <path d="M 8,64 L 152,64" fill="none" stroke="black"></path>
+                <path d="M 240,64 L 384,64" fill="none" stroke="black"></path>
+                <path d="M 8,96 L 152,96" fill="none" stroke="black"></path>
+                <path d="M 240,96 L 384,96" fill="none" stroke="black"></path>
+                <path d="M 488,96 L 576,96" fill="none" stroke="black"></path>
+                <path d="M 8,128 L 152,128" fill="none" stroke="black"></path>
+                <path d="M 240,128 L 384,128" fill="none" stroke="black"></path>
+                <path d="M 488,128 L 576,128" fill="none" stroke="black"></path>
+                <path d="M 80,176 L 304,176" fill="none" stroke="black"></path>
+                <path d="M 88,224 L 312,224" fill="none" stroke="black"></path>
+                <path d="M 80,272 L 304,272" fill="none" stroke="black"></path>
+                <path d="M 312,288 L 336,288" fill="none" stroke="black"></path>
+                <path d="M 360,288 L 376,288" fill="none" stroke="black"></path>
+                <path d="M 400,288 L 416,288" fill="none" stroke="black"></path>
+                <path d="M 440,288 L 456,288" fill="none" stroke="black"></path>
+                <path d="M 480,288 L 496,288" fill="none" stroke="black"></path>
+                <path d="M 512,288 L 528,288" fill="none" stroke="black"></path>
+                <path d="M 320,304 L 344,304" fill="none" stroke="black"></path>
+                <path d="M 368,304 L 384,304" fill="none" stroke="black"></path>
+                <path d="M 408,304 L 424,304" fill="none" stroke="black"></path>
+                <path d="M 448,304 L 464,304" fill="none" stroke="black"></path>
+                <path d="M 480,304 L 496,304" fill="none" stroke="black"></path>
+                <path d="M 520,304 L 536,304" fill="none" stroke="black"></path>
+                <path d="M 88,352 L 312,352" fill="none" stroke="black"></path>
+                <path d="M 96,416 L 296,416" fill="none" stroke="black"></path>
+                <polygon class="arrowhead" points="536,288 524,282.4 524,293.6" fill="black" transform="rotate(0,528,288)"></polygon>
+                <polygon class="arrowhead" points="328,304 316,298.4 316,309.6" fill="black" transform="rotate(180,320,304)"></polygon>
+                <polygon class="arrowhead" points="312,272 300,266.4 300,277.6" fill="black" transform="rotate(0,304,272)"></polygon>
+                <polygon class="arrowhead" points="312,176 300,170.4 300,181.6" fill="black" transform="rotate(0,304,176)"></polygon>
+                <polygon class="arrowhead" points="304,416 292,410.4 292,421.6" fill="black" transform="rotate(0,296,416)"></polygon>
+                <polygon class="arrowhead" points="104,416 92,410.4 92,421.6" fill="black" transform="rotate(180,96,416)"></polygon>
+                <polygon class="arrowhead" points="96,352 84,346.4 84,357.6" fill="black" transform="rotate(180,88,352)"></polygon>
+                <polygon class="arrowhead" points="96,224 84,218.4 84,229.6" fill="black" transform="rotate(180,88,224)"></polygon>
                 <g class="text">
-                  <text x="24" y="52">IoT</text>
-                  <text x="68" y="52">device</text>
-                  <text x="256" y="52">Net</text>
-                  <text x="304" y="52">service</text>
-                  <text x="56" y="84">EDHOC</text>
-                  <text x="288" y="84">EDHOC</text>
-                  <text x="56" y="100">Initiator</text>
-                  <text x="288" y="100">Responder</text>
-                  <text x="52" y="132">RP</text>
-                  <text x="284" y="132">Attester</text>
-                  <text x="508" y="132">Verifier</text>
-                  <text x="96" y="180">EAD_1</text>
-                  <text x="128" y="180">=</text>
-                  <text x="180" y="180">trigger_PP</text>
-                  <text x="96" y="228">EAD_2</text>
-                  <text x="128" y="228">=</text>
-                  <text x="164" y="228">Result</text>
-                  <text x="228" y="228">proposal</text>
-                  <text x="96" y="276">EAD_3</text>
-                  <text x="128" y="276">=</text>
-                  <text x="164" y="276">Result</text>
-                  <text x="224" y="276">request</text>
-                  <text x="392" y="292">(request)</text>
-                  <text x="388" y="340">Result</text>
-                  <text x="96" y="356">EAD_4</text>
-                  <text x="128" y="356">=</text>
-                  <text x="164" y="356">Result</text>
-                  <text x="136" y="452">EDHOC</text>
-                  <text x="192" y="452">session</text>
+                  <text x="48" y="52">IoT</text>
+                  <text x="92" y="52">device</text>
+                  <text x="280" y="52">Network</text>
+                  <text x="344" y="52">service</text>
+                  <text x="40" y="84">EDHOC</text>
+                  <text x="104" y="84">Initiator</text>
+                  <text x="272" y="84">EDHOC</text>
+                  <text x="336" y="84">Responder</text>
+                  <text x="56" y="116">Relying</text>
+                  <text x="112" y="116">Party</text>
+                  <text x="316" y="116">Attester</text>
+                  <text x="532" y="116">Verifier</text>
+                  <text x="120" y="164">EAD_1</text>
+                  <text x="152" y="164">=</text>
+                  <text x="204" y="164">trigger_PP</text>
+                  <text x="120" y="212">EAD_2</text>
+                  <text x="152" y="212">=</text>
+                  <text x="188" y="212">Result</text>
+                  <text x="252" y="212">proposal</text>
+                  <text x="120" y="260">EAD_3</text>
+                  <text x="152" y="260">=</text>
+                  <text x="188" y="260">Result</text>
+                  <text x="248" y="260">request</text>
+                  <text x="416" y="276">(request)</text>
+                  <text x="412" y="324">Result</text>
+                  <text x="120" y="340">EAD_4</text>
+                  <text x="152" y="340">=</text>
+                  <text x="188" y="340">Result</text>
+                  <text x="160" y="436">EDHOC</text>
+                  <text x="216" y="436">session</text>
                 </g>
               </svg><a href="#section-6.2-4.1.1" class="pilcrow">¶</a>
 </div>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
-<a href="#name-overview-of-network-service" class="selfRef">Overview of network service attestation in passport model and EDHOC forward message flow. EDHOC is used between RP and A.</a>
+<a href="#name-overview-of-network-service" class="selfRef">Overview of network service attestation in passport model and EDHOC forward message flow. EDHOC is used between RP and A. The dashed line illustrates a logical connection that does not need to occur in real time.</a>
           </figcaption></figure>
 </div>
 </section>
@@ -1920,10 +1916,9 @@ A fourth EDHOC message is required to send the Result from the Attester to the R
       <h2 id="name-mutual-attestation-in-edhoc">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-mutual-attestation-in-edhoc" class="section-name selfRef">Mutual Attestation in EDHOC</a>
       </h2>
-<p id="section-7-1">Mutual attestation over EDHOC combines the cases where one of the EDHOC party uses the IoT device attestation and the other uses the Network service attestation.
+<p id="section-7-1">Mutual attestation over EDHOC combines the cases where one of the EDHOC parties uses the IoT device attestation and the other uses the Network service attestation.
 Performing mutual attestation to a single EDHOC message flow acheives a lightweight use with reduced message overhead.
-Note that the type of message flow for the two parties in mutual attestation <span class="bcp14">MUST</span> be the same.
-Otherwise, the positions of the EDHOC Initiator and EDHOC Responder cannot match, which result in both the IoT device and the Network service being the EDHOC Initiator and this is impossible.<a href="#section-7-1" class="pilcrow">¶</a></p>
+Note that the message flow for the two parties in mutual attestation needs to be the same.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <p id="section-7-2">In this specification, we list the most relevant mutual attestation example for constrained IoT environments.<a href="#section-7-2" class="pilcrow">¶</a></p>
 <div id="iot-bg-fwd-net-pp-fwd">
 <section id="section-7.1">
@@ -1932,138 +1927,138 @@ Otherwise, the positions of the EDHOC Initiator and EDHOC Responder cannot match
         </h3>
 <p id="section-7.1-1">In this example, the mutual attestation is performed in EDHOC forward message flow, by one IoT device attestation in background-check model and another network service attestation in passport model.
 The process is illustrated in <a href="#fig-mutual-attestation-BP" class="auto internal xref">Figure 3</a>.
-How the Network service connects with the Verifier_1 and protential Verifier_2 is out of scope in this specification.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+How the Network service connects with the Verifier_1 and potential Verifier_2 is out of scope in this specification.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
 <p id="section-7.1-2">The first remote attestation is initiated by the IoT device (A_1) in background-check model.
-Meanwhile, the IoT device (A_1) asks the network service (A_2) to perform a remote attestation in passport model.
-EAD_2 has the EAD items Attestation request and Result proposal.
+In parallel, the IoT device (A_1) requests the network service (A_2) to perform a remote attestation in passport model.
+EAD_2 carries the EAD items Attestation request and Result proposal.
 EAD_3 carries the EAD items Evidence and Result request.
-EAD_4 has the EAD item Result for the passport model.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+EAD_4 carries the EAD item Result for the passport model.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
 <span id="name-overview-of-mutual-attestat"></span><div id="fig-mutual-attestation-BP">
 <figure id="figure-3">
           <div id="section-7.1-3.1">
             <div class="alignCenter art-svg artwork" id="section-7.1-3.1.1">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="768" width="840" viewBox="0 0 840 768" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
-                <path d="M 8,32 L 8,144" fill="none" stroke="black"></path>
-                <path d="M 56,144 L 56,736" fill="none" stroke="black"></path>
-                <path d="M 104,32 L 104,144" fill="none" stroke="black"></path>
-                <path d="M 280,32 L 280,144" fill="none" stroke="black"></path>
-                <path d="M 328,144 L 328,736" fill="none" stroke="black"></path>
-                <path d="M 376,32 L 376,144" fill="none" stroke="black"></path>
-                <path d="M 504,112 L 504,144" fill="none" stroke="black"></path>
-                <path d="M 560,144 L 560,736" fill="none" stroke="black"></path>
-                <path d="M 608,112 L 608,144" fill="none" stroke="black"></path>
-                <path d="M 728,112 L 728,144" fill="none" stroke="black"></path>
-                <path d="M 784,144 L 784,736" fill="none" stroke="black"></path>
-                <path d="M 832,112 L 832,144" fill="none" stroke="black"></path>
-                <path d="M 8,32 L 104,32" fill="none" stroke="black"></path>
-                <path d="M 280,32 L 376,32" fill="none" stroke="black"></path>
-                <path d="M 8,64 L 104,64" fill="none" stroke="black"></path>
-                <path d="M 280,64 L 376,64" fill="none" stroke="black"></path>
-                <path d="M 8,112 L 104,112" fill="none" stroke="black"></path>
-                <path d="M 280,112 L 376,112" fill="none" stroke="black"></path>
-                <path d="M 504,112 L 608,112" fill="none" stroke="black"></path>
-                <path d="M 728,112 L 832,112" fill="none" stroke="black"></path>
-                <path d="M 8,144 L 104,144" fill="none" stroke="black"></path>
-                <path d="M 280,144 L 376,144" fill="none" stroke="black"></path>
-                <path d="M 504,144 L 608,144" fill="none" stroke="black"></path>
-                <path d="M 728,144 L 832,144" fill="none" stroke="black"></path>
-                <path d="M 56,208 L 320,208" fill="none" stroke="black"></path>
-                <path d="M 328,272 L 552,272" fill="none" stroke="black"></path>
-                <path d="M 336,288 L 560,288" fill="none" stroke="black"></path>
-                <path d="M 64,352 L 328,352" fill="none" stroke="black"></path>
-                <path d="M 56,432 L 320,432" fill="none" stroke="black"></path>
-                <path d="M 328,480 L 552,480" fill="none" stroke="black"></path>
-                <path d="M 328,496 L 352,496" fill="none" stroke="black"></path>
-                <path d="M 368,496 L 384,496" fill="none" stroke="black"></path>
-                <path d="M 400,496 L 416,496" fill="none" stroke="black"></path>
-                <path d="M 432,496 L 448,496" fill="none" stroke="black"></path>
-                <path d="M 464,496 L 480,496" fill="none" stroke="black"></path>
-                <path d="M 496,496 L 512,496" fill="none" stroke="black"></path>
-                <path d="M 536,496 L 560,496" fill="none" stroke="black"></path>
-                <path d="M 576,496 L 592,496" fill="none" stroke="black"></path>
-                <path d="M 616,496 L 632,496" fill="none" stroke="black"></path>
-                <path d="M 656,496 L 672,496" fill="none" stroke="black"></path>
-                <path d="M 688,496 L 704,496" fill="none" stroke="black"></path>
-                <path d="M 720,496 L 736,496" fill="none" stroke="black"></path>
-                <path d="M 752,496 L 776,496" fill="none" stroke="black"></path>
-                <path d="M 336,560 L 560,560" fill="none" stroke="black"></path>
-                <path d="M 336,592 L 360,592" fill="none" stroke="black"></path>
-                <path d="M 384,592 L 400,592" fill="none" stroke="black"></path>
-                <path d="M 424,592 L 440,592" fill="none" stroke="black"></path>
-                <path d="M 464,592 L 480,592" fill="none" stroke="black"></path>
-                <path d="M 504,592 L 520,592" fill="none" stroke="black"></path>
-                <path d="M 544,592 L 560,592" fill="none" stroke="black"></path>
-                <path d="M 576,592 L 592,592" fill="none" stroke="black"></path>
-                <path d="M 616,592 L 632,592" fill="none" stroke="black"></path>
-                <path d="M 656,592 L 672,592" fill="none" stroke="black"></path>
-                <path d="M 688,592 L 704,592" fill="none" stroke="black"></path>
-                <path d="M 728,592 L 744,592" fill="none" stroke="black"></path>
-                <path d="M 760,592 L 784,592" fill="none" stroke="black"></path>
-                <path d="M 64,640 L 328,640" fill="none" stroke="black"></path>
-                <path d="M 72,720 L 312,720" fill="none" stroke="black"></path>
-                <polygon class="arrowhead" points="784,496 772,490.4 772,501.6" fill="black" transform="rotate(0,776,496)"></polygon>
-                <polygon class="arrowhead" points="560,480 548,474.4 548,485.6" fill="black" transform="rotate(0,552,480)"></polygon>
-                <polygon class="arrowhead" points="560,272 548,266.4 548,277.6" fill="black" transform="rotate(0,552,272)"></polygon>
-                <polygon class="arrowhead" points="344,592 332,586.4 332,597.6" fill="black" transform="rotate(180,336,592)"></polygon>
-                <polygon class="arrowhead" points="344,560 332,554.4 332,565.6" fill="black" transform="rotate(180,336,560)"></polygon>
-                <polygon class="arrowhead" points="344,288 332,282.4 332,293.6" fill="black" transform="rotate(180,336,288)"></polygon>
-                <polygon class="arrowhead" points="328,432 316,426.4 316,437.6" fill="black" transform="rotate(0,320,432)"></polygon>
-                <polygon class="arrowhead" points="328,208 316,202.4 316,213.6" fill="black" transform="rotate(0,320,208)"></polygon>
-                <polygon class="arrowhead" points="320,720 308,714.4 308,725.6" fill="black" transform="rotate(0,312,720)"></polygon>
-                <polygon class="arrowhead" points="80,720 68,714.4 68,725.6" fill="black" transform="rotate(180,72,720)"></polygon>
-                <polygon class="arrowhead" points="72,640 60,634.4 60,645.6" fill="black" transform="rotate(180,64,640)"></polygon>
-                <polygon class="arrowhead" points="72,352 60,346.4 60,357.6" fill="black" transform="rotate(180,64,352)"></polygon>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="752" width="864" viewBox="0 0 864 752" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                <path d="M 8,32 L 8,128" fill="none" stroke="black"></path>
+                <path d="M 80,128 L 80,720" fill="none" stroke="black"></path>
+                <path d="M 152,32 L 152,128" fill="none" stroke="black"></path>
+                <path d="M 280,32 L 280,128" fill="none" stroke="black"></path>
+                <path d="M 352,128 L 352,720" fill="none" stroke="black"></path>
+                <path d="M 424,32 L 424,128" fill="none" stroke="black"></path>
+                <path d="M 528,96 L 528,128" fill="none" stroke="black"></path>
+                <path d="M 584,128 L 584,720" fill="none" stroke="black"></path>
+                <path d="M 632,96 L 632,128" fill="none" stroke="black"></path>
+                <path d="M 752,96 L 752,128" fill="none" stroke="black"></path>
+                <path d="M 808,128 L 808,720" fill="none" stroke="black"></path>
+                <path d="M 856,96 L 856,128" fill="none" stroke="black"></path>
+                <path d="M 8,32 L 152,32" fill="none" stroke="black"></path>
+                <path d="M 280,32 L 424,32" fill="none" stroke="black"></path>
+                <path d="M 8,64 L 152,64" fill="none" stroke="black"></path>
+                <path d="M 280,64 L 424,64" fill="none" stroke="black"></path>
+                <path d="M 8,96 L 152,96" fill="none" stroke="black"></path>
+                <path d="M 280,96 L 424,96" fill="none" stroke="black"></path>
+                <path d="M 528,96 L 632,96" fill="none" stroke="black"></path>
+                <path d="M 752,96 L 856,96" fill="none" stroke="black"></path>
+                <path d="M 8,128 L 152,128" fill="none" stroke="black"></path>
+                <path d="M 280,128 L 424,128" fill="none" stroke="black"></path>
+                <path d="M 528,128 L 632,128" fill="none" stroke="black"></path>
+                <path d="M 752,128 L 856,128" fill="none" stroke="black"></path>
+                <path d="M 80,192 L 344,192" fill="none" stroke="black"></path>
+                <path d="M 352,256 L 576,256" fill="none" stroke="black"></path>
+                <path d="M 360,272 L 584,272" fill="none" stroke="black"></path>
+                <path d="M 88,336 L 352,336" fill="none" stroke="black"></path>
+                <path d="M 80,416 L 344,416" fill="none" stroke="black"></path>
+                <path d="M 352,464 L 576,464" fill="none" stroke="black"></path>
+                <path d="M 352,480 L 376,480" fill="none" stroke="black"></path>
+                <path d="M 392,480 L 408,480" fill="none" stroke="black"></path>
+                <path d="M 424,480 L 440,480" fill="none" stroke="black"></path>
+                <path d="M 456,480 L 472,480" fill="none" stroke="black"></path>
+                <path d="M 488,480 L 504,480" fill="none" stroke="black"></path>
+                <path d="M 520,480 L 536,480" fill="none" stroke="black"></path>
+                <path d="M 560,480 L 584,480" fill="none" stroke="black"></path>
+                <path d="M 600,480 L 616,480" fill="none" stroke="black"></path>
+                <path d="M 640,480 L 656,480" fill="none" stroke="black"></path>
+                <path d="M 680,480 L 696,480" fill="none" stroke="black"></path>
+                <path d="M 712,480 L 728,480" fill="none" stroke="black"></path>
+                <path d="M 744,480 L 760,480" fill="none" stroke="black"></path>
+                <path d="M 776,480 L 800,480" fill="none" stroke="black"></path>
+                <path d="M 360,544 L 584,544" fill="none" stroke="black"></path>
+                <path d="M 360,576 L 384,576" fill="none" stroke="black"></path>
+                <path d="M 408,576 L 424,576" fill="none" stroke="black"></path>
+                <path d="M 448,576 L 464,576" fill="none" stroke="black"></path>
+                <path d="M 488,576 L 504,576" fill="none" stroke="black"></path>
+                <path d="M 528,576 L 544,576" fill="none" stroke="black"></path>
+                <path d="M 568,576 L 584,576" fill="none" stroke="black"></path>
+                <path d="M 600,576 L 616,576" fill="none" stroke="black"></path>
+                <path d="M 640,576 L 656,576" fill="none" stroke="black"></path>
+                <path d="M 680,576 L 696,576" fill="none" stroke="black"></path>
+                <path d="M 712,576 L 728,576" fill="none" stroke="black"></path>
+                <path d="M 752,576 L 768,576" fill="none" stroke="black"></path>
+                <path d="M 784,576 L 808,576" fill="none" stroke="black"></path>
+                <path d="M 88,624 L 352,624" fill="none" stroke="black"></path>
+                <path d="M 96,704 L 336,704" fill="none" stroke="black"></path>
+                <polygon class="arrowhead" points="808,480 796,474.4 796,485.6" fill="black" transform="rotate(0,800,480)"></polygon>
+                <polygon class="arrowhead" points="584,464 572,458.4 572,469.6" fill="black" transform="rotate(0,576,464)"></polygon>
+                <polygon class="arrowhead" points="584,256 572,250.4 572,261.6" fill="black" transform="rotate(0,576,256)"></polygon>
+                <polygon class="arrowhead" points="368,576 356,570.4 356,581.6" fill="black" transform="rotate(180,360,576)"></polygon>
+                <polygon class="arrowhead" points="368,544 356,538.4 356,549.6" fill="black" transform="rotate(180,360,544)"></polygon>
+                <polygon class="arrowhead" points="368,272 356,266.4 356,277.6" fill="black" transform="rotate(180,360,272)"></polygon>
+                <polygon class="arrowhead" points="352,416 340,410.4 340,421.6" fill="black" transform="rotate(0,344,416)"></polygon>
+                <polygon class="arrowhead" points="352,192 340,186.4 340,197.6" fill="black" transform="rotate(0,344,192)"></polygon>
+                <polygon class="arrowhead" points="344,704 332,698.4 332,709.6" fill="black" transform="rotate(0,336,704)"></polygon>
+                <polygon class="arrowhead" points="104,704 92,698.4 92,709.6" fill="black" transform="rotate(180,96,704)"></polygon>
+                <polygon class="arrowhead" points="96,624 84,618.4 84,629.6" fill="black" transform="rotate(180,88,624)"></polygon>
+                <polygon class="arrowhead" points="96,336 84,330.4 84,341.6" fill="black" transform="rotate(180,88,336)"></polygon>
                 <g class="text">
-                  <text x="24" y="52">IoT</text>
-                  <text x="68" y="52">device</text>
-                  <text x="296" y="52">Net</text>
-                  <text x="344" y="52">service</text>
-                  <text x="48" y="84">EDHOC</text>
-                  <text x="328" y="84">EDHOC</text>
-                  <text x="56" y="100">Initiator</text>
-                  <text x="328" y="100">Responder</text>
-                  <text x="52" y="132">A_1/RP_2</text>
-                  <text x="324" y="132">RP_1/A_2</text>
-                  <text x="556" y="132">Verifier_1</text>
-                  <text x="780" y="132">Verifier_2</text>
-                  <text x="96" y="180">EAD_1</text>
-                  <text x="128" y="180">=</text>
-                  <text x="184" y="180">Attestation</text>
-                  <text x="272" y="180">proposal,</text>
-                  <text x="180" y="196">trigger_PP</text>
-                  <text x="392" y="260">Attestation</text>
-                  <text x="480" y="260">proposal,</text>
-                  <text x="536" y="260">C_R</text>
-                  <text x="420" y="308">EvidenceType(s),</text>
-                  <text x="512" y="308">Nonce</text>
-                  <text x="96" y="324">EAD_2</text>
-                  <text x="128" y="324">=</text>
-                  <text x="184" y="324">Attestation</text>
-                  <text x="268" y="324">request,</text>
-                  <text x="164" y="340">Result</text>
-                  <text x="228" y="340">proposal</text>
-                  <text x="96" y="404">EAD_3</text>
-                  <text x="128" y="404">=</text>
-                  <text x="176" y="404">Evidence,</text>
-                  <text x="164" y="420">Result</text>
-                  <text x="224" y="420">request</text>
-                  <text x="424" y="468">Evidence,</text>
-                  <text x="480" y="468">C_R</text>
-                  <text x="672" y="484">(Request)</text>
-                  <text x="408" y="548">Attestation</text>
-                  <text x="484" y="548">result</text>
-                  <text x="452" y="612">Result</text>
-                  <text x="96" y="628">EAD_4</text>
-                  <text x="128" y="628">=</text>
-                  <text x="164" y="628">Result</text>
-                  <text x="160" y="740">EDHOC</text>
-                  <text x="216" y="740">session</text>
+                  <text x="48" y="52">IoT</text>
+                  <text x="92" y="52">device</text>
+                  <text x="320" y="52">Network</text>
+                  <text x="384" y="52">service</text>
+                  <text x="40" y="84">EDHOC</text>
+                  <text x="104" y="84">Initiator</text>
+                  <text x="312" y="84">EDHOC</text>
+                  <text x="376" y="84">Responder</text>
+                  <text x="76" y="116">A_1/RP_2</text>
+                  <text x="348" y="116">RP_1/A_2</text>
+                  <text x="580" y="116">Verifier_1</text>
+                  <text x="804" y="116">Verifier_2</text>
+                  <text x="120" y="164">EAD_1</text>
+                  <text x="152" y="164">=</text>
+                  <text x="208" y="164">Attestation</text>
+                  <text x="296" y="164">proposal,</text>
+                  <text x="204" y="180">trigger_PP</text>
+                  <text x="416" y="244">Attestation</text>
+                  <text x="504" y="244">proposal,</text>
+                  <text x="560" y="244">C_R</text>
+                  <text x="444" y="292">EvidenceType(s),</text>
+                  <text x="536" y="292">Nonce</text>
+                  <text x="120" y="308">EAD_2</text>
+                  <text x="152" y="308">=</text>
+                  <text x="208" y="308">Attestation</text>
+                  <text x="292" y="308">request,</text>
+                  <text x="188" y="324">Result</text>
+                  <text x="252" y="324">proposal</text>
+                  <text x="120" y="388">EAD_3</text>
+                  <text x="152" y="388">=</text>
+                  <text x="200" y="388">Evidence,</text>
+                  <text x="188" y="404">Result</text>
+                  <text x="248" y="404">request</text>
+                  <text x="448" y="452">Evidence,</text>
+                  <text x="504" y="452">C_R</text>
+                  <text x="696" y="468">(Request)</text>
+                  <text x="432" y="532">Attestation</text>
+                  <text x="508" y="532">result</text>
+                  <text x="476" y="596">Result</text>
+                  <text x="120" y="612">EAD_4</text>
+                  <text x="152" y="612">=</text>
+                  <text x="188" y="612">Result</text>
+                  <text x="184" y="724">EDHOC</text>
+                  <text x="240" y="724">session</text>
                 </g>
               </svg><a href="#section-7.1-3.1.1" class="pilcrow">¶</a>
 </div>
 </div>
 <figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
-<a href="#name-overview-of-mutual-attestat" class="selfRef">Overview of mutual attestation of (IoT, BG, Fwd) - (Net, PP, Fwd). EDHOC is used between A and RP.</a>
+<a href="#name-overview-of-mutual-attestat" class="selfRef">Overview of mutual attestation of (IoT, BG, Fwd) - (Net, PP, Fwd). EDHOC is used between A and RP. The dashed line illustrates a logical connection that does not need to occur in real time.</a>
           </figcaption></figure>
 </div>
 </section>
@@ -2081,7 +2076,7 @@ EAD_4 has the EAD item Result for the passport model.<a href="#section-7.1-2" cl
         <h3 id="name-edhoc-error-attestation-fai">
 <a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-edhoc-error-attestation-fai" class="section-name selfRef">EDHOC Error "Attestation failed"</a>
         </h3>
-<p id="section-8.1-1">This section specifies a new EDHOC error "Attetation failed".
+<p id="section-8.1-1">This section specifies a new EDHOC error "Attestation failed".
 The format of the error message follows the one in EDHOC protocol(see <span><a href="https://rfc-editor.org/rfc/rfc9528#section-6" class="relref">Section 6</a> of [<a href="#RFC9528" class="cite xref">RFC9528</a>]</span>).<a href="#section-8.1-1" class="pilcrow">¶</a></p>
 <span id="name-edhoc-error-code-and-error-"></span><div id="fig-error">
 <figure id="figure-4">
