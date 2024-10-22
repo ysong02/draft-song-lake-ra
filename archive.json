@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-20T01:17:42.817744+00:00",
+  "timestamp": "2024-10-22T01:12:51.564835+00:00",
   "repo": "ysong02/draft-song-lake-ra",
   "labels": [
     {
@@ -143,15 +143,15 @@
       "id": "I_kwDOK17GRM6a0yPP",
       "title": "draft version 02",
       "url": "https://github.com/ysong02/draft-song-lake-ra/issues/14",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "ysong02",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "Updates are:\r\n- delete section Protocol\r\n- create section Remote Attestation Aspects in EDHOC\r\n- cerate section emote Attestation Aspect Combinations\r\n- create section Mutual Attestation in EDHOC\r\n- new EAD items: trigger_bg and trigger_pp\r\n- replace Problem Description section to Overview section\r\n- replace the example from PSA to EAT with CoSWID\r\n- correct IANA table for ead labels\r\n- improve all the figure",
       "createdAt": "2024-10-18T13:30:50Z",
-      "updatedAt": "2024-10-18T13:30:50Z",
-      "closedAt": null,
+      "updatedAt": "2024-10-21T13:35:33Z",
+      "closedAt": "2024-10-21T13:35:33Z",
       "comments": []
     }
   ],
@@ -559,24 +559,231 @@
       "id": "PR_kwDOK17GRM5_GPz7",
       "title": "draft version 02",
       "url": "https://github.com/ysong02/draft-song-lake-ra/pull/13",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "ysong02",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
-      "body": "- delete section Protocol\r\n- create section Remote Attestation Aspects in EDHOC\r\n- cerate section emote Attestation Aspect Combinations\r\n- create section Mutual Attestation in EDHOC \r\n- new EAD items: trigger_bg and trigger_pp\r\n- replace Problem Description section to Overview section\r\n- replace the example from PSA to EAT with CoSWID\r\n- correct IANA table for ead labels\r\n- improve all the figures\r\n\r\nFixes #14",
+      "body": "- delete section Protocol\r\n- create section Remote Attestation Aspects in EDHOC\r\n- cerate section Remote Attestation Aspect Combinations\r\n- create section Mutual Attestation in EDHOC \r\n- new EAD items: trigger_bg and trigger_pp\r\n- replace Problem Description section to Overview section\r\n- replace the example from PSA to EAT with CoSWID\r\n- correct IANA table for ead labels\r\n- improve all the figures\r\n\r\nFixes #14",
       "createdAt": "2024-10-18T12:25:38Z",
-      "updatedAt": "2024-10-18T14:46:29Z",
+      "updatedAt": "2024-10-21T16:56:49Z",
       "baseRepository": "ysong02/draft-song-lake-ra",
       "baseRefName": "main",
       "baseRefOid": "ce16a8def7ff7a5dcd61bd841a671779b131d29b",
       "headRepository": "ysong02/draft-song-lake-ra",
       "headRefName": "version02",
       "headRefOid": "4cd729ee8b15275e5a44758eb1e5e0082e8f3055",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-10-21T13:35:32Z",
+      "mergedAt": "2024-10-21T13:35:32Z",
+      "mergedBy": "ysong02",
+      "mergeCommit": {
+        "oid": "fa5e299c882c956cd150dfcf878b91b72058c870"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOK17GRM6N_HK9",
+          "commit": {
+            "abbreviatedOid": "4cd729e"
+          },
+          "author": "geonnave",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "Great job! I think the sections divisions make sense. I could not go very deep into the whole mechanism and new diagrams. Left mostly editorial comments. ",
+          "createdAt": "2024-10-21T13:33:31Z",
+          "updatedAt": "2024-10-21T14:21:14Z",
+          "comments": [
+            {
+              "originalPosition": 50,
+              "body": "`s/There are also some new EAD items defined for performing remote/It also defines new EAD items needed to perform remote/`",
+              "createdAt": "2024-10-21T13:33:31Z",
+              "updatedAt": "2024-10-21T14:21:14Z"
+            },
+            {
+              "originalPosition": 80,
+              "body": "service**s**",
+              "createdAt": "2024-10-21T13:35:25Z",
+              "updatedAt": "2024-10-21T14:21:14Z"
+            },
+            {
+              "originalPosition": 80,
+              "body": "of IoT device**s**",
+              "createdAt": "2024-10-21T13:36:13Z",
+              "updatedAt": "2024-10-21T14:21:15Z"
+            },
+            {
+              "originalPosition": 86,
+              "body": "s/discuss about the cases/discuss the cases/",
+              "createdAt": "2024-10-21T13:39:02Z",
+              "updatedAt": "2024-10-21T14:21:14Z"
+            },
+            {
+              "originalPosition": 158,
+              "body": "s/In passport model/In the passport model/",
+              "createdAt": "2024-10-21T13:39:53Z",
+              "updatedAt": "2024-10-21T14:21:14Z"
+            },
+            {
+              "originalPosition": 254,
+              "body": "Add: Remote attestation over EDHOC can be applied to different targets, depending on the use case.",
+              "createdAt": "2024-10-21T13:48:04Z",
+              "updatedAt": "2024-10-21T14:21:14Z"
+            },
+            {
+              "originalPosition": 263,
+              "body": "Add: For example, firmware version verification ...",
+              "createdAt": "2024-10-21T13:48:16Z",
+              "updatedAt": "2024-10-21T14:21:14Z"
+            },
+            {
+              "originalPosition": 275,
+              "body": "Since you are giving an example, it could be more concrete, like using \"gateway\" (concrete) instead of \"network service\" (abstract).",
+              "createdAt": "2024-10-21T13:49:52Z",
+              "updatedAt": "2024-10-21T14:21:14Z"
+            },
+            {
+              "originalPosition": 61,
+              "body": "for this section, could you have a overview picture, that is agnostic to the targets/models/edhoc-flow ?\r\n\r\na picture like this one: https://www.ietf.org/archive/id/draft-ietf-lake-authz-03.html#figure-1\r\n\r\njust so people have a visual representation, early on, about the roles Attester, Relying Party, and Verifier",
+              "createdAt": "2024-10-21T13:56:51Z",
+              "updatedAt": "2024-10-21T14:21:14Z"
+            },
+            {
+              "originalPosition": 311,
+              "body": "s/see in {{bg}}/see {{bg}}/",
+              "createdAt": "2024-10-21T13:59:31Z",
+              "updatedAt": "2024-10-21T14:21:14Z"
+            },
+            {
+              "originalPosition": 332,
+              "body": "I _think_ it is preferred to write it like this:\r\n\r\nThe Attester first sends a list of the provided evidence types to the Relying Party.\r\nThe list is formatted as an Attestation_proposal in an EDHOC EAD item.",
+              "createdAt": "2024-10-21T14:02:48Z",
+              "updatedAt": "2024-10-21T14:21:14Z"
+            },
+            {
+              "originalPosition": 334,
+              "body": "s/and sends it back/and sent back/",
+              "createdAt": "2024-10-21T14:04:50Z",
+              "updatedAt": "2024-10-21T14:21:14Z"
+            },
+            {
+              "originalPosition": 337,
+              "body": "s/nonce/a nonce/",
+              "createdAt": "2024-10-21T14:05:10Z",
+              "updatedAt": "2024-10-21T14:21:14Z"
+            },
+            {
+              "originalPosition": 338,
+              "body": "s/puts nonce/puts the nonce/",
+              "createdAt": "2024-10-21T14:05:24Z",
+              "updatedAt": "2024-10-21T14:21:14Z"
+            },
+            {
+              "originalPosition": 338,
+              "body": "I suggest you pass the text through a grammar corrector (can be ChatGPT) to identify small items like this and verbal tenses.",
+              "createdAt": "2024-10-21T14:06:22Z",
+              "updatedAt": "2024-10-21T14:21:15Z"
+            },
+            {
+              "originalPosition": 463,
+              "body": "\"using ead_label plays the role of the trigger\" is a bit off grammatically",
+              "createdAt": "2024-10-21T14:09:31Z",
+              "updatedAt": "2024-10-21T14:21:14Z"
+            },
+            {
+              "originalPosition": 475,
+              "body": "s/In passport/in the passport/\r\n\r\npass it through a grammar checker :) ",
+              "createdAt": "2024-10-21T14:10:27Z",
+              "updatedAt": "2024-10-21T14:21:14Z"
+            },
+            {
+              "originalPosition": 496,
+              "body": "`lable` ",
+              "createdAt": "2024-10-21T14:11:14Z",
+              "updatedAt": "2024-10-21T14:21:15Z"
+            },
+            {
+              "originalPosition": 558,
+              "body": "The EDHOC protocol defines two possible message flows, namely the EDHOC forward and reverse message flows (see {{Appendix A.2.2 of RFC9528}}).\r\nThey establish whether the EDHOC initiator acts as a CoAP client or server (and vice-versa for the responder).\r\nIn this specification, both flows can be used to perform remote attestation.",
+              "createdAt": "2024-10-21T14:15:56Z",
+              "updatedAt": "2024-10-21T14:21:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOK17GRM6OBRcJ",
+          "commit": {
+            "abbreviatedOid": "4cd729e"
+          },
+          "author": "ysong02",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-10-21T16:56:49Z",
+          "updatedAt": "2024-10-21T16:56:49Z",
+          "comments": [
+            {
+              "originalPosition": 61,
+              "body": "I'll leave it to the next version",
+              "createdAt": "2024-10-21T16:56:49Z",
+              "updatedAt": "2024-10-21T16:56:49Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "PR_kwDOK17GRM5_U7uZ",
+      "title": "manually break the long text in example",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/pull/15",
+      "state": "MERGED",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-21T14:05:06Z",
+      "updatedAt": "2024-10-21T14:08:04Z",
+      "baseRepository": "ysong02/draft-song-lake-ra",
+      "baseRefName": "main",
+      "baseRefOid": "fa5e299c882c956cd150dfcf878b91b72058c870",
+      "headRepository": "ysong02/draft-song-lake-ra",
+      "headRefName": "version02",
+      "headRefOid": "e35f8c30384131be88f73fa26cb5341256601239",
+      "closedAt": "2024-10-21T14:08:03Z",
+      "mergedAt": "2024-10-21T14:08:03Z",
+      "mergedBy": "ysong02",
+      "mergeCommit": {
+        "oid": "1e4de46414e147121df27958458ffe5e93f33680"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDOK17GRM5_WpJF",
+      "title": "changements based on Malisa's and Geovane's comments",
+      "url": "https://github.com/ysong02/draft-song-lake-ra/pull/16",
+      "state": "MERGED",
+      "author": "ysong02",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-21T17:18:29Z",
+      "updatedAt": "2024-10-21T17:21:16Z",
+      "baseRepository": "ysong02/draft-song-lake-ra",
+      "baseRefName": "main",
+      "baseRefOid": "43cea604c452a2f56be08296d3c3af104a4a8adc",
+      "headRepository": "ysong02/draft-song-lake-ra",
+      "headRefName": "version02",
+      "headRefOid": "619720c929922610c3363c4e625c4ae5973df08e",
+      "closedAt": "2024-10-21T17:21:15Z",
+      "mergedAt": "2024-10-21T17:21:15Z",
+      "mergedBy": "ysong02",
+      "mergeCommit": {
+        "oid": "691ca0dde7c62b4dd8f63a8496b25275255c6f66"
+      },
       "comments": [],
       "reviews": []
     }
